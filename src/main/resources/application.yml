@@ -1,0 +1,49 @@
+logging:
+  level:
+    org.zalando.logbook: DEBUG
+logbook:
+  exclude: /api/v1/auth/**
+server:
+  port: 8080
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    password: 3812
+    username: postgres
+    url: jdbc:postgresql://localhost:5432/cutecut_master
+
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui
+    enabled: true
+  api-docs:
+    path: /api/docs
+api:
+  info:
+    title: Review Service API
+    description: API to fetch review details for product
+    version: 1.0.0
+    terms-of-service: http://pdp.com/terms/
+    contact:
+      name: Review Service API Team
+      email: apiteam@example.com
+      url: http://pdp.com/team
+    license:
+      name: Apache 2.0
+      url: http://www.apache.org/licenses/LICENSE-2.0.html
+
+service:
+  prop:
+    protocol: http
+    ip: localhost
+    port: 8080
+    url: boom.uz
