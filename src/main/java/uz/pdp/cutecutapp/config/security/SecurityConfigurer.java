@@ -14,6 +14,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import uz.pdp.cutecutapp.config.security.filters.CustomAuthenticationFilter;
 import uz.pdp.cutecutapp.config.security.filters.CustomAuthorizationFilter;
 import uz.pdp.cutecutapp.services.auth.AuthUserService;
+import uz.pdp.cutecutapp.utils.JwtUtils;
 
 @EnableWebSecurity
 @RequiredArgsConstructor
@@ -32,6 +33,7 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
 
     private final AuthUserService userService;
     private final PasswordEncoder passwordEncoder;
+    private final JwtUtils jwtUtils;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -55,8 +57,8 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .anyRequest().authenticated();
 
-        http.addFilter(new CustomAuthenticationFilter(authenticationManagerBean()));
-        http.addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
+        http.addFilter(new CustomAuthenticationFilter(authenticationManagerBean(), jwtUtils));
+        http.addFilterBefore(new CustomAuthorizationFilter(jwtUtils), UsernamePasswordAuthenticationFilter.class);
 
     }
 

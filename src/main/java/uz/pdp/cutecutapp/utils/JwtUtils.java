@@ -3,25 +3,35 @@ package uz.pdp.cutecutapp.utils;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
+import org.springframework.stereotype.Component;
+import uz.pdp.cutecutapp.properties.JwtProperties;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
 
+@Component
 public class JwtUtils {
 
-    public static int expire=900000000;
-    public static String secret="gfhg4561967$%#%$%^?>?>:gjhgsdfsd?>jahdqpdsdhgf";
-    public static Date getExpireDate(){
-        return new Date(expire+System.currentTimeMillis());
-    }
-    public static Date getExpireDateForRefreshToken(){
-        return new Date(expire+System.currentTimeMillis()+ 1000L *3600*24*10);
-    }
-    public static Algorithm getAlgorithm(){
-        return Algorithm.HMAC256(secret.getBytes(StandardCharsets.UTF_8));
+
+    private final JwtProperties jwtProperties;
+
+    public JwtUtils(JwtProperties jwtProperties) {
+        this.jwtProperties = jwtProperties;
     }
 
-    public static JWTVerifier verifier(){
-        return JWT.require(getAlgorithm()).build();
+    public  Date getExpireDate(){
+        return new Date(jwtProperties.getAccess().getExpire()+System.currentTimeMillis());
+    }
+    public  Date getExpireDateForRefreshToken(){
+        return new Date(jwtProperties.getRefresh().getExpire()
+                +System.currentTimeMillis()
+                +jwtProperties.getAccess().getExpire());
+    }
+    public  Algorithm getAlgorithm(){
+        return Algorithm.HMAC256(jwtProperties.getSecret().getBytes(StandardCharsets.UTF_8));
+    }
+
+    public  JWTVerifier verifier(){
+        return JWT.require(this.getAlgorithm()).build();
     }
 }
