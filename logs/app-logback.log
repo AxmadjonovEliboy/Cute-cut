@@ -942,3 +942,364 @@ java.lang.IllegalArgumentException: null
 2022-05-18 12:20:29,899 INFO             [SpringApplicationShutdownHook] org.springframework.orm.jpa.AbstractEntityManagerFactoryBean        : Closing JPA EntityManagerFactory for persistence unit 'default'
 2022-05-18 12:20:29,900 INFO             [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource                                  : HikariPool-1 - Shutdown initiated...
 2022-05-18 12:20:29,924 INFO             [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource                                  : HikariPool-1 - Shutdown completed.
+2022-05-18 12:41:47,410 INFO             [background-preinit] org.hibernate.validator.internal.util.Version                                  : HV000001: Hibernate Validator 6.2.3.Final
+2022-05-18 12:41:47,416 INFO             [main] org.springframework.boot.StartupInfoLogger                                                   : Starting CuteCutAppApplication using Java 17.0.3 on shoxruh-acer with PID 10439 (/home/shoxruh/cute-cut-app/target/classes started by shoxruh in /home/shoxruh/cute-cut-app)
+2022-05-18 12:41:47,417 INFO             [main] org.springframework.boot.SpringApplication                                                   : No active profile set, falling back to 1 default profile: "default"
+2022-05-18 12:41:48,265 INFO             [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate                   : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-05-18 12:41:48,340 INFO             [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate                   : Finished Spring Data repository scanning in 65 ms. Found 9 JPA repository interfaces.
+2022-05-18 12:41:48,679 INFO             [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer                                 : Tomcat initialized with port(s): 8080 (http)
+2022-05-18 12:41:48,685 INFO             [main] org.apache.juli.logging.DirectJDKLog                                                         : Initializing ProtocolHandler ["http-nio-8080"]
+2022-05-18 12:41:48,685 INFO             [main] org.apache.juli.logging.DirectJDKLog                                                         : Starting service [Tomcat]
+2022-05-18 12:41:48,686 INFO             [main] org.apache.juli.logging.DirectJDKLog                                                         : Starting Servlet engine: [Apache Tomcat/9.0.62]
+2022-05-18 12:41:48,748 INFO             [main] org.apache.juli.logging.DirectJDKLog                                                         : Initializing Spring embedded WebApplicationContext
+2022-05-18 12:41:48,748 INFO             [main] org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext              : Root WebApplicationContext: initialization completed in 1255 ms
+2022-05-18 12:41:48,844 INFO             [main] com.zaxxer.hikari.HikariDataSource                                                           : HikariPool-1 - Starting...
+2022-05-18 12:41:49,039 INFO             [main] com.zaxxer.hikari.HikariDataSource                                                           : HikariPool-1 - Start completed.
+2022-05-18 12:41:49,054 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : Flyway Community Edition 8.5.2 by Redgate
+2022-05-18 12:41:49,054 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : See what's new here: https://flywaydb.org/documentation/learnmore/releaseNotes#8.5.2
+2022-05-18 12:41:49,054 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : 
+2022-05-18 12:41:49,054 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : Database: jdbc:postgresql://localhost:5432/cute-cut-app (PostgreSQL 14.2)
+2022-05-18 12:41:49,074 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : Successfully validated 1 migration (execution time 00:00.009s)
+2022-05-18 12:41:49,086 WARN             [main] org.springframework.context.support.AbstractApplicationContext                               : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'flywayInitializer' defined in class path resource [org/springframework/boot/autoconfigure/flyway/FlywayAutoConfiguration$FlywayConfiguration.class]: Invocation of init method failed; nested exception is org.flywaydb.core.api.FlywayException: Found non-empty schema(s) "public" but no schema history table. Use baseline() or set baselineOnMigrate to true to initialize the schema history table.
+2022-05-18 12:41:49,086 INFO             [main] com.zaxxer.hikari.HikariDataSource                                                           : HikariPool-1 - Shutdown initiated...
+2022-05-18 12:41:49,089 INFO             [main] com.zaxxer.hikari.HikariDataSource                                                           : HikariPool-1 - Shutdown completed.
+2022-05-18 12:41:49,091 INFO             [main] org.apache.juli.logging.DirectJDKLog                                                         : Stopping service [Tomcat]
+2022-05-18 12:41:49,100 INFO             [main] org.springframework.boot.autoconfigure.logging.ConditionEvaluationReportLoggingListener      : 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2022-05-18 12:41:49,111 ERROR            [main] org.springframework.boot.SpringApplication                                                   : Application run failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'flywayInitializer' defined in class path resource [org/springframework/boot/autoconfigure/flyway/FlywayAutoConfiguration$FlywayConfiguration.class]: Invocation of init method failed; nested exception is org.flywaydb.core.api.FlywayException: Found non-empty schema(s) "public" but no schema history table. Use baseline() or set baselineOnMigrate to true to initialize the schema history table.
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1804)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:620)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:542)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:335)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:333)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:208)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:322)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:208)
+	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1154)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:908)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:583)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:145)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:740)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:415)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:303)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1312)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1301)
+	at uz.pdp.cutecutapp.CuteCutAppApplication.main(CuteCutAppApplication.java:33)
+Caused by: org.flywaydb.core.api.FlywayException: Found non-empty schema(s) "public" but no schema history table. Use baseline() or set baselineOnMigrate to true to initialize the schema history table.
+	at org.flywaydb.core.Flyway$1.execute(Flyway.java:153)
+	at org.flywaydb.core.Flyway$1.execute(Flyway.java:124)
+	at org.flywaydb.core.FlywayExecutor.execute(FlywayExecutor.java:205)
+	at org.flywaydb.core.Flyway.migrate(Flyway.java:124)
+	at org.springframework.boot.autoconfigure.flyway.FlywayMigrationInitializer.afterPropertiesSet(FlywayMigrationInitializer.java:66)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1863)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1800)
+	... 18 common frames omitted
+2022-05-18 12:42:14,377 INFO             [main] org.springframework.boot.StartupInfoLogger                                                   : Starting CuteCutAppApplication using Java 17.0.3 on shoxruh-acer with PID 10517 (/home/shoxruh/cute-cut-app/target/classes started by shoxruh in /home/shoxruh/cute-cut-app)
+2022-05-18 12:42:14,379 INFO             [main] org.springframework.boot.SpringApplication                                                   : No active profile set, falling back to 1 default profile: "default"
+2022-05-18 12:42:14,410 INFO             [background-preinit] org.hibernate.validator.internal.util.Version                                  : HV000001: Hibernate Validator 6.2.3.Final
+2022-05-18 12:42:15,501 INFO             [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate                   : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-05-18 12:42:15,569 INFO             [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate                   : Finished Spring Data repository scanning in 61 ms. Found 9 JPA repository interfaces.
+2022-05-18 12:42:15,953 INFO             [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer                                 : Tomcat initialized with port(s): 8080 (http)
+2022-05-18 12:42:15,958 INFO             [main] org.apache.juli.logging.DirectJDKLog                                                         : Initializing ProtocolHandler ["http-nio-8080"]
+2022-05-18 12:42:15,959 INFO             [main] org.apache.juli.logging.DirectJDKLog                                                         : Starting service [Tomcat]
+2022-05-18 12:42:15,959 INFO             [main] org.apache.juli.logging.DirectJDKLog                                                         : Starting Servlet engine: [Apache Tomcat/9.0.62]
+2022-05-18 12:42:16,021 INFO             [main] org.apache.juli.logging.DirectJDKLog                                                         : Initializing Spring embedded WebApplicationContext
+2022-05-18 12:42:16,021 INFO             [main] org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext              : Root WebApplicationContext: initialization completed in 1560 ms
+2022-05-18 12:42:16,118 INFO             [main] com.zaxxer.hikari.HikariDataSource                                                           : HikariPool-1 - Starting...
+2022-05-18 12:42:16,328 INFO             [main] com.zaxxer.hikari.HikariDataSource                                                           : HikariPool-1 - Start completed.
+2022-05-18 12:42:16,343 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : Flyway Community Edition 8.5.2 by Redgate
+2022-05-18 12:42:16,344 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : See what's new here: https://flywaydb.org/documentation/learnmore/releaseNotes#8.5.2
+2022-05-18 12:42:16,344 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : 
+2022-05-18 12:42:16,344 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : Database: jdbc:postgresql://localhost:5432/cute-cut-app (PostgreSQL 14.2)
+2022-05-18 12:42:16,368 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : Successfully validated 1 migration (execution time 00:00.010s)
+2022-05-18 12:42:16,381 WARN             [main] org.springframework.context.support.AbstractApplicationContext                               : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'flywayInitializer' defined in class path resource [org/springframework/boot/autoconfigure/flyway/FlywayAutoConfiguration$FlywayConfiguration.class]: Invocation of init method failed; nested exception is org.flywaydb.core.api.FlywayException: Found non-empty schema(s) "public" but no schema history table. Use baseline() or set baselineOnMigrate to true to initialize the schema history table.
+2022-05-18 12:42:16,382 INFO             [main] com.zaxxer.hikari.HikariDataSource                                                           : HikariPool-1 - Shutdown initiated...
+2022-05-18 12:42:16,386 INFO             [main] com.zaxxer.hikari.HikariDataSource                                                           : HikariPool-1 - Shutdown completed.
+2022-05-18 12:42:16,387 INFO             [main] org.apache.juli.logging.DirectJDKLog                                                         : Stopping service [Tomcat]
+2022-05-18 12:42:16,398 INFO             [main] org.springframework.boot.autoconfigure.logging.ConditionEvaluationReportLoggingListener      : 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2022-05-18 12:42:16,409 ERROR            [main] org.springframework.boot.SpringApplication                                                   : Application run failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'flywayInitializer' defined in class path resource [org/springframework/boot/autoconfigure/flyway/FlywayAutoConfiguration$FlywayConfiguration.class]: Invocation of init method failed; nested exception is org.flywaydb.core.api.FlywayException: Found non-empty schema(s) "public" but no schema history table. Use baseline() or set baselineOnMigrate to true to initialize the schema history table.
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1804)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:620)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:542)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:335)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:333)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:208)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:322)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:208)
+	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1154)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:908)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:583)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:145)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:740)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:415)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:303)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1312)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1301)
+	at uz.pdp.cutecutapp.CuteCutAppApplication.main(CuteCutAppApplication.java:33)
+Caused by: org.flywaydb.core.api.FlywayException: Found non-empty schema(s) "public" but no schema history table. Use baseline() or set baselineOnMigrate to true to initialize the schema history table.
+	at org.flywaydb.core.Flyway$1.execute(Flyway.java:153)
+	at org.flywaydb.core.Flyway$1.execute(Flyway.java:124)
+	at org.flywaydb.core.FlywayExecutor.execute(FlywayExecutor.java:205)
+	at org.flywaydb.core.Flyway.migrate(Flyway.java:124)
+	at org.springframework.boot.autoconfigure.flyway.FlywayMigrationInitializer.afterPropertiesSet(FlywayMigrationInitializer.java:66)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1863)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1800)
+	... 18 common frames omitted
+2022-05-18 12:44:38,083 INFO             [main] org.springframework.boot.StartupInfoLogger                                                   : Starting CuteCutAppApplication using Java 17.0.3 on shoxruh-acer with PID 10746 (/home/shoxruh/cute-cut-app/target/classes started by shoxruh in /home/shoxruh/cute-cut-app)
+2022-05-18 12:44:38,086 INFO             [main] org.springframework.boot.SpringApplication                                                   : No active profile set, falling back to 1 default profile: "default"
+2022-05-18 12:44:38,088 INFO             [background-preinit] org.hibernate.validator.internal.util.Version                                  : HV000001: Hibernate Validator 6.2.3.Final
+2022-05-18 12:44:38,876 INFO             [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate                   : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-05-18 12:44:38,935 INFO             [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate                   : Finished Spring Data repository scanning in 52 ms. Found 9 JPA repository interfaces.
+2022-05-18 12:44:39,318 INFO             [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer                                 : Tomcat initialized with port(s): 8080 (http)
+2022-05-18 12:44:39,322 INFO             [main] org.apache.juli.logging.DirectJDKLog                                                         : Initializing ProtocolHandler ["http-nio-8080"]
+2022-05-18 12:44:39,323 INFO             [main] org.apache.juli.logging.DirectJDKLog                                                         : Starting service [Tomcat]
+2022-05-18 12:44:39,323 INFO             [main] org.apache.juli.logging.DirectJDKLog                                                         : Starting Servlet engine: [Apache Tomcat/9.0.62]
+2022-05-18 12:44:39,383 INFO             [main] org.apache.juli.logging.DirectJDKLog                                                         : Initializing Spring embedded WebApplicationContext
+2022-05-18 12:44:39,384 INFO             [main] org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext              : Root WebApplicationContext: initialization completed in 1246 ms
+2022-05-18 12:44:39,473 WARN             [main] org.springframework.context.support.AbstractApplicationContext                               : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'flyway' defined in class path resource [org/springframework/boot/autoconfigure/flyway/FlywayAutoConfiguration$FlywayConfiguration.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.flywaydb.core.Flyway]: Factory method 'flyway' threw exception; nested exception is org.springframework.boot.autoconfigure.flyway.FlywayMigrationScriptMissingException: Cannot find migration scripts in: [classpath:src/main/kotlin/db/migration] (please add migration scripts or check your Flyway configuration)
+2022-05-18 12:44:39,476 INFO             [main] org.apache.juli.logging.DirectJDKLog                                                         : Stopping service [Tomcat]
+2022-05-18 12:44:39,487 INFO             [main] org.springframework.boot.autoconfigure.logging.ConditionEvaluationReportLoggingListener      : 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2022-05-18 12:44:39,499 ERROR            [main] org.springframework.boot.diagnostics.LoggingFailureAnalysisReporter                          : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Flyway failed to initialize: none of the following migration scripts locations could be found:
+
+	- classpath:src/main/kotlin/db/migration
+
+
+Action:
+
+Review the locations above or check your Flyway configuration
+
+2022-05-18 12:45:45,433 INFO             [main] org.springframework.boot.StartupInfoLogger                                                   : Starting CuteCutAppApplication using Java 17.0.3 on shoxruh-acer with PID 10850 (/home/shoxruh/cute-cut-app/target/classes started by shoxruh in /home/shoxruh/cute-cut-app)
+2022-05-18 12:45:45,436 INFO             [main] org.springframework.boot.SpringApplication                                                   : No active profile set, falling back to 1 default profile: "default"
+2022-05-18 12:45:45,437 INFO             [background-preinit] org.hibernate.validator.internal.util.Version                                  : HV000001: Hibernate Validator 6.2.3.Final
+2022-05-18 12:45:46,095 INFO             [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate                   : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-05-18 12:45:46,150 INFO             [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate                   : Finished Spring Data repository scanning in 50 ms. Found 9 JPA repository interfaces.
+2022-05-18 12:45:46,456 INFO             [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer                                 : Tomcat initialized with port(s): 8080 (http)
+2022-05-18 12:45:46,461 INFO             [main] org.apache.juli.logging.DirectJDKLog                                                         : Initializing ProtocolHandler ["http-nio-8080"]
+2022-05-18 12:45:46,461 INFO             [main] org.apache.juli.logging.DirectJDKLog                                                         : Starting service [Tomcat]
+2022-05-18 12:45:46,462 INFO             [main] org.apache.juli.logging.DirectJDKLog                                                         : Starting Servlet engine: [Apache Tomcat/9.0.62]
+2022-05-18 12:45:46,516 INFO             [main] org.apache.juli.logging.DirectJDKLog                                                         : Initializing Spring embedded WebApplicationContext
+2022-05-18 12:45:46,516 INFO             [main] org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext              : Root WebApplicationContext: initialization completed in 1018 ms
+2022-05-18 12:45:46,595 WARN             [main] org.springframework.context.support.AbstractApplicationContext                               : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'flyway' defined in class path resource [org/springframework/boot/autoconfigure/flyway/FlywayAutoConfiguration$FlywayConfiguration.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.flywaydb.core.Flyway]: Factory method 'flyway' threw exception; nested exception is org.springframework.boot.autoconfigure.flyway.FlywayMigrationScriptMissingException: Cannot find migration scripts in: [classpath:src/main/resources/db/migration] (please add migration scripts or check your Flyway configuration)
+2022-05-18 12:45:46,597 INFO             [main] org.apache.juli.logging.DirectJDKLog                                                         : Stopping service [Tomcat]
+2022-05-18 12:45:46,607 INFO             [main] org.springframework.boot.autoconfigure.logging.ConditionEvaluationReportLoggingListener      : 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2022-05-18 12:45:46,617 ERROR            [main] org.springframework.boot.diagnostics.LoggingFailureAnalysisReporter                          : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Flyway failed to initialize: none of the following migration scripts locations could be found:
+
+	- classpath:src/main/resources/db/migration
+
+
+Action:
+
+Review the locations above or check your Flyway configuration
+
+2022-05-18 12:46:36,850 INFO             [main] org.springframework.boot.StartupInfoLogger                                                   : Starting CuteCutAppApplication using Java 17.0.3 on shoxruh-acer with PID 10942 (/home/shoxruh/cute-cut-app/target/classes started by shoxruh in /home/shoxruh/cute-cut-app)
+2022-05-18 12:46:36,853 INFO             [main] org.springframework.boot.SpringApplication                                                   : No active profile set, falling back to 1 default profile: "default"
+2022-05-18 12:46:36,855 INFO             [background-preinit] org.hibernate.validator.internal.util.Version                                  : HV000001: Hibernate Validator 6.2.3.Final
+2022-05-18 12:46:37,637 INFO             [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate                   : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-05-18 12:46:37,692 INFO             [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate                   : Finished Spring Data repository scanning in 49 ms. Found 9 JPA repository interfaces.
+2022-05-18 12:46:38,051 INFO             [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer                                 : Tomcat initialized with port(s): 8080 (http)
+2022-05-18 12:46:38,058 INFO             [main] org.apache.juli.logging.DirectJDKLog                                                         : Initializing ProtocolHandler ["http-nio-8080"]
+2022-05-18 12:46:38,058 INFO             [main] org.apache.juli.logging.DirectJDKLog                                                         : Starting service [Tomcat]
+2022-05-18 12:46:38,059 INFO             [main] org.apache.juli.logging.DirectJDKLog                                                         : Starting Servlet engine: [Apache Tomcat/9.0.62]
+2022-05-18 12:46:38,123 INFO             [main] org.apache.juli.logging.DirectJDKLog                                                         : Initializing Spring embedded WebApplicationContext
+2022-05-18 12:46:38,124 INFO             [main] org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext              : Root WebApplicationContext: initialization completed in 1142 ms
+2022-05-18 12:46:38,208 WARN             [main] org.springframework.context.support.AbstractApplicationContext                               : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'flyway' defined in class path resource [org/springframework/boot/autoconfigure/flyway/FlywayAutoConfiguration$FlywayConfiguration.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.flywaydb.core.Flyway]: Factory method 'flyway' threw exception; nested exception is org.springframework.boot.autoconfigure.flyway.FlywayMigrationScriptMissingException: Cannot find migration scripts in: [classpath:src/main/resources/db/migration] (please add migration scripts or check your Flyway configuration)
+2022-05-18 12:46:38,210 INFO             [main] org.apache.juli.logging.DirectJDKLog                                                         : Stopping service [Tomcat]
+2022-05-18 12:46:38,222 INFO             [main] org.springframework.boot.autoconfigure.logging.ConditionEvaluationReportLoggingListener      : 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2022-05-18 12:46:38,232 ERROR            [main] org.springframework.boot.diagnostics.LoggingFailureAnalysisReporter                          : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Flyway failed to initialize: none of the following migration scripts locations could be found:
+
+	- classpath:src/main/resources/db/migration
+
+
+Action:
+
+Review the locations above or check your Flyway configuration
+
+2022-05-18 12:46:57,075 INFO             [main] org.springframework.boot.StartupInfoLogger                                                   : Starting CuteCutAppApplication using Java 17.0.3 on shoxruh-acer with PID 11008 (/home/shoxruh/cute-cut-app/target/classes started by shoxruh in /home/shoxruh/cute-cut-app)
+2022-05-18 12:46:57,077 INFO             [main] org.springframework.boot.SpringApplication                                                   : No active profile set, falling back to 1 default profile: "default"
+2022-05-18 12:46:57,077 INFO             [background-preinit] org.hibernate.validator.internal.util.Version                                  : HV000001: Hibernate Validator 6.2.3.Final
+2022-05-18 12:46:57,837 INFO             [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate                   : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-05-18 12:46:57,894 INFO             [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate                   : Finished Spring Data repository scanning in 51 ms. Found 9 JPA repository interfaces.
+2022-05-18 12:46:58,242 INFO             [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer                                 : Tomcat initialized with port(s): 8080 (http)
+2022-05-18 12:46:58,246 INFO             [main] org.apache.juli.logging.DirectJDKLog                                                         : Initializing ProtocolHandler ["http-nio-8080"]
+2022-05-18 12:46:58,247 INFO             [main] org.apache.juli.logging.DirectJDKLog                                                         : Starting service [Tomcat]
+2022-05-18 12:46:58,247 INFO             [main] org.apache.juli.logging.DirectJDKLog                                                         : Starting Servlet engine: [Apache Tomcat/9.0.62]
+2022-05-18 12:46:58,301 INFO             [main] org.apache.juli.logging.DirectJDKLog                                                         : Initializing Spring embedded WebApplicationContext
+2022-05-18 12:46:58,301 INFO             [main] org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext              : Root WebApplicationContext: initialization completed in 1155 ms
+2022-05-18 12:46:58,395 INFO             [main] com.zaxxer.hikari.HikariDataSource                                                           : HikariPool-1 - Starting...
+2022-05-18 12:46:58,595 INFO             [main] com.zaxxer.hikari.HikariDataSource                                                           : HikariPool-1 - Start completed.
+2022-05-18 12:46:58,607 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : Flyway Community Edition 8.5.2 by Redgate
+2022-05-18 12:46:58,608 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : See what's new here: https://flywaydb.org/documentation/learnmore/releaseNotes#8.5.2
+2022-05-18 12:46:58,608 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : 
+2022-05-18 12:46:58,608 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : Database: jdbc:postgresql://localhost:5432/cute-cut-app (PostgreSQL 14.2)
+2022-05-18 12:46:58,629 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : Successfully validated 1 migration (execution time 00:00.009s)
+2022-05-18 12:46:58,639 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : Creating Schema History table "public"."flyway_schema_history" with baseline ...
+2022-05-18 12:46:58,659 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : Successfully baselined schema with version: 1
+2022-05-18 12:46:58,665 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : Current version of schema "public": 1
+2022-05-18 12:46:58,666 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : Schema "public" is up to date. No migration necessary.
+2022-05-18 12:46:58,709 INFO             [main] org.hibernate.jpa.internal.util.LogHelper                                                    : HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-05-18 12:46:58,738 INFO             [main] org.hibernate.Version                                                                        : HHH000412: Hibernate ORM core version 5.6.8.Final
+2022-05-18 12:46:58,820 INFO             [main] org.hibernate.annotations.common.reflection.java.JavaReflectionManager                       : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2022-05-18 12:46:58,908 INFO             [main] org.hibernate.dialect.Dialect                                                                : HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL10Dialect
+2022-05-18 12:46:59,371 INFO             [main] org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator                  : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-05-18 12:46:59,375 INFO             [main] org.springframework.orm.jpa.AbstractEntityManagerFactoryBean                                 : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2022-05-18 12:46:59,724 WARN             [main] org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration      : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-05-18 12:46:59,920 INFO             [main] org.springframework.security.web.DefaultSecurityFilterChain                                  : Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@3333245e, org.springframework.security.web.context.SecurityContextPersistenceFilter@2559f65c, org.springframework.security.web.header.HeaderWriterFilter@47393345, org.springframework.security.web.authentication.logout.LogoutFilter@3e7ddb7e, uz.pdp.cutecutapp.config.security.filters.CustomAuthorizationFilter@147c4523, uz.pdp.cutecutapp.config.security.filters.CustomAuthenticationFilter@551725e4, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@4d682397, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@b0c4905, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@760d6350, org.springframework.security.web.session.SessionManagementFilter@2b85edc7, org.springframework.security.web.access.ExceptionTranslationFilter@396ec737, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@4518497e]
+2022-05-18 12:46:59,989 WARN             [main] org.hibernate.engine.jdbc.spi.SqlExceptionHelper                                             : SQL Error: 0, SQLState: 23505
+2022-05-18 12:46:59,990 ERROR            [main] org.hibernate.engine.jdbc.spi.SqlExceptionHelper                                             : ERROR: duplicate key value violates unique constraint "uk_p78qmr31f74n0y4dfo8t7qm0g"
+  Detail: Key (phone_number)=(+998990473164) already exists.
+2022-05-18 12:47:00,515 INFO             [main] org.apache.juli.logging.DirectJDKLog                                                         : Starting ProtocolHandler ["http-nio-8080"]
+2022-05-18 12:47:00,524 INFO             [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer                                 : Tomcat started on port(s): 8080 (http) with context path ''
+2022-05-18 12:47:00,533 INFO             [main] org.springframework.boot.StartupInfoLogger                                                   : Started CuteCutAppApplication in 3.902 seconds (JVM running for 4.539)
+2022-05-18 12:49:13,352 INFO             [SpringApplicationShutdownHook] org.springframework.orm.jpa.AbstractEntityManagerFactoryBean        : Closing JPA EntityManagerFactory for persistence unit 'default'
+2022-05-18 12:49:13,354 INFO             [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource                                  : HikariPool-1 - Shutdown initiated...
+2022-05-18 12:49:13,367 INFO             [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource                                  : HikariPool-1 - Shutdown completed.
+2022-05-18 12:49:16,861 INFO             [main] org.springframework.boot.StartupInfoLogger                                                   : Starting CuteCutAppApplication using Java 17.0.3 on shoxruh-acer with PID 11320 (/home/shoxruh/cute-cut-app/target/classes started by shoxruh in /home/shoxruh/cute-cut-app)
+2022-05-18 12:49:16,864 INFO             [main] org.springframework.boot.SpringApplication                                                   : No active profile set, falling back to 1 default profile: "default"
+2022-05-18 12:49:16,874 INFO             [background-preinit] org.hibernate.validator.internal.util.Version                                  : HV000001: Hibernate Validator 6.2.3.Final
+2022-05-18 12:49:17,984 INFO             [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate                   : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-05-18 12:49:18,061 INFO             [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate                   : Finished Spring Data repository scanning in 71 ms. Found 9 JPA repository interfaces.
+2022-05-18 12:49:18,450 INFO             [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer                                 : Tomcat initialized with port(s): 8080 (http)
+2022-05-18 12:49:18,455 INFO             [main] org.apache.juli.logging.DirectJDKLog                                                         : Initializing ProtocolHandler ["http-nio-8080"]
+2022-05-18 12:49:18,456 INFO             [main] org.apache.juli.logging.DirectJDKLog                                                         : Starting service [Tomcat]
+2022-05-18 12:49:18,456 INFO             [main] org.apache.juli.logging.DirectJDKLog                                                         : Starting Servlet engine: [Apache Tomcat/9.0.62]
+2022-05-18 12:49:18,517 INFO             [main] org.apache.juli.logging.DirectJDKLog                                                         : Initializing Spring embedded WebApplicationContext
+2022-05-18 12:49:18,517 INFO             [main] org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext              : Root WebApplicationContext: initialization completed in 1545 ms
+2022-05-18 12:49:18,624 INFO             [main] com.zaxxer.hikari.HikariDataSource                                                           : HikariPool-1 - Starting...
+2022-05-18 12:49:18,806 INFO             [main] com.zaxxer.hikari.HikariDataSource                                                           : HikariPool-1 - Start completed.
+2022-05-18 12:49:18,821 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : Flyway Community Edition 8.5.2 by Redgate
+2022-05-18 12:49:18,821 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : See what's new here: https://flywaydb.org/documentation/learnmore/releaseNotes#8.5.2
+2022-05-18 12:49:18,821 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : 
+2022-05-18 12:49:18,821 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : Database: jdbc:postgresql://localhost:5432/cute-cut-app (PostgreSQL 14.2)
+2022-05-18 12:49:18,843 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : Successfully validated 1 migration (execution time 00:00.012s)
+2022-05-18 12:49:18,850 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : Current version of schema "public": 1
+2022-05-18 12:49:18,851 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : Schema "public" is up to date. No migration necessary.
+2022-05-18 12:49:18,897 INFO             [main] org.hibernate.jpa.internal.util.LogHelper                                                    : HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-05-18 12:49:18,922 INFO             [main] org.hibernate.Version                                                                        : HHH000412: Hibernate ORM core version 5.6.8.Final
+2022-05-18 12:49:19,003 INFO             [main] org.hibernate.annotations.common.reflection.java.JavaReflectionManager                       : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2022-05-18 12:49:19,088 INFO             [main] org.hibernate.dialect.Dialect                                                                : HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL10Dialect
+2022-05-18 12:49:19,571 INFO             [main] org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator                  : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-05-18 12:49:19,575 INFO             [main] org.springframework.orm.jpa.AbstractEntityManagerFactoryBean                                 : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2022-05-18 12:49:19,942 WARN             [main] org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration      : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-05-18 12:49:20,196 INFO             [main] org.springframework.security.web.DefaultSecurityFilterChain                                  : Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@1822a61b, org.springframework.security.web.context.SecurityContextPersistenceFilter@16eb93af, org.springframework.security.web.header.HeaderWriterFilter@2c0d7099, org.springframework.security.web.authentication.logout.LogoutFilter@5440a3a, uz.pdp.cutecutapp.config.security.filters.CustomAuthorizationFilter@240f712e, uz.pdp.cutecutapp.config.security.filters.CustomAuthenticationFilter@3e7ddb7e, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@3ed87b6e, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@59cb10e0, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@6905d030, org.springframework.security.web.session.SessionManagementFilter@5c945ee7, org.springframework.security.web.access.ExceptionTranslationFilter@15f229e8, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@5feb8e9a]
+2022-05-18 12:49:20,314 WARN             [main] org.hibernate.engine.jdbc.spi.SqlExceptionHelper                                             : SQL Error: 0, SQLState: 23505
+2022-05-18 12:49:20,314 ERROR            [main] org.hibernate.engine.jdbc.spi.SqlExceptionHelper                                             : ERROR: duplicate key value violates unique constraint "uk_p78qmr31f74n0y4dfo8t7qm0g"
+  Detail: Key (phone_number)=(+998990473164) already exists.
+2022-05-18 12:49:21,014 INFO             [main] org.apache.juli.logging.DirectJDKLog                                                         : Starting ProtocolHandler ["http-nio-8080"]
+2022-05-18 12:49:21,026 INFO             [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer                                 : Tomcat started on port(s): 8080 (http) with context path ''
+2022-05-18 12:49:21,036 INFO             [main] org.springframework.boot.StartupInfoLogger                                                   : Started CuteCutAppApplication in 4.563 seconds (JVM running for 5.564)
+2022-05-18 12:51:12,859 INFO             [SpringApplicationShutdownHook] org.springframework.orm.jpa.AbstractEntityManagerFactoryBean        : Closing JPA EntityManagerFactory for persistence unit 'default'
+2022-05-18 12:51:12,861 INFO             [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource                                  : HikariPool-1 - Shutdown initiated...
+2022-05-18 12:51:12,873 INFO             [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource                                  : HikariPool-1 - Shutdown completed.
+2022-05-18 12:51:15,402 INFO             [background-preinit] org.hibernate.validator.internal.util.Version                                  : HV000001: Hibernate Validator 6.2.3.Final
+2022-05-18 12:51:15,401 INFO             [main] org.springframework.boot.StartupInfoLogger                                                   : Starting CuteCutAppApplication using Java 17.0.3 on shoxruh-acer with PID 11570 (/home/shoxruh/cute-cut-app/target/classes started by shoxruh in /home/shoxruh/cute-cut-app)
+2022-05-18 12:51:15,408 INFO             [main] org.springframework.boot.SpringApplication                                                   : No active profile set, falling back to 1 default profile: "default"
+2022-05-18 12:51:16,163 INFO             [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate                   : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-05-18 12:51:16,215 INFO             [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate                   : Finished Spring Data repository scanning in 46 ms. Found 9 JPA repository interfaces.
+2022-05-18 12:51:16,570 INFO             [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer                                 : Tomcat initialized with port(s): 8080 (http)
+2022-05-18 12:51:16,575 INFO             [main] org.apache.juli.logging.DirectJDKLog                                                         : Initializing ProtocolHandler ["http-nio-8080"]
+2022-05-18 12:51:16,575 INFO             [main] org.apache.juli.logging.DirectJDKLog                                                         : Starting service [Tomcat]
+2022-05-18 12:51:16,576 INFO             [main] org.apache.juli.logging.DirectJDKLog                                                         : Starting Servlet engine: [Apache Tomcat/9.0.62]
+2022-05-18 12:51:16,629 INFO             [main] org.apache.juli.logging.DirectJDKLog                                                         : Initializing Spring embedded WebApplicationContext
+2022-05-18 12:51:16,629 INFO             [main] org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext              : Root WebApplicationContext: initialization completed in 1170 ms
+2022-05-18 12:51:16,722 INFO             [main] com.zaxxer.hikari.HikariDataSource                                                           : HikariPool-1 - Starting...
+2022-05-18 12:51:16,917 INFO             [main] com.zaxxer.hikari.HikariDataSource                                                           : HikariPool-1 - Start completed.
+2022-05-18 12:51:16,930 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : Flyway Community Edition 8.5.2 by Redgate
+2022-05-18 12:51:16,930 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : See what's new here: https://flywaydb.org/documentation/learnmore/releaseNotes#8.5.2
+2022-05-18 12:51:16,930 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : 
+2022-05-18 12:51:16,930 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : Database: jdbc:postgresql://localhost:5432/cute-cut-app (PostgreSQL 14.2)
+2022-05-18 12:51:16,957 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : Successfully validated 2 migrations (execution time 00:00.015s)
+2022-05-18 12:51:16,965 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : Current version of schema "public": 1
+2022-05-18 12:51:16,976 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : Migrating schema "public" to version "2 - alter table auth user"
+2022-05-18 12:51:16,989 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : Successfully applied 1 migration to schema "public", now at version v2 (execution time 00:00.029s)
+2022-05-18 12:51:17,035 INFO             [main] org.hibernate.jpa.internal.util.LogHelper                                                    : HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-05-18 12:51:17,060 INFO             [main] org.hibernate.Version                                                                        : HHH000412: Hibernate ORM core version 5.6.8.Final
+2022-05-18 12:51:17,139 INFO             [main] org.hibernate.annotations.common.reflection.java.JavaReflectionManager                       : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2022-05-18 12:51:17,231 INFO             [main] org.hibernate.dialect.Dialect                                                                : HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL10Dialect
+2022-05-18 12:51:17,653 INFO             [main] org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator                  : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-05-18 12:51:17,657 INFO             [main] org.springframework.orm.jpa.AbstractEntityManagerFactoryBean                                 : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2022-05-18 12:51:18,025 WARN             [main] org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration      : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-05-18 12:51:18,233 INFO             [main] org.springframework.security.web.DefaultSecurityFilterChain                                  : Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@4518497e, org.springframework.security.web.context.SecurityContextPersistenceFilter@396ec737, org.springframework.security.web.header.HeaderWriterFilter@1f251bf1, org.springframework.security.web.authentication.logout.LogoutFilter@1784a296, uz.pdp.cutecutapp.config.security.filters.CustomAuthorizationFilter@5fe024a7, uz.pdp.cutecutapp.config.security.filters.CustomAuthenticationFilter@7388486e, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@1bed61d2, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@490704a5, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@7bdf8c92, org.springframework.security.web.session.SessionManagementFilter@433db56d, org.springframework.security.web.access.ExceptionTranslationFilter@1e041848, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@48b01607]
+2022-05-18 12:51:18,298 WARN             [main] org.hibernate.engine.jdbc.spi.SqlExceptionHelper                                             : SQL Error: 0, SQLState: 23505
+2022-05-18 12:51:18,298 ERROR            [main] org.hibernate.engine.jdbc.spi.SqlExceptionHelper                                             : ERROR: duplicate key value violates unique constraint "uk_p78qmr31f74n0y4dfo8t7qm0g"
+  Detail: Key (phone_number)=(+998990473164) already exists.
+2022-05-18 12:51:18,890 INFO             [main] org.apache.juli.logging.DirectJDKLog                                                         : Starting ProtocolHandler ["http-nio-8080"]
+2022-05-18 12:51:18,899 INFO             [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer                                 : Tomcat started on port(s): 8080 (http) with context path ''
+2022-05-18 12:51:18,908 INFO             [main] org.springframework.boot.StartupInfoLogger                                                   : Started CuteCutAppApplication in 3.881 seconds (JVM running for 4.589)
+2022-05-18 12:57:35,628 INFO             [SpringApplicationShutdownHook] org.springframework.orm.jpa.AbstractEntityManagerFactoryBean        : Closing JPA EntityManagerFactory for persistence unit 'default'
+2022-05-18 12:57:35,630 INFO             [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource                                  : HikariPool-1 - Shutdown initiated...
+2022-05-18 12:57:35,648 INFO             [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource                                  : HikariPool-1 - Shutdown completed.
+2022-05-18 12:57:39,289 INFO             [main] org.springframework.boot.StartupInfoLogger                                                   : Starting CuteCutAppApplication using Java 17.0.3 on shoxruh-acer with PID 13931 (/home/shoxruh/cute-cut-app/target/classes started by shoxruh in /home/shoxruh/cute-cut-app)
+2022-05-18 12:57:39,292 INFO             [main] org.springframework.boot.SpringApplication                                                   : No active profile set, falling back to 1 default profile: "default"
+2022-05-18 12:57:39,303 INFO             [background-preinit] org.hibernate.validator.internal.util.Version                                  : HV000001: Hibernate Validator 6.2.3.Final
+2022-05-18 12:57:40,444 INFO             [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate                   : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-05-18 12:57:40,533 INFO             [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate                   : Finished Spring Data repository scanning in 80 ms. Found 9 JPA repository interfaces.
+2022-05-18 12:57:40,946 INFO             [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer                                 : Tomcat initialized with port(s): 8080 (http)
+2022-05-18 12:57:40,952 INFO             [main] org.apache.juli.logging.DirectJDKLog                                                         : Initializing ProtocolHandler ["http-nio-8080"]
+2022-05-18 12:57:40,952 INFO             [main] org.apache.juli.logging.DirectJDKLog                                                         : Starting service [Tomcat]
+2022-05-18 12:57:40,953 INFO             [main] org.apache.juli.logging.DirectJDKLog                                                         : Starting Servlet engine: [Apache Tomcat/9.0.62]
+2022-05-18 12:57:41,013 INFO             [main] org.apache.juli.logging.DirectJDKLog                                                         : Initializing Spring embedded WebApplicationContext
+2022-05-18 12:57:41,013 INFO             [main] org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext              : Root WebApplicationContext: initialization completed in 1626 ms
+2022-05-18 12:57:41,114 INFO             [main] com.zaxxer.hikari.HikariDataSource                                                           : HikariPool-1 - Starting...
+2022-05-18 12:57:41,318 INFO             [main] com.zaxxer.hikari.HikariDataSource                                                           : HikariPool-1 - Start completed.
+2022-05-18 12:57:41,330 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : Flyway Community Edition 8.5.2 by Redgate
+2022-05-18 12:57:41,330 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : See what's new here: https://flywaydb.org/documentation/learnmore/releaseNotes#8.5.2
+2022-05-18 12:57:41,331 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : 
+2022-05-18 12:57:41,331 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : Database: jdbc:postgresql://localhost:5432/cute-cut-app (PostgreSQL 14.2)
+2022-05-18 12:57:41,353 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : Successfully validated 1 migration (execution time 00:00.012s)
+2022-05-18 12:57:41,360 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : Current version of schema "public": << Empty Schema >>
+2022-05-18 12:57:41,372 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : Migrating schema "public" to version "1 - alter table auth user picture id"
+2022-05-18 12:57:41,390 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : Successfully applied 1 migration to schema "public", now at version v1 (execution time 00:00.033s)
+2022-05-18 12:57:41,446 INFO             [main] org.hibernate.jpa.internal.util.LogHelper                                                    : HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-05-18 12:57:41,473 INFO             [main] org.hibernate.Version                                                                        : HHH000412: Hibernate ORM core version 5.6.8.Final
+2022-05-18 12:57:41,576 INFO             [main] org.hibernate.annotations.common.reflection.java.JavaReflectionManager                       : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2022-05-18 12:57:41,661 INFO             [main] org.hibernate.dialect.Dialect                                                                : HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL10Dialect
+2022-05-18 12:57:42,118 INFO             [main] org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator                  : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-05-18 12:57:42,123 INFO             [main] org.springframework.orm.jpa.AbstractEntityManagerFactoryBean                                 : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2022-05-18 12:57:42,523 WARN             [main] org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration      : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-05-18 12:57:42,766 INFO             [main] org.springframework.security.web.DefaultSecurityFilterChain                                  : Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@2a15bbf3, org.springframework.security.web.context.SecurityContextPersistenceFilter@5f1c406e, org.springframework.security.web.header.HeaderWriterFilter@490704a5, org.springframework.security.web.authentication.logout.LogoutFilter@2cf669f2, uz.pdp.cutecutapp.config.security.filters.CustomAuthorizationFilter@46c19350, uz.pdp.cutecutapp.config.security.filters.CustomAuthenticationFilter@5b4b6f3b, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@62ec4146, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@7d2a4598, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@32d46229, org.springframework.security.web.session.SessionManagementFilter@444ebefd, org.springframework.security.web.access.ExceptionTranslationFilter@5b16e486, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@2210af14]
+2022-05-18 12:57:42,838 WARN             [main] org.hibernate.engine.jdbc.spi.SqlExceptionHelper                                             : SQL Error: 0, SQLState: 23505
+2022-05-18 12:57:42,838 ERROR            [main] org.hibernate.engine.jdbc.spi.SqlExceptionHelper                                             : ERROR: duplicate key value violates unique constraint "uk_p78qmr31f74n0y4dfo8t7qm0g"
+  Detail: Key (phone_number)=(+998990473164) already exists.
+2022-05-18 12:57:43,498 INFO             [main] org.apache.juli.logging.DirectJDKLog                                                         : Starting ProtocolHandler ["http-nio-8080"]
+2022-05-18 12:57:43,512 INFO             [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer                                 : Tomcat started on port(s): 8080 (http) with context path ''
+2022-05-18 12:57:43,523 INFO             [main] org.springframework.boot.StartupInfoLogger                                                   : Started CuteCutAppApplication in 4.664 seconds (JVM running for 5.946)
+2022-05-18 12:58:33,169 INFO             [SpringApplicationShutdownHook] org.springframework.orm.jpa.AbstractEntityManagerFactoryBean        : Closing JPA EntityManagerFactory for persistence unit 'default'
+2022-05-18 12:58:33,170 INFO             [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource                                  : HikariPool-1 - Shutdown initiated...
+2022-05-18 12:58:33,182 INFO             [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource                                  : HikariPool-1 - Shutdown completed.
