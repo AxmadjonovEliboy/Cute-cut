@@ -28,9 +28,11 @@ import java.util.stream.Collectors;
 
 public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     private final AuthenticationManager authenticationManager;
+    private final JwtUtils jwtUtils;
 
-    public CustomAuthenticationFilter(AuthenticationManager authenticationManager) {
+    public CustomAuthenticationFilter(AuthenticationManager authenticationManager, JwtUtils jwtUtils) {
         this.authenticationManager = authenticationManager;
+        this.jwtUtils = jwtUtils;
         super.setFilterProcessesUrl("/api/login");
     }
 
@@ -49,20 +51,20 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authentication) throws IOException, ServletException, IOException {
         User user = (User) authentication.getPrincipal();
-        Date expiryForAccessToken = JwtUtils.getExpireDate();
-        Date expiryForRefreshToken = JwtUtils.getExpireDateForRefreshToken();
+        Date expiryForAccessToken = jwtUtils.getExpireDate();
+        Date expiryForRefreshToken = jwtUtils.getExpireDateForRefreshToken();
         String accessToken = JWT.create()
                 .withSubject(user.getUsername())
                 .withExpiresAt(expiryForAccessToken)
                 .withIssuer(request.getRequestURL().toString())
                 .withClaim("roles", user.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()))
-                .sign(JwtUtils.getAlgorithm());
+                .sign(jwtUtils.getAlgorithm());
 
         String refreshToken = JWT.create()
                 .withSubject(user.getUsername())
                 .withExpiresAt(expiryForRefreshToken)
                 .withIssuer(request.getRequestURL().toString())
-                .sign(JwtUtils.getAlgorithm());
+                .sign(jwtUtils.getAlgorithm());
 
         SessionDto sessionDto = SessionDto.builder()
                 .accessToken(accessToken)

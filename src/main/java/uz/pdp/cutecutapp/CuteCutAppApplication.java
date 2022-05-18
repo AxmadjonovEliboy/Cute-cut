@@ -10,13 +10,15 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import uz.pdp.cutecutapp.dto.auth.AuthCreateDto;
 import uz.pdp.cutecutapp.enums.Role;
+import uz.pdp.cutecutapp.properties.JwtProperties;
 import uz.pdp.cutecutapp.properties.OpenApiProperties;
 import uz.pdp.cutecutapp.properties.ServerProperties;
 import uz.pdp.cutecutapp.services.auth.AuthUserService;
 
 @EnableConfigurationProperties(value = {
         OpenApiProperties.class,
-        ServerProperties.class
+        ServerProperties.class,
+        JwtProperties.class
 })
 @OpenAPIDefinition
 @SpringBootApplication
@@ -35,7 +37,7 @@ public class CuteCutAppApplication {
     @Bean
     public void run() throws Exception {
         CommandLineRunner runner = (a) -> {
-            service.createUser(new AuthCreateDto("+998990473164","123", Role.ADMIN.name(),-1L,-1L));
+            service.createUser(new AuthCreateDto("+998990473164", "123", Role.ADMIN.name(), -1L, -1L));
         };
         runner.run("s", "b"
         );
