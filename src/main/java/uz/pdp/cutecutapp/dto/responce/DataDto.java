@@ -11,6 +11,7 @@ import uz.pdp.cutecutapp.dto.BaseDto;
 @Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class DataDto<T> implements BaseDto {
+
     protected T data;
 
     protected AppErrorDto error;
@@ -18,6 +19,8 @@ public class DataDto<T> implements BaseDto {
     protected boolean success;
 
     private Long totalCount;
+
+    private Integer status;
 
     public DataDto(boolean success) {
         this.success = success;
@@ -37,5 +40,11 @@ public class DataDto<T> implements BaseDto {
         this.data = data;
         this.success = true;
         this.totalCount = totalCount;
+    }
+
+    public DataDto(T data, Integer status) {
+        this.data = data;
+        this.success = true;
+        this.status = status;
     }
 }

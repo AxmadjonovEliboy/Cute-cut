@@ -25,7 +25,6 @@ import uz.pdp.cutecutapp.services.auth.AuthUserService;
 @RequiredArgsConstructor
 public class CuteCutAppApplication {
 
-    private final PasswordEncoder encoder;
     private final AuthUserService service;
 
 
