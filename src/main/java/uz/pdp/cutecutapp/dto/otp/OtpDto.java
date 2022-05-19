@@ -1,4 +1,4 @@
-package uz.pdp.cutecutapp.dto.auth;
+package uz.pdp.cutecutapp.dto.otp;
 
 import lombok.AllArgsConstructor;
 

@@ -10,9 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import uz.pdp.cutecutapp.dto.auth.AuthUserPhoneDto;
-import uz.pdp.cutecutapp.dto.auth.OtpDto;
-import uz.pdp.cutecutapp.dto.responce.AppErrorDto;
-import uz.pdp.cutecutapp.dto.responce.DataDto;
+import uz.pdp.cutecutapp.dto.otp.OtpDto;
+import uz.pdp.cutecutapp.dto.otp.OtpResponse;
 import uz.pdp.cutecutapp.properties.OtpProperties;
 
 import java.io.IOException;
@@ -32,7 +31,7 @@ public class OtpService {
         this.objectMapper = objectMapper;
     }
 
-    public DataDto<AuthUserPhoneDto> send(AuthUserPhoneDto dto) {
+    public OtpResponse send(AuthUserPhoneDto dto) {
         try {
             HttpClient httpClient = HttpClientBuilder.create().build();
             String url = otpProperties.getApi();
@@ -48,16 +47,13 @@ public class OtpService {
 
             HttpResponse response = httpClient.execute(httpPost);
 
-
             if (response.getStatusLine().getStatusCode() == HttpStatus.CREATED.value()) {
-                dto.code = String.valueOf(code);
-                return new DataDto<>(dto);
-            } else return new DataDto<>(new AppErrorDto("Bad request", "", HttpStatus.INTERNAL_SERVER_ERROR));
+                return new OtpResponse(code, dto.phoneNumber);
+            } else
+                return new OtpResponse(false, response.getStatusLine().getStatusCode(), response.getStatusLine().getReasonPhrase());
 
-        } catch (IOException e) {
-            return new DataDto<>(new AppErrorDto("Bad request", "", HttpStatus.INTERNAL_SERVER_ERROR));
-        } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException(e);
+        } catch (IOException | NoSuchAlgorithmException e) {
+            return new OtpResponse(false, HttpStatus.INTERNAL_SERVER_ERROR.value(), e.getMessage());
         }
     }
 
