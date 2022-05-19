@@ -59,7 +59,11 @@ jwt:
     expire: 900000000
 
 otp:
-  accessKey: pX4Ti0YqeoTUeCzX9ezBFpWT1
-  originator: BarberShop Mobile
+  accessKey: 'AccessKey pX4Ti0YqeoTUeCzX9ezBFpWT1'
+  originator: Xurshidbek
   api: https://rest.messagebird.com/messages
+  body: 'Your verification code : '
+  from: 1000
+  bound: 9000
+  expiration: 1
 

@@ -14,4 +14,12 @@ public class OtpProperties {
     private String originator;
 
     private String api;
+
+    private String body;
+
+    private Integer from;
+
+    private Integer bound;
+
+    private Integer expiration;
 }
