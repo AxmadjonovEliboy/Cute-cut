@@ -1,8 +1,6 @@
 package uz.pdp.cutecutapp.validator.auth;
 
 import org.springframework.stereotype.Component;
-import uz.pdp.cutecutapp.dto.auth.AuthCreateDto;
-import uz.pdp.cutecutapp.dto.auth.AuthUpdateDto;
 import uz.pdp.cutecutapp.validator.BaseValidator;
 
 /**
@@ -11,17 +9,5 @@ import uz.pdp.cutecutapp.validator.BaseValidator;
  */
 @Component
 public class AuthCreateValidator implements BaseValidator {
-
-    public void validOnCreate(AuthCreateDto dto) {
-
-    }
-
-    public void validOnUpdate(AuthUpdateDto dto) {
-
-    }
-
-    public void validKey(Long id) {
-
-    }
 
 }
