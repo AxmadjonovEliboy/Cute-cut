@@ -34,10 +34,10 @@ public class CuteCutAppApplication {
     }
 
 
-    @Bean
+//    @Bean
     public void run() throws Exception {
         CommandLineRunner runner = (a) -> {
-            service.createUser(new AuthCreateDto("+998990473164", "123", Role.ADMIN.name(), -1L, -1L));
+           // service.create(new AuthCreateDto("+998990473164", "123", Role.ADMIN.name(), -1L, -1L));
         };
         runner.run("s", "b"
         );

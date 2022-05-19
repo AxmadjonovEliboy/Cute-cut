@@ -23,6 +23,8 @@ import org.springframework.stereotype.Service;
 import uz.pdp.cutecutapp.dto.auth.AuthCreateDto;
 import uz.pdp.cutecutapp.dto.auth.AuthUserPhoneDto;
 import uz.pdp.cutecutapp.dto.auth.SessionDto;
+import uz.pdp.cutecutapp.criteria.BaseCriteria;
+import uz.pdp.cutecutapp.dto.auth.*;
 import uz.pdp.cutecutapp.dto.responce.AppErrorDto;
 import uz.pdp.cutecutapp.dto.responce.DataDto;
 import uz.pdp.cutecutapp.entity.auth.AuthUser;
@@ -31,9 +33,11 @@ import uz.pdp.cutecutapp.enums.Status;
 import uz.pdp.cutecutapp.mapper.auth.AuthUserMapper;
 import uz.pdp.cutecutapp.properties.ServerProperties;
 import uz.pdp.cutecutapp.repository.auth.AuthUserRepository;
+import uz.pdp.cutecutapp.services.GenericCrudService;
 import uz.pdp.cutecutapp.services.file.FileStorageService;
 import uz.pdp.cutecutapp.session.SessionUser;
 import uz.pdp.cutecutapp.utils.JwtUtils;
+import uz.pdp.cutecutapp.validator.auth.AuthCreateValidator;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.ByteArrayInputStream;
@@ -41,15 +45,14 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Collections;
-import java.util.Date;
-import java.util.Optional;
+import java.sql.SQLException;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
 @Service
 @RequiredArgsConstructor
-public class AuthUserService implements UserDetailsService {
+public class AuthUserService implements UserDetailsService, GenericCrudService<AuthUser, AuthDto, AuthCreateDto, AuthUpdateDto, BaseCriteria, Long> {
 
     private final AuthUserRepository repository;
     private final ObjectMapper objectMapper;
@@ -58,6 +61,7 @@ public class AuthUserService implements UserDetailsService {
     private final PasswordEncoder passwordEncoder;
     private final FileStorageService fileStorageService;
     private final SessionUser sessionUser;
+    private final AuthCreateValidator validator;
     private final JwtUtils jwtUtils;
 
     private Path root = Paths.get("C:\\uploads");
@@ -135,7 +139,9 @@ public class AuthUserService implements UserDetailsService {
         return new DataDto<>(SessionDto.builder().accessToken(accessToken).expiresIn(expiryForAccessToken.getTime()).refreshToken(token).refreshTokenExpire(expiryForRefreshToken.getTime()).issuedAt(System.currentTimeMillis()).build());
     }
 
-    public DataDto<Long> createUser(AuthCreateDto dto) {
+    @Override
+    public DataDto<Long> create(AuthCreateDto dto) {
+        // todo validator qo`shishim kerak
         Role role = Role.ADMIN.checkRole(dto.getRole());
         AuthUser authUser = mapper.fromCreateDto(dto);
         authUser.setRole(role);
@@ -145,5 +151,41 @@ public class AuthUserService implements UserDetailsService {
         } catch (Exception e) {
             return new DataDto<>(new AppErrorDto(HttpStatus.IM_USED, "already Taken phone", "auth/user/create"));
         }
+    }
+
+    @Override
+    public DataDto<Void> delete(Long id) {
+        // todo validator qo`shishim kerak
+        String code = UUID.randomUUID().toString();
+        repository.softDeleted(id, code);
+        return new DataDto<>(null);
+    }
+
+    @Override
+    public DataDto<Boolean> update(AuthUpdateDto dto) {
+        // todo validator qo`shishim kerak
+        AuthUser user = mapper.fromUpdateDto(dto);
+        repository.save(user);
+        return new DataDto<>(true);
+    }
+
+    @Override
+    public DataDto<List<AuthDto>> getAll() {
+        List<AuthUser> users = repository.getAllAndNotIsDeleted();
+        return new DataDto<>(mapper.toDto(users));
+    }
+
+    @Override
+    public DataDto<AuthDto> get(Long id) {
+        // todo validator qo`shishim kerak
+        Optional<AuthUser> authUser = repository.getByIdAndNotDeleted(id);
+        AuthDto authDto = mapper.toDto(authUser.get());
+        return new DataDto<>(authDto);
+    }
+
+    @Override
+    public DataDto<List<AuthDto>> getWithCriteria(BaseCriteria criteria) throws SQLException {
+
+        return null;
     }
 }
