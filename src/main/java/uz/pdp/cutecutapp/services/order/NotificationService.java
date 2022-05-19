@@ -32,7 +32,7 @@ public class NotificationService extends AbstractService<NotificationRepository,
     }
 
     @Override
-    public DataDto<Long> update(GenericDto updateDto) {
+    public DataDto<Boolean> update(GenericDto updateDto) {
         return null;
     }
 

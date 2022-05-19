@@ -12,4 +12,5 @@ import uz.pdp.cutecutapp.mapper.BaseMapper;
 @Component
 @Mapper(componentModel = "spring")
 public interface AuthUserMapper extends BaseMapper<AuthUser, AuthDto, AuthCreateDto, AuthUpdateDto> {
+
 }

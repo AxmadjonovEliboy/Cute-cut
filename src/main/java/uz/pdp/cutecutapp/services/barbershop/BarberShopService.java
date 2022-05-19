@@ -34,7 +34,7 @@ public class BarberShopService extends AbstractService<BarberShopRepository, Bar
     }
 
     @Override
-    public DataDto<Long> update(BarberShopUpdateDto updateDto) {
+    public DataDto<Boolean> update(BarberShopUpdateDto updateDto) {
         return null;
     }
 

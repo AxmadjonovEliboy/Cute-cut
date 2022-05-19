@@ -34,7 +34,7 @@ public class OrganizationService extends AbstractService<OrganizationRepository,
     }
 
     @Override
-    public DataDto<Long> update(OrganizationUpdateDto updateDto) {
+    public DataDto<Boolean> update(OrganizationUpdateDto updateDto) {
         return null;
     }
 
