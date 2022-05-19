@@ -12,7 +12,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import uz.pdp.cutecutapp.dto.auth.AuthUserDto;
+import uz.pdp.cutecutapp.dto.auth.AuthUserPhoneDto;
 import uz.pdp.cutecutapp.dto.auth.SessionDto;
 import uz.pdp.cutecutapp.dto.responce.AppErrorDto;
 import uz.pdp.cutecutapp.dto.responce.DataDto;
@@ -39,7 +39,7 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {;
         try {
-            AuthUserDto loginDto = new ObjectMapper().readValue(request.getReader(), AuthUserDto.class);
+            AuthUserPhoneDto loginDto = new ObjectMapper().readValue(request.getReader(), AuthUserPhoneDto.class);
             UsernamePasswordAuthenticationToken authenticationToken =
                     new UsernamePasswordAuthenticationToken(loginDto.getUsername(), loginDto.getPassword());
             return authenticationManager.authenticate(authenticationToken);

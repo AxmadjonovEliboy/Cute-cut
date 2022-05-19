@@ -7,18 +7,19 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import uz.pdp.cutecutapp.dto.auth.AuthCreateDto;
 import uz.pdp.cutecutapp.enums.Role;
 import uz.pdp.cutecutapp.properties.JwtProperties;
 import uz.pdp.cutecutapp.properties.OpenApiProperties;
+import uz.pdp.cutecutapp.properties.OtpProperties;
 import uz.pdp.cutecutapp.properties.ServerProperties;
 import uz.pdp.cutecutapp.services.auth.AuthUserService;
 
 @EnableConfigurationProperties(value = {
         OpenApiProperties.class,
         ServerProperties.class,
-        JwtProperties.class
+        JwtProperties.class,
+        OtpProperties.class
 })
 @OpenAPIDefinition
 @SpringBootApplication

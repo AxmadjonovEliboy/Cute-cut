@@ -5,20 +5,19 @@ import lombok.Setter;
 import uz.pdp.cutecutapp.dto.GenericDto;
 import uz.pdp.cutecutapp.enums.Role;
 
-@Getter
-@Setter
+
 public class AuthDto extends GenericDto {
 
-    private String fullName;
+    public String fullName;
 
-    private String username;
+    public String username;
 
-    private String phoneNumber;
+    public String phoneNumber;
 
-    private Long organizationId;
+    public Long organizationId;
 
-    private String picturePath;
+    public String picturePath;
 
-    private Role role;
+    public Role role;
 
 }

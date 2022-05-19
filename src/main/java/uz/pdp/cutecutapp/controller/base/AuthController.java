@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import uz.pdp.cutecutapp.dto.auth.AuthRefreshToken;
-import uz.pdp.cutecutapp.dto.auth.AuthUserDto;
+import uz.pdp.cutecutapp.dto.auth.AuthUserPhoneDto;
 import uz.pdp.cutecutapp.dto.auth.SessionDto;
 import uz.pdp.cutecutapp.dto.responce.DataDto;
 import uz.pdp.cutecutapp.services.auth.AuthUserService;
@@ -22,7 +22,7 @@ public class AuthController extends AbstractController {
 
 
     @PostMapping(PATH + "/auth/login")
-    public ResponseEntity<DataDto<SessionDto>> login(@RequestBody AuthUserDto loginDto) {
+    public ResponseEntity<DataDto<SessionDto>> login(@RequestBody AuthUserPhoneDto loginDto) {
         DataDto<SessionDto> login = authUserService.login(loginDto);
         return new ResponseEntity<>(login, HttpStatus.OK);
     }

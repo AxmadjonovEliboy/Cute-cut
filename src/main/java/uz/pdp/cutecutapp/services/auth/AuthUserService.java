@@ -21,7 +21,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import uz.pdp.cutecutapp.dto.auth.AuthCreateDto;
-import uz.pdp.cutecutapp.dto.auth.AuthUserDto;
+import uz.pdp.cutecutapp.dto.auth.AuthUserPhoneDto;
 import uz.pdp.cutecutapp.dto.auth.SessionDto;
 import uz.pdp.cutecutapp.dto.responce.AppErrorDto;
 import uz.pdp.cutecutapp.dto.responce.DataDto;
@@ -86,7 +86,7 @@ public class AuthUserService implements UserDetailsService {
     }
 
 
-    public DataDto<SessionDto> login(AuthUserDto dto) {
+    public DataDto<SessionDto> login(AuthUserPhoneDto dto) {
         try {
             HttpClient httpclient = HttpClientBuilder.create().build();
             String url = serverProperties.getServerUrl() + "/api/login";

@@ -58,4 +58,8 @@ jwt:
   access:
     expire: 900000000
 
+otp:
+  accessKey: pX4Ti0YqeoTUeCzX9ezBFpWT1
+  originator: BarberShop Mobile
+  api: https://rest.messagebird.com/messages
 
