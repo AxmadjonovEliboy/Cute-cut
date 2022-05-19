@@ -18,10 +18,12 @@ import java.util.List;
 @Service
 public class FaqService extends AbstractService<FaqRepository, FaqMapper>
         implements GenericCrudService<FAQ, FaqDto, FaqCreateDto, FaqUpdateDto, BaseCriteria, Long> {
-    public FaqService(FaqRepository repository, FaqMapper mapper) {
+    public FaqService(FaqRepository repository, FaqMapper mapper, FaqRepository faqRepository) {
         super(repository, mapper);
+        this.faqRepository = faqRepository;
     }
 
+    private final FaqRepository faqRepository;
     @Override
     public DataDto<Long> create(FaqCreateDto createDto) {
         return null;
@@ -39,11 +41,12 @@ public class FaqService extends AbstractService<FaqRepository, FaqMapper>
 
     @Override
     public DataDto<List<FaqDto>> getAll() {
-        return null;
+        return (DataDto<List<FaqDto>>) faqRepository.findAll();
     }
 
     @Override
     public DataDto<FaqDto> get(Long id) {
+
         return null;
     }
 
