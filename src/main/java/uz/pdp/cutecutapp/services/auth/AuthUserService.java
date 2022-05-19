@@ -58,6 +58,7 @@ public class AuthUserService implements UserDetailsService {
     private final PasswordEncoder passwordEncoder;
     private final FileStorageService fileStorageService;
     private final SessionUser sessionUser;
+    private final JwtUtils jwtUtils;
 
     private Path root = Paths.get("C:\\uploads");
 
@@ -112,7 +113,7 @@ public class AuthUserService implements UserDetailsService {
     }
 
     private User read(String token) {
-        DecodedJWT decodedJWT = JwtUtils.verifier().verify(token);
+        DecodedJWT decodedJWT = jwtUtils.verifier().verify(token);
         String username = decodedJWT.getSubject();
         return loadUser(username);
     }
@@ -128,9 +129,9 @@ public class AuthUserService implements UserDetailsService {
 
     public DataDto<SessionDto> refreshToken(String token, HttpServletRequest request) {
         User user = read(token);
-        Date expiryForAccessToken = JwtUtils.getExpireDate();
-        Date expiryForRefreshToken = JwtUtils.getExpireDateForRefreshToken();
-        String accessToken = JWT.create().withSubject(user.getUsername()).withExpiresAt(expiryForAccessToken).withIssuer(request.getRequestURL().toString()).withClaim("roles", user.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList())).sign(JwtUtils.getAlgorithm());
+        Date expiryForAccessToken = jwtUtils.getExpireDate();
+        Date expiryForRefreshToken = jwtUtils.getExpireDateForRefreshToken();
+        String accessToken = JWT.create().withSubject(user.getUsername()).withExpiresAt(expiryForAccessToken).withIssuer(request.getRequestURL().toString()).withClaim("roles", user.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList())).sign(jwtUtils.getAlgorithm());
         return new DataDto<>(SessionDto.builder().accessToken(accessToken).expiresIn(expiryForAccessToken.getTime()).refreshToken(token).refreshTokenExpire(expiryForRefreshToken.getTime()).issuedAt(System.currentTimeMillis()).build());
     }
 
