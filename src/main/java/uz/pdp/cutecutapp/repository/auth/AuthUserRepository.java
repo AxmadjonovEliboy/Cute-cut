@@ -29,4 +29,10 @@ public interface AuthUserRepository extends JpaRepository<AuthUser, Long> {
 
     @Query(value = "select a from  AuthUser a where a.deleted = false ")
     List<AuthUser> getAllAndNotIsDeleted();
+
+    @Transactional
+    @Modifying
+    @Query(value = "update auth_user  set code = :code  where id = :id", nativeQuery = true)
+    void setCode(@Param("id") Long id, @Param("code") Integer code);
+
 }

@@ -22,14 +22,17 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import uz.pdp.cutecutapp.criteria.BaseCriteria;
 import uz.pdp.cutecutapp.dto.auth.*;
+import uz.pdp.cutecutapp.dto.otp.OtpResponse;
 import uz.pdp.cutecutapp.dto.responce.AppErrorDto;
 import uz.pdp.cutecutapp.dto.responce.DataDto;
 import uz.pdp.cutecutapp.entity.auth.AuthUser;
+import uz.pdp.cutecutapp.entity.auth.Device;
 import uz.pdp.cutecutapp.enums.Role;
 import uz.pdp.cutecutapp.enums.Status;
 import uz.pdp.cutecutapp.mapper.auth.AuthUserMapper;
 import uz.pdp.cutecutapp.properties.ServerProperties;
 import uz.pdp.cutecutapp.repository.auth.AuthUserRepository;
+import uz.pdp.cutecutapp.repository.auth.DeviceRepository;
 import uz.pdp.cutecutapp.services.GenericCrudService;
 import uz.pdp.cutecutapp.services.file.FileStorageService;
 import uz.pdp.cutecutapp.session.SessionUser;
@@ -60,7 +63,9 @@ public class AuthUserService implements UserDetailsService, GenericCrudService<A
     private final SessionUser sessionUser;
     private final AuthCreateValidator validator;
     private final JwtUtils jwtUtils;
+    private final OtpService otpService;
 
+    private final DeviceRepository deviceRepository;
     private Path root = Paths.get("C:\\uploads");
 
     //    @PostConstruct
@@ -87,12 +92,13 @@ public class AuthUserService implements UserDetailsService, GenericCrudService<A
     }
 
 
-    public DataDto<SessionDto> login(AuthUserDto dto) {
+    public DataDto<SessionDto> login(AuthUserPasswordDto dto) {
         try {
             HttpClient httpclient = HttpClientBuilder.create().build();
             String url = serverProperties.getServerUrl() + "/api/login";
             HttpPost httppost = new HttpPost(url);
-            byte[] bytes = objectMapper.writeValueAsBytes(dto);
+            AuthLoginDto loginDto = new AuthLoginDto(dto.phoneNumber, dto.password);
+            byte[] bytes = objectMapper.writeValueAsBytes(loginDto);
             ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(bytes);
             httppost.addHeader("Content-Type", "application/x-www-form-urlencoded");
             httppost.setEntity(new InputStreamEntity(byteArrayInputStream));
@@ -184,5 +190,34 @@ public class AuthUserService implements UserDetailsService, GenericCrudService<A
     public DataDto<List<AuthDto>> getWithCriteria(BaseCriteria criteria) throws SQLException {
 
         return null;
+    }
+
+    public DataDto<OtpResponse> loginByPhone(AuthUserPhoneDto loginDto) {
+
+        Optional<AuthUser> user = repository.findByPhoneNumberAndDeletedFalse(loginDto.phoneNumber);
+        if (user.isPresent()) {
+            if (user.get().getStatus().equals(Status.ACTIVE)) {
+                AuthUser authUser = user.get();
+                OtpResponse response = otpService.send(loginDto);
+                if (response.success) {
+                    repository.setCode(authUser.getId(), response.code);
+                    return new DataDto<>(response);
+                } else
+                    return new DataDto<>(new AppErrorDto(response.message, "/auth/loginPhone", HttpStatus.INTERNAL_SERVER_ERROR));
+            } else return new DataDto<>(new AppErrorDto(HttpStatus.LOCKED, "/auth/loginPhone", "User not Active"));
+        } else return new DataDto<>(new AppErrorDto(HttpStatus.NOT_FOUND, "User not found", "auth/loginPhone"));
+    }
+
+    public DataDto<SessionDto> confirmCode(AuthUserCodePhoneDto dto) {
+        Optional<AuthUser> user = repository.findByPhoneNumberAndDeletedFalse(dto.phoneNumber);
+        if (user.isPresent()) {
+            AuthUser authUser = user.get();
+            if (authUser.getCode().equals(dto.code)) {
+                deviceRepository.save(new Device(authUser.getId(), dto.deviceId, dto.deviceToken));
+                User user1 = (User) User.builder().username(authUser.getPhoneNumber()).password(authUser.getPassword()).authorities(new SimpleGrantedAuthority(authUser.getRole().name())).build();
+                return new DataDto<>(jwtUtils.generateSessionDto(user1));
+            } else
+                return new DataDto<>(new AppErrorDto(HttpStatus.BAD_REQUEST, "Incorrect Code entered", "/auth/confirmOtp"));
+        } else return new DataDto<>(new AppErrorDto(HttpStatus.NOT_FOUND, "User not found", "/auth/confirmOtp"));
     }
 }

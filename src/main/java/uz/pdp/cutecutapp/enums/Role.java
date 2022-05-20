@@ -6,7 +6,6 @@ import lombok.Getter;
 public enum Role {
     SUPER_ADMIN,
     ADMIN,
-    BARBERSHOP_LEAD,
     BARBER,
     CLIENT;
 
