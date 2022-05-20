@@ -45,7 +45,6 @@ public class FileStorageService {
     @SneakyThrows
     public String store(@NonNull MultipartFile file) {
         String originalFilename = file.getOriginalFilename();
-
         String extension = StringUtils.getFilenameExtension(file.getOriginalFilename());
         System.out.println("extension = " + extension);
         String generatedName = String.format("%s.%s", System.currentTimeMillis(), extension);
