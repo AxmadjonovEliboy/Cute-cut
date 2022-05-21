@@ -29,6 +29,6 @@ public interface GenericCrudService<
 
     DataDto<Void> delete(K id);
 
-    DataDto<K> update(UD updateDto);
+    DataDto<Boolean> update(UD updateDto);
 
 }

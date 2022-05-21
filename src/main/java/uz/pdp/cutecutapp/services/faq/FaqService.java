@@ -33,7 +33,7 @@ public class FaqService extends AbstractService<FaqRepository, FaqMapper>
     }
 
     @Override
-    public DataDto<Long> update(FaqUpdateDto updateDto) {
+    public DataDto<Boolean> update(FaqUpdateDto updateDto) {
         return null;
     }
 

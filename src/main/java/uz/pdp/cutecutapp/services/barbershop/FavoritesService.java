@@ -33,7 +33,7 @@ public class FavoritesService extends AbstractService<FavoritesRepository, Favor
     }
 
     @Override
-    public DataDto<Long> update(GenericDto updateDto) {
+    public DataDto<Boolean> update(GenericDto updateDto) {
         return null;
     }
 
