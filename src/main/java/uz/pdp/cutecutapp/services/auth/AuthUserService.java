@@ -33,11 +33,9 @@ import uz.pdp.cutecutapp.mapper.auth.AuthUserMapper;
 import uz.pdp.cutecutapp.properties.ServerProperties;
 import uz.pdp.cutecutapp.repository.auth.AuthUserRepository;
 import uz.pdp.cutecutapp.repository.auth.DeviceRepository;
+import uz.pdp.cutecutapp.services.AbstractService;
 import uz.pdp.cutecutapp.services.GenericCrudService;
-import uz.pdp.cutecutapp.services.file.FileStorageService;
-import uz.pdp.cutecutapp.session.SessionUser;
 import uz.pdp.cutecutapp.utils.JwtUtils;
-import uz.pdp.cutecutapp.validator.auth.AuthCreateValidator;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.ByteArrayInputStream;
@@ -51,22 +49,27 @@ import java.util.stream.Collectors;
 
 
 @Service
-@RequiredArgsConstructor
-public class AuthUserService implements UserDetailsService, GenericCrudService<AuthUser, AuthDto, AuthCreateDto, AuthUpdateDto, BaseCriteria, Long> {
+public class AuthUserService extends AbstractService<AuthUserRepository,AuthUserMapper> implements UserDetailsService, GenericCrudService<AuthUser, AuthDto, AuthCreateDto, AuthUpdateDto, BaseCriteria, Long> {
 
-    private final AuthUserRepository repository;
+
     private final ObjectMapper objectMapper;
-    private final AuthUserMapper mapper;
     private final ServerProperties serverProperties;
     private final PasswordEncoder passwordEncoder;
-    private final FileStorageService fileStorageService;
-    private final SessionUser sessionUser;
-    private final AuthCreateValidator validator;
     private final JwtUtils jwtUtils;
     private final OtpService otpService;
 
     private final DeviceRepository deviceRepository;
     private Path root = Paths.get("C:\\uploads");
+
+    public AuthUserService(AuthUserRepository repository, AuthUserMapper mapper, ObjectMapper objectMapper, ServerProperties serverProperties, PasswordEncoder passwordEncoder, JwtUtils jwtUtils, OtpService otpService, DeviceRepository deviceRepository) {
+        super(repository, mapper);
+        this.objectMapper = objectMapper;
+        this.serverProperties = serverProperties;
+        this.passwordEncoder = passwordEncoder;
+        this.jwtUtils = jwtUtils;
+        this.otpService = otpService;
+        this.deviceRepository = deviceRepository;
+    }
 
     //    @PostConstruct
     public void init() {
