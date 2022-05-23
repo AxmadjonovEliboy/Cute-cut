@@ -1,6 +1,8 @@
 package uz.pdp.cutecutapp.entity.auth;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Entity;
@@ -11,6 +13,8 @@ import javax.persistence.Id;
 @Getter
 @Setter
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 public class Device {
 
     @Id
@@ -21,4 +25,11 @@ public class Device {
 
     private String deviceId;
 
+    private String deviceToken;
+
+    public Device(Long userId, String deviceId, String deviceToken) {
+        this.userId = userId;
+        this.deviceId = deviceId;
+        this.deviceToken = deviceToken;
+    }
 }

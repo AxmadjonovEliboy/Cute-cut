@@ -1,5 +1,6 @@
 package uz.pdp.cutecutapp.config.security.filters;
 
+import com.auth0.jwt.JWT;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.HttpHeaders;
@@ -21,6 +22,12 @@ import java.util.*;
 
 public class CustomAuthorizationFilter extends OncePerRequestFilter {
 
+    private  final JwtUtils jwtUtils;
+
+    public CustomAuthorizationFilter(JwtUtils jwtUtils) {
+        this.jwtUtils = jwtUtils;
+    }
+
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
@@ -28,7 +35,7 @@ public class CustomAuthorizationFilter extends OncePerRequestFilter {
         if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
             try {
                 String token = authorizationHeader.substring("Bearer ".length());
-                DecodedJWT decodedJWT = JwtUtils.verifier().verify(token);
+                DecodedJWT decodedJWT = jwtUtils.verifier().verify(token);
                 String username = decodedJWT.getSubject();
                 String[] roles = decodedJWT.getClaim("roles").asArray(String.class);
                 Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();

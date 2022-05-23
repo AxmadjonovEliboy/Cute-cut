@@ -28,10 +28,13 @@ public class AuthUser extends Auditable {
 
     private boolean isBusy;
 
+    private Integer code;
+
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    private Status status;
+    @Enumerated(EnumType.STRING)
+    private Status status = Status.ACTIVE;
 
     private Long pictureId;
 

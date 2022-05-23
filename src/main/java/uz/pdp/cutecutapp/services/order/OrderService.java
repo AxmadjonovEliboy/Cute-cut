@@ -33,7 +33,7 @@ public class OrderService extends AbstractService<OrderRepository, OrderMapper>
     }
 
     @Override
-    public DataDto<Long> update(OrderUpdateDto updateDto) {
+    public DataDto<Boolean> update(OrderUpdateDto updateDto) {
         return null;
     }
 

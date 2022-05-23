@@ -14,11 +14,14 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
     show-sql: true
     properties:
       hibernate:
         format_sql: true
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
 
 
 springdoc:
@@ -47,3 +50,20 @@ service:
     ip: localhost
     port: 8080
     url: boom.uz
+
+jwt:
+  secret: gfhg4561967$%#%$%^?>?>:gjhgsdfsd?>jahdqpdsdhgf
+  refresh:
+    expire: 864000000
+  access:
+    expire: 900000000
+
+otp:
+  accessKey: 'AccessKey pX4Ti0YqeoTUeCzX9ezBFpWT1'
+  originator: Xurshidbek
+  api: https://rest.messagebird.com/messages
+  body: 'Your verification code : '
+  from: 1000
+  bound: 9000
+  expiration: 1
+
