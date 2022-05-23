@@ -45,7 +45,7 @@ public class BarberShopService extends AbstractService<BarberShopRepository, Bar
 
     @Override
     public DataDto<BarberShopDto> get(Long id) {
-        return null;
+        return new DataDto<>(mapper.toDto(repository.getById(id)));
     }
 
     @Override
