@@ -45,10 +45,10 @@ public class LangProperties {
     }
 
 
-    public String getKey(String key) {
-        Language language = sessionUser.getLanguage();
-        return getKey(key, language);
-    }
+//    public String getKey(String key) {
+//        Language language = sessionUser.getLanguage();
+//        return getKey(key, language);
+//    }
 
     private String getKey(String key, Language language) {
         String lang = language.getCode();
