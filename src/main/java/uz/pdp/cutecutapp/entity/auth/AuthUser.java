@@ -3,6 +3,7 @@ package uz.pdp.cutecutapp.entity.auth;
 import lombok.Getter;
 import lombok.Setter;
 import uz.pdp.cutecutapp.entity.Auditable;
+import uz.pdp.cutecutapp.enums.Language;
 import uz.pdp.cutecutapp.enums.Role;
 import uz.pdp.cutecutapp.enums.Status;
 
@@ -28,7 +29,7 @@ public class AuthUser extends Auditable {
 
     private boolean isBusy;
 
-    private Integer code;
+    private Language language;
 
     @Enumerated(EnumType.STRING)
     private Role role;

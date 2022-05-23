@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import uz.pdp.cutecutapp.entity.auth.AuthUser;
+import uz.pdp.cutecutapp.enums.Language;
 import uz.pdp.cutecutapp.enums.Role;
 import uz.pdp.cutecutapp.repository.auth.AuthUserRepository;
 
@@ -33,5 +34,10 @@ public class SessionUser {
     public Role getRole() {
         Optional<AuthUser> user = repository.findByPhoneNumberAndDeletedFalse(this.getUsername());
         return user.get().getRole();
+    }
+
+    public Language getLanguage() {
+        Optional<AuthUser> user = repository.findByPhoneNumberAndDeletedFalse(this.getUsername());
+        return user.get().getLanguage();
     }
 }

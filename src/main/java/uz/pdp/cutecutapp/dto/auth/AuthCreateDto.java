@@ -25,16 +25,15 @@ public class AuthCreateDto implements BaseDto {
 
     private String password;
 
-//    private String role;
+
 
     private Long organizationId;
 
     private Long barbershopId;
 
-    public AuthCreateDto(String phoneNumber, String password, String role, Long organizationId, Long barbershopId) {
+    public AuthCreateDto(String phoneNumber, String password, Long organizationId, Long barbershopId) {
         this.phoneNumber = phoneNumber;
         this.password = password;
-        this.role = role;
         this.organizationId = organizationId;
         this.barbershopId = barbershopId;
     }

@@ -5,12 +5,13 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import uz.pdp.cutecutapp.entity.auth.AuthUser;
+import uz.pdp.cutecutapp.repository.BaseRepository;
 
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
-public interface AuthUserRepository extends JpaRepository<AuthUser, Long> {
+public interface AuthUserRepository extends JpaRepository<AuthUser, Long>, BaseRepository {
 
     Optional<AuthUser> findByPhoneNumberAndDeletedFalse(String username);
 //

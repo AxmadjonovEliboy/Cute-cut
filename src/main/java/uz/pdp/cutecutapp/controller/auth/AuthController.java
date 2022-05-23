@@ -1,78 +1,84 @@
-package uz.pdp.cutecutapp.controller.base;
+package uz.pdp.cutecutapp.controller.auth;
 
-
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import uz.pdp.cutecutapp.controller.AbstractController;
 import uz.pdp.cutecutapp.dto.auth.*;
 import uz.pdp.cutecutapp.dto.otp.OtpResponse;
 import uz.pdp.cutecutapp.dto.responce.DataDto;
+import uz.pdp.cutecutapp.entity.auth.PhoneCode;
 import uz.pdp.cutecutapp.services.auth.AuthUserService;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
-@RequiredArgsConstructor
-//@RequestMapping(value = PATH + "/auth")
+public class AuthController extends AbstractController<AuthUserService> {
+    protected AuthController(AuthUserService authUserService, AuthUserService authUserService1) {
+        super(authUserService);
+    }
 
-public class AuthController extends AbstractController {
-    private final AuthUserService authUserService;
 
-
-    @PostMapping(PATH + "/loginByPhone")
+    @PostMapping(PATH + "/auth/loginByPhone")
     public ResponseEntity<DataDto<OtpResponse>> loginByPhone(@RequestBody AuthUserPhoneDto loginDto) {
-        return new ResponseEntity<>(authUserService.loginByPhone(loginDto), HttpStatus.OK);
+        return new ResponseEntity<>(service.loginByPhone(loginDto), HttpStatus.OK);
     }
 
-    @PostMapping(PATH + "/confirmOtp")
+    @PostMapping(PATH + "/auth/confirmOtp")
     public ResponseEntity<DataDto<SessionDto>> confirmSms(@RequestBody AuthUserCodePhoneDto dto) {
-        return new ResponseEntity<>(authUserService.confirmCode(dto), HttpStatus.OK);
+        return new ResponseEntity<>(service.confirmCode(dto), HttpStatus.OK);
     }
 
 
-    @PostMapping(PATH + "/loginByPassword")
+    @PostMapping(PATH + "/auth/loginByPassword")
     public ResponseEntity<DataDto<SessionDto>> loginByPassword(@RequestBody AuthUserPasswordDto loginDto) {
-        return new ResponseEntity<>(authUserService.login(loginDto), HttpStatus.OK);
+        return new ResponseEntity<>(service.login(loginDto), HttpStatus.OK);
     }
 
 
-    @PostMapping(PATH + "/refresh")
+    @PostMapping(PATH + "/auth/refresh")
     public ResponseEntity<DataDto<SessionDto>> refreshToken(@RequestBody AuthRefreshToken token, HttpServletRequest request) {
-        return new ResponseEntity<>(authUserService.refreshToken(token.getToken(), request), HttpStatus.OK);
+        return new ResponseEntity<>(service.refreshToken(token.getToken(), request), HttpStatus.OK);
     }
 
-    @PreAuthorize(value = "")
-    @PostMapping(PATH + "/create")
+    @PreAuthorize(value = "hasRole('ADMIN')")
+    @PostMapping(PATH + "/auth/create")
     public ResponseEntity<DataDto<Long>> create(@RequestBody AuthCreateDto dto) {
-        return new ResponseEntity<>(authUserService.create(dto), HttpStatus.OK);
+        return new ResponseEntity<>(service.create(dto), HttpStatus.OK);
     }
 
-    @PostMapping(PATH + "/register")
-    public ResponseEntity<DataDto<Long>> register(@RequestBody AuthCreateDto dto) {
-        return new ResponseEntity<>(authUserService.register(dto), HttpStatus.OK);
+    @PostMapping(PATH + "/auth/register")
+    public ResponseEntity<DataDto<Boolean>> register(@RequestBody AuthUserPhoneDto dto) {
+        return new ResponseEntity<>(service.register(dto), HttpStatus.OK);
     }
 
-    @PutMapping(PATH + "/update")
+    @PostMapping
+
+    @PutMapping(PATH + "/auth/update")
     public ResponseEntity<DataDto<Boolean>> update(@RequestBody AuthUpdateDto dto) {
-        return new ResponseEntity<>(authUserService.update(dto), HttpStatus.OK);
+        return new ResponseEntity<>(service.update(dto), HttpStatus.OK);
     }
 
-    @DeleteMapping(PATH + "/{id}")
+    @DeleteMapping(PATH + "/auth/{id}")
     public ResponseEntity<DataDto<Void>> deleted(@PathVariable(name = "id") Long id) {
-        return new ResponseEntity<>(authUserService.delete(id), HttpStatus.OK);
+        return new ResponseEntity<>(service.delete(id), HttpStatus.OK);
     }
 
-    @GetMapping(PATH + "/{id}")
+    @GetMapping(PATH + "/auth/{id}")
     public ResponseEntity<DataDto<AuthDto>> get(@PathVariable(name = "id") Long id) {
-        return new ResponseEntity<>(authUserService.get(id), HttpStatus.OK);
+        return new ResponseEntity<>(service.get(id), HttpStatus.OK);
     }
 
-    @GetMapping(PATH + "")
+    @GetMapping(PATH + "/auth")
     public ResponseEntity<DataDto<List<AuthDto>>> getAll() {
-        return new ResponseEntity<>(authUserService.getAll(), HttpStatus.OK);
+        return new ResponseEntity<>(service.getAll(), HttpStatus.OK);
+    }
+
+    @PostMapping(PATH + "/auth/uploadPicture")
+    public ResponseEntity<DataDto<Void>> uploadPicture() {
+        return null;
     }
 
 }
