@@ -145,7 +145,9 @@ public class AuthUserService implements UserDetailsService, GenericCrudService<A
     @Override
     public DataDto<Long> create(AuthCreateDto dto) {
         // todo validator qo`shishim kerak
-        Role role = Role.ADMIN.checkRole(dto.getRole());
+
+        Role role = Role.ADMIN.checkRole(sessionUser.getRole().toString());
+
         AuthUser authUser = mapper.fromCreateDto(dto);
         authUser.setRole(role);
         authUser.setPassword(passwordEncoder.encode(dto.getPassword()));
@@ -158,7 +160,9 @@ public class AuthUserService implements UserDetailsService, GenericCrudService<A
 
     @Override
     public DataDto<Void> delete(Long id) {
-        // todo validator qo`shishim kerak
+        if (Objects.isNull(id)) return new DataDto<>(new AppErrorDto("Bad Request", HttpStatus.BAD_REQUEST));
+        Optional<AuthUser> user = repository.getByIdAndNotDeleted(id);
+        if (user.isEmpty()) return new DataDto<>(new AppErrorDto("Not Found", HttpStatus.NOT_FOUND));
         String code = UUID.randomUUID().toString();
         repository.softDeleted(id, code);
         return new DataDto<>(null);
@@ -180,7 +184,9 @@ public class AuthUserService implements UserDetailsService, GenericCrudService<A
 
     @Override
     public DataDto<AuthDto> get(Long id) {
-        // todo validator qo`shishim kerak
+        if (Objects.isNull(id)) return new DataDto<>(new AppErrorDto("Bad Request", HttpStatus.BAD_REQUEST));
+        Optional<AuthUser> user = repository.getByIdAndNotDeleted(id);
+        if (user.isEmpty()) return new DataDto<>(new AppErrorDto("Not Found", HttpStatus.NOT_FOUND));
         Optional<AuthUser> authUser = repository.getByIdAndNotDeleted(id);
         AuthDto authDto = mapper.toDto(authUser.get());
         return new DataDto<>(authDto);
@@ -219,5 +225,19 @@ public class AuthUserService implements UserDetailsService, GenericCrudService<A
             } else
                 return new DataDto<>(new AppErrorDto(HttpStatus.BAD_REQUEST, "Incorrect Code entered", "/auth/confirmOtp"));
         } else return new DataDto<>(new AppErrorDto(HttpStatus.NOT_FOUND, "User not found", "/auth/confirmOtp"));
+    }
+
+    public DataDto<Long> register(AuthCreateDto dto) {
+
+        Optional<AuthUser> authUser = repository.findByPhoneNumberAndDeletedFalse(dto.getPhoneNumber());
+        if (authUser.isPresent())
+            return new DataDto<>(new AppErrorDto(HttpStatus.ALREADY_REPORTED, "phone number available", "/auth/register"));
+
+
+        AuthUser user = mapper.fromCreateDto(dto);
+
+        AuthUser saveUser = repository.save(user);
+
+        return new DataDto<>(saveUser.getId());
     }
 }

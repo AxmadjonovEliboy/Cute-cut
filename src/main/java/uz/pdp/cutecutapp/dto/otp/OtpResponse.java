@@ -5,7 +5,6 @@ public class OtpResponse {
     public boolean success;
 
     public Integer code;
-
     public String message;
 
     public String phoneNumber;
