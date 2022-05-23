@@ -33,11 +33,9 @@ import uz.pdp.cutecutapp.mapper.auth.AuthUserMapper;
 import uz.pdp.cutecutapp.properties.ServerProperties;
 import uz.pdp.cutecutapp.repository.auth.AuthUserRepository;
 import uz.pdp.cutecutapp.repository.auth.DeviceRepository;
+import uz.pdp.cutecutapp.services.AbstractService;
 import uz.pdp.cutecutapp.services.GenericCrudService;
-import uz.pdp.cutecutapp.services.file.FileStorageService;
-import uz.pdp.cutecutapp.session.SessionUser;
 import uz.pdp.cutecutapp.utils.JwtUtils;
-import uz.pdp.cutecutapp.validator.auth.AuthCreateValidator;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.ByteArrayInputStream;
@@ -51,22 +49,27 @@ import java.util.stream.Collectors;
 
 
 @Service
-@RequiredArgsConstructor
-public class AuthUserService implements UserDetailsService, GenericCrudService<AuthUser, AuthDto, AuthCreateDto, AuthUpdateDto, BaseCriteria, Long> {
+public class AuthUserService extends AbstractService<AuthUserRepository,AuthUserMapper> implements UserDetailsService, GenericCrudService<AuthUser, AuthDto, AuthCreateDto, AuthUpdateDto, BaseCriteria, Long> {
 
-    private final AuthUserRepository repository;
+
     private final ObjectMapper objectMapper;
-    private final AuthUserMapper mapper;
     private final ServerProperties serverProperties;
     private final PasswordEncoder passwordEncoder;
-    private final FileStorageService fileStorageService;
-    private final SessionUser sessionUser;
-    private final AuthCreateValidator validator;
     private final JwtUtils jwtUtils;
     private final OtpService otpService;
 
     private final DeviceRepository deviceRepository;
     private Path root = Paths.get("C:\\uploads");
+
+    public AuthUserService(AuthUserRepository repository, AuthUserMapper mapper, ObjectMapper objectMapper, ServerProperties serverProperties, PasswordEncoder passwordEncoder, JwtUtils jwtUtils, OtpService otpService, DeviceRepository deviceRepository) {
+        super(repository, mapper);
+        this.objectMapper = objectMapper;
+        this.serverProperties = serverProperties;
+        this.passwordEncoder = passwordEncoder;
+        this.jwtUtils = jwtUtils;
+        this.otpService = otpService;
+        this.deviceRepository = deviceRepository;
+    }
 
     //    @PostConstruct
     public void init() {
@@ -108,6 +111,8 @@ public class AuthUserService implements UserDetailsService, GenericCrudService<A
             JsonNode json_auth = objectMapper.readTree(EntityUtils.toString(response.getEntity()));
 
             if (json_auth.has("data")) {
+                Optional<AuthUser> authUser = repository.findByPhoneNumberAndDeletedFalse(dto.phoneNumber);
+                deviceRepository.save(new Device(authUser.get().getId(), dto.deviceId, dto.deviceToken));
                 JsonNode node = json_auth.get("data");
                 SessionDto sessionDto = objectMapper.readValue(node.toString(), SessionDto.class);
                 return new DataDto<>(sessionDto);
@@ -208,8 +213,12 @@ public class AuthUserService implements UserDetailsService, GenericCrudService<A
                 if (response.success) {
                     repository.setCode(authUser.getId(), response.code);
                     return new DataDto<>(response);
-                } else
+                } else{
+                    if (response.message.equals("Unauthorized")){
+                        return new DataDto<>(new AppErrorDto("MessageService is not working currently", "/auth/loginPhone", HttpStatus.INTERNAL_SERVER_ERROR));
+                    }
                     return new DataDto<>(new AppErrorDto(response.message, "/auth/loginPhone", HttpStatus.INTERNAL_SERVER_ERROR));
+                }
             } else return new DataDto<>(new AppErrorDto(HttpStatus.LOCKED, "/auth/loginPhone", "User not Active"));
         } else return new DataDto<>(new AppErrorDto(HttpStatus.NOT_FOUND, "User not found", "auth/loginPhone"));
     }
@@ -219,9 +228,8 @@ public class AuthUserService implements UserDetailsService, GenericCrudService<A
         if (user.isPresent()) {
             AuthUser authUser = user.get();
             if (authUser.getCode().equals(dto.code)) {
-                deviceRepository.save(new Device(authUser.getId(), dto.deviceId, dto.deviceToken));
-                User user1 = (User) User.builder().username(authUser.getPhoneNumber()).password(authUser.getPassword()).authorities(new SimpleGrantedAuthority(authUser.getRole().name())).build();
-                return new DataDto<>(jwtUtils.generateSessionDto(user1));
+                AuthUserPasswordDto passwordDto = new AuthUserPasswordDto(null, dto.phoneNumber, dto.deviceToken, dto.deviceId);
+                return this.login(passwordDto);
             } else
                 return new DataDto<>(new AppErrorDto(HttpStatus.BAD_REQUEST, "Incorrect Code entered", "/auth/confirmOtp"));
         } else return new DataDto<>(new AppErrorDto(HttpStatus.NOT_FOUND, "User not found", "/auth/confirmOtp"));
