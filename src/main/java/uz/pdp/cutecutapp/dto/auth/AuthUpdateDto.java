@@ -16,9 +16,6 @@ public class AuthUpdateDto extends GenericDto {
     private String fullName;
 
     @NotBlank
-    private String username;
-
-    @NotBlank
     private String phoneNumber;
 
 

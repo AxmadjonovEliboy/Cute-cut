@@ -17,7 +17,7 @@ public interface BaseMapper<
         E extends BaseEntity,
         D extends GenericDto,
         CD extends BaseDto,
-        UD extends GenericDto>{
+        UD extends GenericDto> extends GenericMapper{
 
     D toDto(E e);
 

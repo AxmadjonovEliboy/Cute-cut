@@ -5,5 +5,5 @@ import lombok.Getter;
 @Getter
 public enum Status {
 
-    ACTIVE,BLOCKED
+    ACTIVE,BLOCKED,DEFAULT
 }
