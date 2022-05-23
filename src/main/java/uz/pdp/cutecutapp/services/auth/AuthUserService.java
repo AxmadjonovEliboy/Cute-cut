@@ -125,7 +125,7 @@ public class AuthUserService extends AbstractService<AuthUserRepository, AuthUse
                 SessionDto sessionDto = objectMapper.readValue(node.toString(), SessionDto.class);
                 return new DataDto<>(sessionDto);
             }
-            return new DataDto<>(new AppErrorDto("bad Request", " ", HttpStatus.BAD_REQUEST));
+            return new DataDto<>(new AppErrorDto("bad Request", "", HttpStatus.BAD_REQUEST));
 
         } catch (IOException e) {
             return new DataDto<>(new AppErrorDto("bad request", "", HttpStatus.INTERNAL_SERVER_ERROR));
