@@ -241,10 +241,9 @@ public class AuthUserService extends AbstractService<AuthUserRepository, AuthUse
 
     public DataDto<SessionDto> confirmCode(AuthUserCodePhoneDto dto) {
         try {
-            Optional<PhoneCode> phoneCodeOptional = phoneCodeRepository.findByPhoneNumberAndDeletedFalse(dto.phoneNumber);
-            if (phoneCodeOptional.isEmpty())
+            PhoneCode phoneCode = phoneCodeRepository.findByPhoneNumberAndDeletedFalse(dto.phoneNumber);
+            if (phoneCode == null)
                 return new DataDto<>(new AppErrorDto(HttpStatus.NOT_FOUND, "User not found", "/auth/confirmOtp"));
-            PhoneCode phoneCode = phoneCodeOptional.get();
 
 
             Date date = new Date();

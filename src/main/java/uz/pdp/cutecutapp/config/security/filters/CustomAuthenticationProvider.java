@@ -32,7 +32,6 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         Object credentials = authentication.getCredentials();
         List<GrantedAuthority> authorities = new ArrayList<>();
 
-
         Optional<AuthUser> user = userRepository.findByPhoneNumberAndDeletedFalse(phoneNumber);
 
         if (user.isEmpty()) throw new RuntimeException("Bad Credentials");
