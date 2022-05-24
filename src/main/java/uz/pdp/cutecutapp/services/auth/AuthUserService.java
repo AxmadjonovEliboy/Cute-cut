@@ -246,7 +246,6 @@ public class AuthUserService extends AbstractService<AuthUserRepository, AuthUse
                 return new DataDto<>(new AppErrorDto(HttpStatus.NOT_FOUND, "User not found", "/auth/confirmOtp"));
             PhoneCode phoneCode = phoneCodeOptional.get();
 
-
             Date date = new Date();
             SimpleDateFormat formatter = new SimpleDateFormat("HH:mm");
             String strDate = formatter.format(date);
