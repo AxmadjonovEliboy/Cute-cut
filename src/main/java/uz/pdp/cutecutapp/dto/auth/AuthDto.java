@@ -9,16 +9,14 @@ import uz.pdp.cutecutapp.enums.Role;
 @Setter
 public class AuthDto extends GenericDto {
 
-    private String fullName;
+    public String fullName;
 
-    private String username;
+    public String phoneNumber;
 
-    private String phoneNumber;
+    public Long organizationId;
 
-    private Long organizationId;
+    public String picturePath;
 
-    private String picturePath;
-
-    private Role role;
+    public Role role;
 
 }

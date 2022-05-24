@@ -32,7 +32,7 @@ public class ServicesService extends AbstractService<ServiceRepository, ServiceM
     }
 
     @Override
-    public DataDto<Long> update(ServiceUpdateDto updateDto) {
+    public DataDto<Boolean> update(ServiceUpdateDto updateDto) {
         return null;
     }
 
