@@ -28,7 +28,7 @@ public class FaqService extends AbstractService<FaqRepository, FaqMapper>
     }
 
     @Override
-    public DataDto<Void> delete(Long id) {
+    public DataDto<Boolean> delete(Long id) {
         return null;
     }
 
