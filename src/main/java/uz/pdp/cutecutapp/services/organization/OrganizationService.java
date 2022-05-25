@@ -29,7 +29,7 @@ public class OrganizationService extends AbstractService<OrganizationRepository,
     }
 
     @Override
-    public DataDto<Void> delete(Long id) {
+    public DataDto<Boolean> delete(Long id) {
         return null;
     }
 

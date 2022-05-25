@@ -27,7 +27,7 @@ public class NotificationService extends AbstractService<NotificationRepository,
     }
 
     @Override
-    public DataDto<Void> delete(Long id) {
+    public DataDto<Boolean> delete(Long id) {
         return null;
     }
 

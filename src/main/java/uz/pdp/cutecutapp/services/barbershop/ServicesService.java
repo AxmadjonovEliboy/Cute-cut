@@ -29,7 +29,7 @@ public class ServicesService extends AbstractService<ServiceRepository, ServiceM
     @Override
     public DataDto<Long> create(ServiceCreateDto createDto) {
         uz.pdp.cutecutapp.entity.barbershop.Service service1 = mapper.fromCreateDto(createDto);
-        if (!serviceRepository.existsByType(createDto.type)) {
+        if (serviceRepository.existsByType(service1.getType())) {
             return new DataDto<>();
         }
         uz.pdp.cutecutapp.entity.barbershop.Service service = new uz.pdp.cutecutapp.entity.barbershop.Service();
@@ -41,7 +41,7 @@ public class ServicesService extends AbstractService<ServiceRepository, ServiceM
     }
 
     @Override
-    public DataDto<Void> delete(Long id) {
+    public DataDto<Boolean> delete(Long id) {
         Optional<uz.pdp.cutecutapp.entity.barbershop.Service> optionalService = serviceRepository.findById(id);
         if (optionalService.isPresent()) {
             serviceRepository.deleteById(id);
@@ -74,7 +74,6 @@ public class ServicesService extends AbstractService<ServiceRepository, ServiceM
     @Override
     public DataDto<ServiceDto> get(Long id) {
         Optional<uz.pdp.cutecutapp.entity.barbershop.Service> optionalService = serviceRepository.findById(id);
-
         if (optionalService.isPresent()) {
             ServiceDto serviceDto = mapper.toDto(optionalService.get());
             return new DataDto<>(serviceDto);

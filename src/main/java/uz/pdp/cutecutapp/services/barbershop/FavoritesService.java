@@ -1,6 +1,5 @@
 package uz.pdp.cutecutapp.services.barbershop;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import uz.pdp.cutecutapp.criteria.BaseCriteria;
 import uz.pdp.cutecutapp.dto.GenericDto;
@@ -10,6 +9,7 @@ import uz.pdp.cutecutapp.dto.responce.DataDto;
 import uz.pdp.cutecutapp.entity.auth.AuthUser;
 import uz.pdp.cutecutapp.entity.barbershop.BarberShop;
 import uz.pdp.cutecutapp.entity.barbershop.Favorites;
+import uz.pdp.cutecutapp.exception.NotFoundException;
 import uz.pdp.cutecutapp.mapper.barbershop.FavoritesMapper;
 import uz.pdp.cutecutapp.repository.auth.AuthUserRepository;
 import uz.pdp.cutecutapp.repository.barbershop.BarberShopRepository;
@@ -53,9 +53,13 @@ public class FavoritesService extends AbstractService<FavoritesRepository, Favor
     }
 
     @Override
-    public DataDto<Void> delete(Long id) {
-        favoritesRepository.deleteById(id);
-        return new DataDto<>();
+    public DataDto<Boolean> delete(Long id) {
+        Optional<Favorites> optionalFavorites = favoritesRepository.findById(id);
+        if (optionalFavorites.isPresent()) {
+            favoritesRepository.deleteById(id);
+            return new DataDto<>(true);
+        }
+        throw new NotFoundException("Favourites not found");
     }
 
     @Override
@@ -76,7 +80,7 @@ public class FavoritesService extends AbstractService<FavoritesRepository, Favor
             Favorites favorites = optionalFavorites.get();
             return  new DataDto<>(mapper.toDto(favorites));
         }
-        return new DataDto<>();
+        throw new NotFoundException("Favourite not found");
     }
 
     @Override
