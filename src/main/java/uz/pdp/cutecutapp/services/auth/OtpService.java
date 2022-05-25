@@ -47,10 +47,10 @@ public class OtpService {
 
             HttpResponse response = httpClient.execute(httpPost);
 
-            if (response.getStatusLine().getStatusCode() == HttpStatus.CREATED.value()) {
+//            if (response.getStatusLine().getStatusCode() == HttpStatus.CREATED.value()) {
                 return new OtpResponse(code, dto.phoneNumber);
-            } else
-                return new OtpResponse(false, response.getStatusLine().getStatusCode(), response.getStatusLine().getReasonPhrase());
+//            } else
+//                return new OtpResponse(false, response.getStatusLine().getStatusCode(), response.getStatusLine().getReasonPhrase());
 
         } catch (IOException | NoSuchAlgorithmException e) {
             return new OtpResponse(false, HttpStatus.INTERNAL_SERVER_ERROR.value(), e.getMessage());
