@@ -15,6 +15,6 @@ import java.util.Optional;
  */
 @Repository
 public interface PhoneCodeRepository extends JpaRepository<PhoneCode, Long> {
-    @Query(value = "select p from phone_code p where p.phone_number = :phoneNumber order by p.id desc limit 1",nativeQuery = true)
-    Optional<PhoneCode> findByPhoneNumberAndDeletedFalse(@Param("phoneNumber") String phoneNumber);
+    @Query(value = "select p.* from phone_code p where p.phone_number = :phoneNumber order by p.id desc limit 1",nativeQuery = true)
+    PhoneCode findByPhoneNumberAndDeletedFalse(@Param("phoneNumber") String phoneNumber);
 }
