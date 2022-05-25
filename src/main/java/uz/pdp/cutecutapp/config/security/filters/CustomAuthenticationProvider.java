@@ -1,0 +1,58 @@
+package uz.pdp.cutecutapp.config.security.filters;
+
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Component;
+import uz.pdp.cutecutapp.entity.auth.AuthUser;
+import uz.pdp.cutecutapp.repository.auth.AuthUserRepository;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
+
+@Component
+@RequiredArgsConstructor
+public class CustomAuthenticationProvider implements AuthenticationProvider {
+
+    private final AuthUserRepository userRepository;
+
+
+    @Override
+    public Authentication authenticate(Authentication authentication) throws AuthenticationException {
+
+        String phoneNumber = authentication.getPrincipal().toString();
+        Object credentials = authentication.getCredentials();
+        List<GrantedAuthority> authorities = new ArrayList<>();
+
+        Optional<AuthUser> user = userRepository.findByPhoneNumberAndDeletedFalse(phoneNumber);
+
+        if (user.isEmpty()) throw new RuntimeException("Bad Credentials");
+
+        AuthUser authUser = user.get();
+
+        authorities.add(new SimpleGrantedAuthority(authUser.getRole().name()));
+
+        if (Objects.isNull(credentials)) {
+            UserDetails userDetails = new User(phoneNumber, null, authorities);
+            return new UsernamePasswordAuthenticationToken(userDetails, null, authorities);
+        } else if (authUser.getPassword().equals(credentials.toString())) {
+            UserDetails userDetails = new User(phoneNumber, credentials.toString(), authorities);
+            return new UsernamePasswordAuthenticationToken(userDetails, credentials.toString(), authorities);
+        } else
+            throw new RuntimeException("Bad Credentials");
+    }
+
+    @Override
+    public boolean supports(Class<?> authentication) {
+        return authentication.equals(UsernamePasswordAuthenticationToken.class);
+    }
+
+}

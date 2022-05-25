@@ -1,5 +1,6 @@
 package uz.pdp.cutecutapp.validator.auth;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import uz.pdp.cutecutapp.validator.BaseValidator;
 
@@ -8,6 +9,7 @@ import uz.pdp.cutecutapp.validator.BaseValidator;
  * @project cute-cut-app
  */
 @Component
+@RequiredArgsConstructor
 public class AuthCreateValidator implements BaseValidator {
 
 }

@@ -1,13 +1,13 @@
 package uz.pdp.cutecutapp.services;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import uz.pdp.cutecutapp.mapper.BaseMapper;
+import uz.pdp.cutecutapp.mapper.GenericMapper;
+import uz.pdp.cutecutapp.repository.BaseRepository;
 
 /**
  * @param <R> Repository
  * @param <M> Mapper
  */
-public abstract class AbstractService<R extends JpaRepository, M extends BaseMapper> {
+public abstract class AbstractService<R extends BaseRepository, M extends GenericMapper> implements BaseService {
 
     protected R repository;
     protected M mapper;

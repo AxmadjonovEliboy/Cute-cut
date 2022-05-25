@@ -1,6 +1,5 @@
 package uz.pdp.cutecutapp.controller.auth;
 
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -9,6 +8,7 @@ import uz.pdp.cutecutapp.controller.AbstractController;
 import uz.pdp.cutecutapp.dto.auth.*;
 import uz.pdp.cutecutapp.dto.otp.OtpResponse;
 import uz.pdp.cutecutapp.dto.responce.DataDto;
+import uz.pdp.cutecutapp.entity.auth.PhoneCode;
 import uz.pdp.cutecutapp.services.auth.AuthUserService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,11 +16,10 @@ import java.util.List;
 
 @RestController
 public class AuthController extends AbstractController<AuthUserService> {
-
-
-    protected AuthController(AuthUserService service) {
-        super(service);
+    protected AuthController(AuthUserService authUserService, AuthUserService authUserService1) {
+        super(authUserService);
     }
+
 
     @PostMapping(PATH + "/auth/loginByPhone")
     public ResponseEntity<DataDto<OtpResponse>> loginByPhone(@RequestBody AuthUserPhoneDto loginDto) {
@@ -44,11 +43,18 @@ public class AuthController extends AbstractController<AuthUserService> {
         return new ResponseEntity<>(service.refreshToken(token.getToken(), request), HttpStatus.OK);
     }
 
-    @PreAuthorize(value = "")
+    @PreAuthorize(value = "hasRole('ADMIN')")
     @PostMapping(PATH + "/auth/create")
     public ResponseEntity<DataDto<Long>> create(@RequestBody AuthCreateDto dto) {
         return new ResponseEntity<>(service.create(dto), HttpStatus.OK);
     }
+
+    @PostMapping(PATH + "/auth/register")
+    public ResponseEntity<DataDto<Boolean>> register(@RequestBody AuthUserPhoneDto dto) {
+        return new ResponseEntity<>(service.register(dto), HttpStatus.OK);
+    }
+
+    @PostMapping
 
     @PutMapping(PATH + "/auth/update")
     public ResponseEntity<DataDto<Boolean>> update(@RequestBody AuthUpdateDto dto) {
@@ -68,6 +74,11 @@ public class AuthController extends AbstractController<AuthUserService> {
     @GetMapping(PATH + "/auth")
     public ResponseEntity<DataDto<List<AuthDto>>> getAll() {
         return new ResponseEntity<>(service.getAll(), HttpStatus.OK);
+    }
+
+    @PostMapping(PATH + "/auth/uploadPicture")
+    public ResponseEntity<DataDto<Void>> uploadPicture() {
+        return null;
     }
 
 }
