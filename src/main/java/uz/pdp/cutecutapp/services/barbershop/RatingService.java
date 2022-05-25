@@ -55,7 +55,7 @@ public class RatingService extends AbstractService<RatingRepository, RatingMappe
      */
 
     @Override
-    public DataDto<Void> delete(Long id) {
+    public DataDto<Boolean> delete(Long id) {
         if (this.get(id).isSuccess()) {
             repository.softDelete(id);
             return new DataDto<>(null, HttpStatus.NO_CONTENT.value());

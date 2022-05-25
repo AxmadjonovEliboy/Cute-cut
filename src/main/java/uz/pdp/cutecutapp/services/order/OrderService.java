@@ -28,7 +28,7 @@ public class OrderService extends AbstractService<OrderRepository, OrderMapper>
     }
 
     @Override
-    public DataDto<Void> delete(Long id) {
+    public DataDto<Boolean> delete(Long id) {
         return null;
     }
 

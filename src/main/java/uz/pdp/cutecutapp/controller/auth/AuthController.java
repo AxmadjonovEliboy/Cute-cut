@@ -62,7 +62,7 @@ public class AuthController extends AbstractController<AuthUserService> {
     }
 
     @DeleteMapping(PATH + "/auth/{id}")
-    public ResponseEntity<DataDto<Void>> deleted(@PathVariable(name = "id") Long id) {
+    public ResponseEntity<DataDto<Boolean>> deleted(@PathVariable(name = "id") Long id) {
         return new ResponseEntity<>(service.delete(id), HttpStatus.OK);
     }
 
