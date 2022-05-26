@@ -1,6 +1,8 @@
 package uz.pdp.cutecutapp.entity.auth;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import uz.pdp.cutecutapp.entity.Auditable;
 import uz.pdp.cutecutapp.enums.Language;
@@ -15,6 +17,8 @@ import javax.persistence.Enumerated;
 @Getter
 @Setter
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 public class AuthUser extends Auditable {
 
     private String firstName;
@@ -24,7 +28,6 @@ public class AuthUser extends Auditable {
     @Column(nullable = false, unique = true)
     private String phoneNumber;
 
-    @Column(nullable = false)
     private String password;
 
     private boolean isBusy;
@@ -39,9 +42,14 @@ public class AuthUser extends Auditable {
 
     private Long pictureId;
 
-    @Column(nullable = false)
+    //    @Column(nullable = false)
     private Long organizationId;
 
     private Long barberShopId;
 
+    public AuthUser(String phoneNumber, Role role, Boolean isBusy) {
+        this.phoneNumber = phoneNumber;
+        this.role = role;
+        this.isBusy = isBusy;
+    }
 }

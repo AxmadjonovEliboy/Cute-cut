@@ -28,6 +28,12 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
             "/api/v1/auth/loginByPassword",
             "/api/v1/auth/loginByPhone",
             "/api/v1/auth/confirmOtp",
+            "/api/v1/auth/confirmRegisterCode",
+            "/api/v1/auth/register",
+
+            "/api/v1/file/auth/uploadPicture",
+            "/api/v1/file/auth/download/**",
+
             "/swagger-ui/**",
             "/api/docs/**",
 

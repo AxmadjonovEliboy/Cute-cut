@@ -46,9 +46,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
-import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 
@@ -199,7 +199,13 @@ public class AuthUserService extends AbstractService<AuthUserRepository, AuthUse
 
     @Override
     public DataDto<List<AuthDto>> getAll() {
-        List<AuthUser> users = repository.getAllAndNotIsDeleted();
+        Role role = sessionUser.getRole();
+        List<AuthUser> users = new ArrayList<>();
+//        if (role.equals(Role.ADMIN)) {
+//            repository
+//        }
+        if (role.equals(Role.SUPER_ADMIN))
+            users = repository.getAllAndNotIsDeleted();
         return new DataDto<>(mapper.toDto(users));
     }
 
@@ -239,46 +245,48 @@ public class AuthUserService extends AbstractService<AuthUserRepository, AuthUse
         } else return new DataDto<>(new AppErrorDto(HttpStatus.NOT_FOUND, "User not found", "auth/loginPhone"));
     }
 
-    public DataDto<SessionDto> confirmCode(AuthUserCodePhoneDto dto) {
-        try {
-            Optional<PhoneCode> phoneCodeOptional = phoneCodeRepository.findByPhoneNumberAndDeletedFalse(dto.phoneNumber);
-            if (phoneCodeOptional.isEmpty())
-                return new DataDto<>(new AppErrorDto(HttpStatus.NOT_FOUND, "User not found", "/auth/confirmOtp"));
-            PhoneCode phoneCode = phoneCodeOptional.get();
-
-            Date date = new Date();
-            SimpleDateFormat formatter = new SimpleDateFormat("HH:mm");
-            String strDate = formatter.format(date);
-            Date firstDate = formatter.parse(strDate);
-            Date secondDate = formatter.parse(phoneCode.getExpiration());
-
-            long diffInMillies = Math.abs(secondDate.getTime() - firstDate.getTime());
-            long diff = TimeUnit.MINUTES.convert(diffInMillies, TimeUnit.MILLISECONDS);
-
-
-            if (phoneCode.getCode().equals(dto.code.toString()) && diff < 3) {
-                AuthUserPasswordDto passwordDto = new AuthUserPasswordDto(null, dto.phoneNumber, dto.deviceToken, dto.deviceId);
-                return this.login(passwordDto);
-            } else
-                return new DataDto<>(new AppErrorDto(HttpStatus.BAD_REQUEST, "Incorrect Code entered", "/auth/confirmOtp"));
-
-        } catch (Exception e) {
-            return new DataDto<>(new AppErrorDto(HttpStatus.BAD_REQUEST, "bad request", "/auth/confirmOtp"));
-        }
+    public DataDto<SessionDto> confirmLoginCode(AuthUserCodePhoneDto dto) {
+        AuthUserPasswordDto authUserPasswordDto = confirmCode(dto);
+        if (Objects.nonNull(authUserPasswordDto)) return this.login(authUserPasswordDto);
+        return new DataDto<>(new AppErrorDto(HttpStatus.BAD_REQUEST, "Incorrect Code entered", "/auth/confirmOtp"));
 
     }
 
+    public AuthUserPasswordDto confirmCode(AuthUserCodePhoneDto dto) {
+        String phoneNumber = String.format("+998%s", dto.phoneNumber);
+        Optional<PhoneCode> phoneCodeOptional = phoneCodeRepository.findByPhoneNumberAndDeletedFalse(phoneNumber);
+        if (phoneCodeOptional.isEmpty())
+            return null;
+        PhoneCode phoneCode = phoneCodeOptional.get();
+        long between = ChronoUnit.MINUTES.between(LocalDateTime.now(), phoneCode.getExpiration());
+        if (phoneCode.getCode().equals(dto.code.toString()) && between >= 0)
+            return new AuthUserPasswordDto(null, phoneNumber, dto.deviceToken, dto.deviceId);
+        return null;
+    }
+
+
+    public DataDto<SessionDto> confirmRegisterCode(AuthUserCodePhoneDto dto) {
+        String phoneNumber = String.format("+998%s", dto.phoneNumber);
+        AuthUserPasswordDto authUserPasswordDto = confirmCode(dto);
+        if (Objects.nonNull(authUserPasswordDto)) {
+            repository.save(new AuthUser(phoneNumber, Role.CLIENT,false));
+            return this.login(authUserPasswordDto);
+        }
+        return new DataDto<>(new AppErrorDto(HttpStatus.BAD_REQUEST, "Incorrect Code entered", "/auth/confirmOtp"));
+
+    }
+
+
     public DataDto<Boolean> register(AuthUserPhoneDto dto) {
         try {
-            Optional<AuthUser> authUser = repository.findByPhoneNumberAndDeletedFalse(dto.getPhoneNumber());
+            String phoneNumber = String.format("+998%s", dto.phoneNumber);
+            Optional<AuthUser> authUser = repository.findByPhoneNumberAndDeletedFalse(phoneNumber);
             if (authUser.isPresent())
                 return new DataDto<>(new AppErrorDto(HttpStatus.ALREADY_REPORTED, "phone number available", "/auth/register"));
-            OtpResponse send = otpService.send(new AuthUserPhoneDto(dto.getPhoneNumber()));
+            OtpResponse send = otpService.send(new AuthUserPhoneDto(phoneNumber));
             if (send.success) {
-                Date date = new Date();
-                SimpleDateFormat formatter = new SimpleDateFormat("HH:mm");
-                String strDate = formatter.format(date);
-                PhoneCode phoneCode = new PhoneCode(dto.phoneNumber, send.code.toString(), strDate);
+                LocalDateTime expire = LocalDateTime.now().plusMinutes(3);
+                PhoneCode phoneCode = new PhoneCode(phoneNumber, send.code.toString(), expire);
                 phoneCodeRepository.save(phoneCode);
                 return new DataDto<>(Boolean.TRUE, HttpStatus.OK.value());
             }

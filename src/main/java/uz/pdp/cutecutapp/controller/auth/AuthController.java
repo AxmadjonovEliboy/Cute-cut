@@ -8,7 +8,6 @@ import uz.pdp.cutecutapp.controller.AbstractController;
 import uz.pdp.cutecutapp.dto.auth.*;
 import uz.pdp.cutecutapp.dto.otp.OtpResponse;
 import uz.pdp.cutecutapp.dto.responce.DataDto;
-import uz.pdp.cutecutapp.entity.auth.PhoneCode;
 import uz.pdp.cutecutapp.services.auth.AuthUserService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -26,9 +25,14 @@ public class AuthController extends AbstractController<AuthUserService> {
         return new ResponseEntity<>(service.loginByPhone(loginDto), HttpStatus.OK);
     }
 
-    @PostMapping(PATH + "/auth/confirmOtp")
-    public ResponseEntity<DataDto<SessionDto>> confirmSms(@RequestBody AuthUserCodePhoneDto dto) {
-        return new ResponseEntity<>(service.confirmCode(dto), HttpStatus.OK);
+    @PostMapping(PATH + "/auth/confirmLoginCode")
+    public ResponseEntity<DataDto<SessionDto>> confirmLoginSms(@RequestBody AuthUserCodePhoneDto dto) {
+        return new ResponseEntity<>(service.confirmLoginCode(dto), HttpStatus.OK);
+    }
+
+    @PostMapping(PATH + "/auth/confirmRegisterCode")
+    public ResponseEntity<DataDto<SessionDto>> confirmRegisterSms(@RequestBody AuthUserCodePhoneDto dto) {
+        return new ResponseEntity<>(service.confirmRegisterCode(dto), HttpStatus.OK);
     }
 
 
@@ -76,9 +80,5 @@ public class AuthController extends AbstractController<AuthUserService> {
         return new ResponseEntity<>(service.getAll(), HttpStatus.OK);
     }
 
-    @PostMapping(PATH + "/auth/uploadPicture")
-    public ResponseEntity<DataDto<Void>> uploadPicture() {
-        return null;
-    }
 
 }
