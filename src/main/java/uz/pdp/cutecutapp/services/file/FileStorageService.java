@@ -21,7 +21,7 @@ import java.util.Optional;
 @Slf4j
 @Service("fileService")
 public class FileStorageService {
-    public static final String UNICORN_UPLOADS_B_4_LIB = "D:\\uploads";
+    public static final String UNICORN_UPLOADS_B_4_LIB = "D:\\picture";
     public static final Path PATH = Paths.get(UNICORN_UPLOADS_B_4_LIB);
 
     private final UploadsRepository repository;
