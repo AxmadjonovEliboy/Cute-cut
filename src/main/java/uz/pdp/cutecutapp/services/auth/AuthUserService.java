@@ -102,6 +102,11 @@ public class AuthUserService extends AbstractService<AuthUserRepository, AuthUse
         }
     }
 
+    public AuthUser loadAuthUserByUsername(String username) {
+        Optional<AuthUser> optional = repository.findByPhoneNumberAndDeletedFalse(username);
+        return optional.orElse(null);
+    }
+
 
     public DataDto<SessionDto> login(AuthUserPasswordDto dto) {
         try {
@@ -175,7 +180,7 @@ public class AuthUserService extends AbstractService<AuthUserRepository, AuthUse
     }
 
     @Override
-    public DataDto<Void> delete(Long id) {
+    public DataDto<Boolean> delete(Long id) {
         if (Objects.isNull(id)) return new DataDto<>(new AppErrorDto("Bad Request", HttpStatus.BAD_REQUEST));
         Optional<AuthUser> user = repository.getByIdAndNotDeleted(id);
         if (user.isEmpty()) return new DataDto<>(new AppErrorDto("Not Found", HttpStatus.NOT_FOUND));

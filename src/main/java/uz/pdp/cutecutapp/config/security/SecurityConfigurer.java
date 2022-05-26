@@ -27,6 +27,7 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
             "/api/v1/auth/token",
             "/api/v1/auth/loginByPassword",
             "/api/v1/auth/loginByPhone",
+            "/api/v1/auth/register",
             "/api/v1/auth/confirmOtp",
             "/api/v1/auth/confirmRegisterCode",
             "/api/v1/auth/register",
@@ -66,7 +67,7 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated();
 
         http.addFilter(new CustomAuthenticationFilter(authenticationManagerBean(), jwtUtils));
-        http.addFilterBefore(new CustomAuthorizationFilter(jwtUtils), UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(new CustomAuthorizationFilter(jwtUtils, userService), UsernamePasswordAuthenticationFilter.class);
 
     }
 

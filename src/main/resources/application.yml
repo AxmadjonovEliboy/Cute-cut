@@ -8,13 +8,13 @@ server:
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    password: Shoxruh0912
+    password: unicorn2021
     username: postgres
-    url: jdbc:postgresql://localhost:5432/cute-cut-app
+    url: jdbc:postgresql://localhost:5432/cutecut_master
 
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
     show-sql: true
     properties:
       hibernate:
@@ -22,6 +22,8 @@ spring:
   flyway:
     enabled: true
     baseline-on-migrate: true
+    out-of-order: true
+    validate-on-migrate: false
 
 
 springdoc:
