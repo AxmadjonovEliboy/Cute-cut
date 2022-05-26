@@ -11,7 +11,7 @@ public class OrganizationUpdateDto extends GenericDto {
 
     public Long logoId;
 
-    private Date deadline;
+    public Date deadline;
 
-    private Status status;
+    public Status status;
 }

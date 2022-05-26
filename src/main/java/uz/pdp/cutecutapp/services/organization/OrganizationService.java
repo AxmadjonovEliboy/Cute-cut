@@ -34,10 +34,10 @@ public class OrganizationService extends AbstractService<OrganizationRepository,
     }
 
     @Override
-    public DataDto<Void> delete(Long id) {
+    public DataDto<Boolean> delete(Long id) {
         if (this.get(id).isSuccess()){
             repository.isDelete(id);
-            return new DataDto<>(null,HttpStatus.NO_CONTENT.value());
+            return new DataDto<>(Boolean.TRUE,HttpStatus.NO_CONTENT.value());
         }
         return new DataDto<>(new AppErrorDto("Finding item not found with id : " + id, "/organization/delete", HttpStatus.NOT_FOUND));
 
