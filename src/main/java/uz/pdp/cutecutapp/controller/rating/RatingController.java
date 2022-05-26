@@ -33,7 +33,7 @@ public class RatingController extends AbstractController<RatingService> {
     }
 
     @DeleteMapping(PATH + "/{id}")
-    public ResponseEntity<DataDto<Void>> deleted(@PathVariable(name = "id") Long id) {
+    public ResponseEntity<DataDto<Boolean>> deleted(@PathVariable(name = "id") Long id) {
         return new ResponseEntity<>(service.delete(id), HttpStatus.OK);
     }
 

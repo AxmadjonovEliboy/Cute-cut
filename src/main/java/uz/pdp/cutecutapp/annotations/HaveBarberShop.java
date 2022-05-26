@@ -12,7 +12,7 @@ import java.lang.annotation.*;
 @Constraint(validatedBy = BarberShopValidator.class)
 public @interface HaveBarberShop {
 
-    String message() default "BarberShopId is not Valid";
+    String message() default "BarberShop is not Valid";
 
     Class<?>[] groups() default {};
 

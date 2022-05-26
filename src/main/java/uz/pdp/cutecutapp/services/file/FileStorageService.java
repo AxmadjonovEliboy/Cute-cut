@@ -21,7 +21,7 @@ import java.util.Optional;
 @Slf4j
 @Service("fileService")
 public class FileStorageService {
-    public static final String UNICORN_UPLOADS_B_4_LIB = "\\home\\jarvis\\uploads";
+    public static final String UNICORN_UPLOADS_B_4_LIB = "D:\\uploads";
     public static final Path PATH = Paths.get(UNICORN_UPLOADS_B_4_LIB);
 
     private final UploadsRepository repository;
@@ -45,7 +45,9 @@ public class FileStorageService {
     @SneakyThrows
     public String store(@NonNull MultipartFile file) {
         String originalFilename = file.getOriginalFilename();
+
         String extension = StringUtils.getFilenameExtension(file.getOriginalFilename());
+        System.out.println("extension = " + extension);
         String generatedName = String.format("%s.%s", System.currentTimeMillis(), extension);
         Path rootPath = Paths.get(UNICORN_UPLOADS_B_4_LIB, generatedName);
         Files.copy(file.getInputStream(), rootPath, StandardCopyOption.REPLACE_EXISTING);
