@@ -11,6 +11,7 @@ import uz.pdp.cutecutapp.dto.responce.DataDto;
 import uz.pdp.cutecutapp.services.auth.AuthUserService;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -37,7 +38,8 @@ public class AuthController extends AbstractController<AuthUserService> {
 
 
     @PostMapping(PATH + "/auth/loginByPassword")
-    public ResponseEntity<DataDto<SessionDto>> loginByPassword(@RequestBody AuthUserPasswordDto loginDto) {
+    public ResponseEntity<DataDto<SessionDto>> loginByPassword(@Valid @RequestBody AuthUserPasswordDto loginDto) {
+        loginDto.phoneNumber="+998"+loginDto.phoneNumber;
         return new ResponseEntity<>(service.login(loginDto), HttpStatus.OK);
     }
 

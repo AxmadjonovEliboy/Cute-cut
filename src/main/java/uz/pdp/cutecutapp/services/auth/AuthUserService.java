@@ -30,6 +30,7 @@ import uz.pdp.cutecutapp.entity.auth.PhoneCode;
 import uz.pdp.cutecutapp.enums.Role;
 import uz.pdp.cutecutapp.enums.Status;
 import uz.pdp.cutecutapp.mapper.auth.AuthUserMapper;
+import uz.pdp.cutecutapp.properties.OtpProperties;
 import uz.pdp.cutecutapp.properties.ServerProperties;
 import uz.pdp.cutecutapp.repository.auth.AuthUserRepository;
 import uz.pdp.cutecutapp.repository.auth.DeviceRepository;
@@ -57,6 +58,7 @@ public class AuthUserService extends AbstractService<AuthUserRepository, AuthUse
 
 
     private final PhoneCodeRepository phoneCodeRepository;
+    private final OtpProperties otpProperties;
     private final ObjectMapper objectMapper;
     private final ServerProperties serverProperties;
     private final PasswordEncoder passwordEncoder;
@@ -67,9 +69,10 @@ public class AuthUserService extends AbstractService<AuthUserRepository, AuthUse
     private final DeviceRepository deviceRepository;
     private Path root = Paths.get("C:\\uploads");
 
-    public AuthUserService(AuthUserRepository repository, AuthUserMapper mapper, PhoneCodeRepository phoneCodeRepository, ObjectMapper objectMapper, ServerProperties serverProperties, PasswordEncoder passwordEncoder, JwtUtils jwtUtils, OtpService otpService, SessionUser sessionUser, DeviceRepository deviceRepository) {
+    public AuthUserService(AuthUserRepository repository, AuthUserMapper mapper, PhoneCodeRepository phoneCodeRepository, OtpProperties otpProperties, ObjectMapper objectMapper, ServerProperties serverProperties, PasswordEncoder passwordEncoder, JwtUtils jwtUtils, OtpService otpService, SessionUser sessionUser, DeviceRepository deviceRepository) {
         super(repository, mapper);
         this.phoneCodeRepository = phoneCodeRepository;
+        this.otpProperties = otpProperties;
         this.objectMapper = objectMapper;
         this.serverProperties = serverProperties;
         this.passwordEncoder = passwordEncoder;
@@ -231,14 +234,14 @@ public class AuthUserService extends AbstractService<AuthUserRepository, AuthUse
     }
 
     public DataDto<OtpResponse> loginByPhone(AuthUserPhoneDto loginDto) {
-
-        Optional<AuthUser> user = repository.findByPhoneNumberAndDeletedFalse(loginDto.phoneNumber);
+        String phoneNumber = String.format("+998%s", loginDto.phoneNumber);
+        Optional<AuthUser> user = repository.findByPhoneNumberAndDeletedFalse(phoneNumber);
         if (user.isPresent()) {
             if (user.get().getStatus().equals(Status.ACTIVE)) {
                 AuthUser authUser = user.get();
                 OtpResponse response = otpService.send(loginDto);
                 if (response.success) {
-                    repository.setCode(authUser.getId(), response.code);
+                    phoneCodeRepository.save(new PhoneCode(authUser.getPhoneNumber(), response.code.toString(), LocalDateTime.now().plusMinutes(otpProperties.getExpiration())));
                     return new DataDto<>(response);
                 } else {
                     if (response.message.equals("Unauthorized")) {
@@ -274,7 +277,8 @@ public class AuthUserService extends AbstractService<AuthUserRepository, AuthUse
         String phoneNumber = String.format("+998%s", dto.phoneNumber);
         AuthUserPasswordDto authUserPasswordDto = confirmCode(dto);
         if (Objects.nonNull(authUserPasswordDto)) {
-            repository.save(new AuthUser(phoneNumber, Role.CLIENT,false));
+            repository.save(new AuthUser(phoneNumber, Role.CLIENT, false));
+//            this.create(new AuthCreateDto(phoneNumber, Role.CLIENT.name()));
             return this.login(authUserPasswordDto);
         }
         return new DataDto<>(new AppErrorDto(HttpStatus.BAD_REQUEST, "Incorrect Code entered", "/auth/confirmOtp"));
@@ -290,7 +294,7 @@ public class AuthUserService extends AbstractService<AuthUserRepository, AuthUse
                 return new DataDto<>(new AppErrorDto(HttpStatus.ALREADY_REPORTED, "phone number available", "/auth/register"));
             OtpResponse send = otpService.send(new AuthUserPhoneDto(phoneNumber));
             if (send.success) {
-                LocalDateTime expire = LocalDateTime.now().plusMinutes(3);
+                LocalDateTime expire = LocalDateTime.now().plusMinutes(otpProperties.getExpiration());
                 PhoneCode phoneCode = new PhoneCode(phoneNumber, send.code.toString(), expire);
                 phoneCodeRepository.save(phoneCode);
                 return new DataDto<>(Boolean.TRUE, HttpStatus.OK.value());

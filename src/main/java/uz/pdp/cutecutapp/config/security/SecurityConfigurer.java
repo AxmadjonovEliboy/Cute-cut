@@ -2,8 +2,6 @@ package uz.pdp.cutecutapp.config.security;
 
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.Bean;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -12,6 +10,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import uz.pdp.cutecutapp.config.security.filters.CustomAuthenticationFilter;
+import uz.pdp.cutecutapp.config.security.filters.CustomAuthenticationProvider;
 import uz.pdp.cutecutapp.config.security.filters.CustomAuthorizationFilter;
 import uz.pdp.cutecutapp.services.auth.AuthUserService;
 import uz.pdp.cutecutapp.utils.JwtUtils;
@@ -28,7 +27,7 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
             "/api/v1/auth/loginByPassword",
             "/api/v1/auth/loginByPhone",
             "/api/v1/auth/register",
-            "/api/v1/auth/confirmOtp",
+            "/api/v1/auth/confirmLoginCode",
             "/api/v1/auth/confirmRegisterCode",
             "/api/v1/auth/register",
 
@@ -43,6 +42,7 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
     private final AuthUserService userService;
     private final PasswordEncoder passwordEncoder;
     private final JwtUtils jwtUtils;
+    private final CustomAuthenticationProvider authenticationProvider;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -66,15 +66,11 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .anyRequest().authenticated();
 
-        http.addFilter(new CustomAuthenticationFilter(authenticationManagerBean(), jwtUtils));
+        http.addFilter(new CustomAuthenticationFilter(authenticationProvider, jwtUtils));
         http.addFilterBefore(new CustomAuthorizationFilter(jwtUtils, userService), UsernamePasswordAuthenticationFilter.class);
 
     }
 
-    @Bean
-    @Override
-    public AuthenticationManager authenticationManagerBean() throws Exception {
-        return super.authenticationManagerBean();
-    }
+
 }
 

@@ -29,7 +29,7 @@ import java.util.Optional;
 public class CustomAuthenticationProvider implements AuthenticationProvider {
 
     private final AuthUserRepository userRepository;
-    private final OrganizationService organizationService;
+
 
 
     @Override
@@ -47,19 +47,19 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         if (!authUser.getStatus().equals(Status.ACTIVE)) {
             throw new UserNotActiveException();
         }
-        DataDto<OrganizationDto> dataDto = organizationService.get(authUser.getOrganizationId());
-        if (!dataDto.isSuccess()) {
-            OrganizationDto organizationDto = dataDto.getData();
-            if (!organizationDto.status.equals(Status.ACTIVE)) {
-                throw new OrganizationNotActiveException();
-            }
-        }
+//        DataDto<OrganizationDto> dataDto = organizationService.get(authUser.getOrganizationId());
+//        if (!dataDto.isSuccess()) {
+//            OrganizationDto organizationDto = dataDto.getData();
+//            if (!organizationDto.status.equals(Status.ACTIVE)) {
+//                throw new OrganizationNotActiveException();
+//            }
+//        }
 
         authorities.add(new SimpleGrantedAuthority(authUser.getRole().name()));
 
         if (Objects.isNull(credentials)) {
-            UserDetails userDetails = new User(phoneNumber, null, authorities);
-            return new UsernamePasswordAuthenticationToken(userDetails, null, authorities);
+            UserDetails userDetails = new User(phoneNumber, "11", authorities);
+            return new UsernamePasswordAuthenticationToken(userDetails, "11", authorities);
         } else if (authUser.getPassword().equals(credentials.toString())) {
             UserDetails userDetails = new User(phoneNumber, credentials.toString(), authorities);
             return new UsernamePasswordAuthenticationToken(userDetails, credentials.toString(), authorities);
