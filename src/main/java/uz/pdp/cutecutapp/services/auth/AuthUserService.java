@@ -102,10 +102,14 @@ public class AuthUserService extends AbstractService<AuthUserRepository, AuthUse
         }
     }
 
+    public AuthUser loadAuthUserByUsername(String username) {
+        Optional<AuthUser> optional = repository.findByPhoneNumberAndDeletedFalse(username);
+        return optional.orElse(null);
+    }
+
 
     public DataDto<SessionDto> login(AuthUserPasswordDto dto) {
         try {
-
             HttpClient httpclient = HttpClientBuilder.create().build();
             String url = serverProperties.getServerUrl() + "/api/login";
             HttpPost httppost = new HttpPost(url);

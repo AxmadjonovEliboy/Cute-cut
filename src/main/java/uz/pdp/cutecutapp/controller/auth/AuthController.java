@@ -8,7 +8,6 @@ import uz.pdp.cutecutapp.controller.AbstractController;
 import uz.pdp.cutecutapp.dto.auth.*;
 import uz.pdp.cutecutapp.dto.otp.OtpResponse;
 import uz.pdp.cutecutapp.dto.responce.DataDto;
-import uz.pdp.cutecutapp.entity.auth.PhoneCode;
 import uz.pdp.cutecutapp.services.auth.AuthUserService;
 
 import javax.servlet.http.HttpServletRequest;

@@ -3,6 +3,7 @@ package uz.pdp.cutecutapp.services.order;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.FirebaseMessagingException;
 import com.google.firebase.messaging.Message;
+import org.springframework.stereotype.Service;
 import uz.pdp.cutecutapp.criteria.BaseCriteria;
 import uz.pdp.cutecutapp.dto.GenericDto;
 import uz.pdp.cutecutapp.dto.notification.NotificationCreteDto;
@@ -18,6 +19,7 @@ import uz.pdp.cutecutapp.services.GenericCrudService;
 import java.sql.SQLException;
 import java.util.List;
 
+@Service
 public class NotificationService extends AbstractService<NotificationRepository, NotificationMapper>
         implements GenericCrudService<Notification, NotificationDto, NotificationCreteDto, GenericDto, BaseCriteria, Long> {
     
