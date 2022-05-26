@@ -8,9 +8,9 @@ server:
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    password: unicorn2021
+    password: Shoxruh0912
     username: postgres
-    url: jdbc:postgresql://localhost:5432/cutecut_master
+    url: jdbc:postgresql://localhost:5432/cute-cut-app
 
   jpa:
     hibernate:
