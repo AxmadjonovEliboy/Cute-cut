@@ -1,16 +1,26 @@
 package uz.pdp.cutecutapp.dto.notification;
 
+import lombok.Getter;
+import lombok.Setter;
+import uz.pdp.cutecutapp.annotations.HaveOrder;
+import uz.pdp.cutecutapp.annotations.HaveUser;
 import uz.pdp.cutecutapp.dto.BaseDto;
 import uz.pdp.cutecutapp.enums.NotificationMessage;
 
+
+@Getter
+@Setter
 public class NotificationCreteDto implements BaseDto {
 
-    public String message;
+    private String message;
 
-    public Long receiverId;
+    @HaveUser
+    private Long receiverId;
 
-    public Long senderId;
+    @HaveUser
+    private Long senderId;
 
-    public Long orderId;
+    @HaveOrder
+    private Long orderId;
 
 }
