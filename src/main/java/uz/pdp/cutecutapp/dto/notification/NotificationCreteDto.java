@@ -5,12 +5,12 @@ import uz.pdp.cutecutapp.enums.NotificationMessage;
 
 public class NotificationCreteDto implements BaseDto {
 
-    private String message;
+    public String message;
 
-    private Long receiverId;
+    public Long receiverId;
 
-    private Long senderId;
+    public Long senderId;
 
-    private Long orderId;
+    public Long orderId;
 
 }
