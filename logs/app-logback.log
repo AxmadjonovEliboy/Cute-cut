@@ -14,7 +14,7 @@
 2022-05-26 10:05:15,322 INFO             [main] org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext              : Root WebApplicationContext: initialization completed in 1391 ms
 2022-05-26 10:05:15,437 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : Flyway Community Edition 8.5.10 by Redgate
 2022-05-26 10:05:15,437 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : See what's new here: https://flywaydb.org/documentation/learnmore/releaseNotes#8.5.10
-2022-05-26 10:05:15,438 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : 
+2022-05-26 10:05:15,438 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            :
 2022-05-26 10:05:15,450 INFO             [main] com.zaxxer.hikari.HikariDataSource                                                           : HikariPool-1 - Starting...
 2022-05-26 10:05:15,613 INFO             [main] com.zaxxer.hikari.HikariDataSource                                                           : HikariPool-1 - Start completed.
 2022-05-26 10:05:15,635 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : Database: jdbc:postgresql://localhost:5432/cutecut_master (PostgreSQL 14.1)
@@ -25,7 +25,7 @@ Need more flexibility with validation rules? Learn more: https://rd.gt/3AbJUZE
 2022-05-26 10:05:15,717 INFO             [main] com.zaxxer.hikari.HikariDataSource                                                           : HikariPool-1 - Shutdown initiated...
 2022-05-26 10:05:15,720 INFO             [main] com.zaxxer.hikari.HikariDataSource                                                           : HikariPool-1 - Shutdown completed.
 2022-05-26 10:05:15,725 INFO             [main] org.apache.juli.logging.DirectJDKLog                                                         : Stopping service [Tomcat]
-2022-05-26 10:05:15,738 INFO             [main] org.springframework.boot.autoconfigure.logging.ConditionEvaluationReportLoggingListener      : 
+2022-05-26 10:05:15,738 INFO             [main] org.springframework.boot.autoconfigure.logging.ConditionEvaluationReportLoggingListener      :
 
 Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
 2022-05-26 10:05:15,761 ERROR            [main] org.springframework.boot.SpringApplication                                                   : Application run failed
@@ -194,10 +194,10 @@ Need more flexibility with validation rules? Learn more: https://rd.gt/3AbJUZE
 2022-05-26 10:09:46,109 INFO             [main] org.apache.juli.logging.DirectJDKLog                                                         : Stopping service [Tomcat]
 2022-05-26 10:09:46,116 INFO             [main] org.apache.juli.logging.DirectJDKLog                                                         : Stopping ProtocolHandler ["http-nio-8080"]
 2022-05-26 10:09:46,116 INFO             [main] org.apache.juli.logging.DirectJDKLog                                                         : Destroying ProtocolHandler ["http-nio-8080"]
-2022-05-26 10:09:46,123 INFO             [main] org.springframework.boot.autoconfigure.logging.ConditionEvaluationReportLoggingListener      : 
+2022-05-26 10:09:46,123 INFO             [main] org.springframework.boot.autoconfigure.logging.ConditionEvaluationReportLoggingListener      :
 
 Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
-2022-05-26 10:09:46,137 ERROR            [main] org.springframework.boot.diagnostics.LoggingFailureAnalysisReporter                          : 
+2022-05-26 10:09:46,137 ERROR            [main] org.springframework.boot.diagnostics.LoggingFailureAnalysisReporter                          :
 
 ***************************
 APPLICATION FAILED TO START
@@ -279,7 +279,7 @@ Identify and stop the process that's listening on port 8080 or configure this ap
 2022-05-26 10:38:43,633 INFO             [main] org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext              : Root WebApplicationContext: initialization completed in 1250 ms
 2022-05-26 10:38:43,738 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : Flyway Community Edition 8.5.10 by Redgate
 2022-05-26 10:38:43,738 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : See what's new here: https://flywaydb.org/documentation/learnmore/releaseNotes#8.5.10
-2022-05-26 10:38:43,738 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : 
+2022-05-26 10:38:43,738 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            :
 2022-05-26 10:38:43,746 INFO             [main] com.zaxxer.hikari.HikariDataSource                                                           : HikariPool-1 - Starting...
 2022-05-26 10:38:43,884 INFO             [main] com.zaxxer.hikari.HikariDataSource                                                           : HikariPool-1 - Start completed.
 2022-05-26 10:38:43,895 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : Database: jdbc:postgresql://localhost:5432/cutecut_master (PostgreSQL 14.1)
@@ -290,7 +290,7 @@ Need more flexibility with validation rules? Learn more: https://rd.gt/3AbJUZE
 2022-05-26 10:38:43,947 INFO             [main] com.zaxxer.hikari.HikariDataSource                                                           : HikariPool-1 - Shutdown initiated...
 2022-05-26 10:38:43,948 INFO             [main] com.zaxxer.hikari.HikariDataSource                                                           : HikariPool-1 - Shutdown completed.
 2022-05-26 10:38:43,950 INFO             [main] org.apache.juli.logging.DirectJDKLog                                                         : Stopping service [Tomcat]
-2022-05-26 10:38:43,960 INFO             [main] org.springframework.boot.autoconfigure.logging.ConditionEvaluationReportLoggingListener      : 
+2022-05-26 10:38:43,960 INFO             [main] org.springframework.boot.autoconfigure.logging.ConditionEvaluationReportLoggingListener      :
 
 Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
 2022-05-26 10:38:43,977 ERROR            [main] org.springframework.boot.SpringApplication                                                   : Application run failed
@@ -393,7 +393,7 @@ Need more flexibility with validation rules? Learn more: https://rd.gt/3AbJUZE
 2022-05-26 10:42:13,179 INFO             [main] org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext              : Root WebApplicationContext: initialization completed in 1213 ms
 2022-05-26 10:42:13,278 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : Flyway Community Edition 8.5.10 by Redgate
 2022-05-26 10:42:13,278 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : See what's new here: https://flywaydb.org/documentation/learnmore/releaseNotes#8.5.10
-2022-05-26 10:42:13,278 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : 
+2022-05-26 10:42:13,278 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            :
 2022-05-26 10:42:13,286 INFO             [main] com.zaxxer.hikari.HikariDataSource                                                           : HikariPool-1 - Starting...
 2022-05-26 10:42:13,398 INFO             [main] com.zaxxer.hikari.HikariDataSource                                                           : HikariPool-1 - Start completed.
 2022-05-26 10:42:13,411 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : Database: jdbc:postgresql://localhost:5432/cutecut_master (PostgreSQL 14.1)
@@ -404,7 +404,7 @@ Need more flexibility with validation rules? Learn more: https://rd.gt/3AbJUZE
 2022-05-26 10:42:13,455 INFO             [main] com.zaxxer.hikari.HikariDataSource                                                           : HikariPool-1 - Shutdown initiated...
 2022-05-26 10:42:13,457 INFO             [main] com.zaxxer.hikari.HikariDataSource                                                           : HikariPool-1 - Shutdown completed.
 2022-05-26 10:42:13,459 INFO             [main] org.apache.juli.logging.DirectJDKLog                                                         : Stopping service [Tomcat]
-2022-05-26 10:42:13,468 INFO             [main] org.springframework.boot.autoconfigure.logging.ConditionEvaluationReportLoggingListener      : 
+2022-05-26 10:42:13,468 INFO             [main] org.springframework.boot.autoconfigure.logging.ConditionEvaluationReportLoggingListener      :
 
 Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
 2022-05-26 10:42:13,489 ERROR            [main] org.springframework.boot.SpringApplication                                                   : Application run failed
@@ -455,7 +455,7 @@ Need more flexibility with validation rules? Learn more: https://rd.gt/3AbJUZE
 2022-05-26 10:50:59,279 INFO             [main] org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext              : Root WebApplicationContext: initialization completed in 1616 ms
 2022-05-26 10:50:59,412 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : Flyway Community Edition 8.5.10 by Redgate
 2022-05-26 10:50:59,412 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : See what's new here: https://flywaydb.org/documentation/learnmore/releaseNotes#8.5.10
-2022-05-26 10:50:59,413 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : 
+2022-05-26 10:50:59,413 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            :
 2022-05-26 10:50:59,423 INFO             [main] com.zaxxer.hikari.HikariDataSource                                                           : HikariPool-1 - Starting...
 2022-05-26 10:50:59,579 INFO             [main] com.zaxxer.hikari.HikariDataSource                                                           : HikariPool-1 - Start completed.
 2022-05-26 10:50:59,601 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : Database: jdbc:postgresql://localhost:5432/cutecut_master (PostgreSQL 14.1)
@@ -491,7 +491,7 @@ Need more flexibility with validation rules? Learn more: https://rd.gt/3AbJUZE
 2022-05-26 10:59:13,006 INFO             [main] org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext              : Root WebApplicationContext: initialization completed in 1374 ms
 2022-05-26 10:59:13,107 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : Flyway Community Edition 8.5.10 by Redgate
 2022-05-26 10:59:13,107 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : See what's new here: https://flywaydb.org/documentation/learnmore/releaseNotes#8.5.10
-2022-05-26 10:59:13,107 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : 
+2022-05-26 10:59:13,107 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            :
 2022-05-26 10:59:13,115 INFO             [main] com.zaxxer.hikari.HikariDataSource                                                           : HikariPool-1 - Starting...
 2022-05-26 10:59:13,254 INFO             [main] com.zaxxer.hikari.HikariDataSource                                                           : HikariPool-1 - Start completed.
 2022-05-26 10:59:13,266 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : Database: jdbc:postgresql://localhost:5432/cutecut_master (PostgreSQL 14.1)
@@ -504,17 +504,17 @@ Need more flexibility with validation rules? Learn more: https://rd.gt/3AbJUZE
 --------------------------------------------------------------
 SQL State  : 42P01
 Error Code : 0
-Message    : ERROR: relation "public.favourites" does not exist
-Location   : db/migration/V3__alter_table_favourites_barber_shop_id.sql (C:\Users\Sirojiddin\Documents\cute-cut-app\target\classes\db\migration\V3__alter_table_favourites_barber_shop_id.sql)
+Message    : ERROR: relation "public.rating" does not exist
+Location   : db/migration/V10__alter_table_rating_add_key.sql (C:\Users\Sirojiddin\Documents\cute-cut-app\target\classes\db\migration\V10__alter_table_rating_add_key.sql)
 Line       : 1
-Statement  : ALTER TABLE public.favourites
-    ADD CONSTRAINT fk_barber_shop_id FOREIGN KEY (barber_shop_id)
+Statement  : ALTER TABLE public.rating
+    ADD CONSTRAINT fk_barber_shop_id_bookstore FOREIGN KEY (barber_shop_id)
         REFERENCES public.barber_shop (id)
 
-2022-05-26 10:59:13,339 INFO             [main] com.zaxxer.hikari.HikariDataSource                                                           : HikariPool-1 - Shutdown initiated...
-2022-05-26 10:59:13,340 INFO             [main] com.zaxxer.hikari.HikariDataSource                                                           : HikariPool-1 - Shutdown completed.
-2022-05-26 10:59:13,344 INFO             [main] org.apache.juli.logging.DirectJDKLog                                                         : Stopping service [Tomcat]
-2022-05-26 10:59:13,352 INFO             [main] org.springframework.boot.autoconfigure.logging.ConditionEvaluationReportLoggingListener      : 
+2022-05-23 17:53:40,311 INFO             [main] com.zaxxer.hikari.HikariDataSource                                                           : HikariPool-1 - Shutdown initiated...
+2022-05-23 17:53:40,329 INFO             [main] com.zaxxer.hikari.HikariDataSource                                                           : HikariPool-1 - Shutdown completed.
+2022-05-23 17:53:40,332 INFO             [main] org.apache.juli.logging.DirectJDKLog                                                         : Stopping service [Tomcat]
+2022-05-23 17:53:40,346 INFO             [main] org.springframework.boot.autoconfigure.logging.ConditionEvaluationReportLoggingListener      : 
 
 Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
 2022-05-26 10:59:13,370 ERROR            [main] org.springframework.boot.SpringApplication                                                   : Application run failed
@@ -578,15 +578,15 @@ Statement  : ALTER TABLE public.favourites
 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1863)
 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1800)
 	... 18 common frames omitted
-Caused by: org.flywaydb.core.internal.sqlscript.FlywaySqlScriptException: Migration V3__alter_table_favourites_barber_shop_id.sql failed
---------------------------------------------------------------
+Caused by: org.flywaydb.core.internal.sqlscript.FlywaySqlScriptException: Migration V10__alter_table_rating_add_key.sql failed
+----------------------------------------------------
 SQL State  : 42P01
 Error Code : 0
-Message    : ERROR: relation "public.favourites" does not exist
-Location   : db/migration/V3__alter_table_favourites_barber_shop_id.sql (C:\Users\Sirojiddin\Documents\cute-cut-app\target\classes\db\migration\V3__alter_table_favourites_barber_shop_id.sql)
+Message    : ERROR: relation "public.rating" does not exist
+Location   : db/migration/V10__alter_table_rating_add_key.sql (C:\Users\Sirojiddin\Documents\cute-cut-app\target\classes\db\migration\V10__alter_table_rating_add_key.sql)
 Line       : 1
-Statement  : ALTER TABLE public.favourites
-    ADD CONSTRAINT fk_barber_shop_id FOREIGN KEY (barber_shop_id)
+Statement  : ALTER TABLE public.rating
+    ADD CONSTRAINT fk_barber_shop_id_bookstore FOREIGN KEY (barber_shop_id)
         REFERENCES public.barber_shop (id)
 
 	at org.flywaydb.core.internal.sqlscript.DefaultSqlScriptExecutor.handleException(DefaultSqlScriptExecutor.java:275)
@@ -598,7 +598,7 @@ Statement  : ALTER TABLE public.favourites
 	at org.flywaydb.core.internal.resolver.sql.SqlMigrationExecutor.execute(SqlMigrationExecutor.java:57)
 	at org.flywaydb.core.internal.command.DbMigrate.doMigrateGroup(DbMigrate.java:377)
 	... 35 common frames omitted
-Caused by: org.postgresql.util.PSQLException: ERROR: relation "public.favourites" does not exist
+Caused by: org.postgresql.util.PSQLException: ERROR: relation "public.rating" does not exist
 	at org.postgresql.core.v3.QueryExecutorImpl.receiveErrorResponse(QueryExecutorImpl.java:2675)
 	at org.postgresql.core.v3.QueryExecutorImpl.processResults(QueryExecutorImpl.java:2365)
 	at org.postgresql.core.v3.QueryExecutorImpl.execute(QueryExecutorImpl.java:355)
@@ -626,7 +626,7 @@ Caused by: org.postgresql.util.PSQLException: ERROR: relation "public.favourites
 2022-05-26 10:59:38,232 INFO             [main] org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext              : Root WebApplicationContext: initialization completed in 1149 ms
 2022-05-26 10:59:38,320 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : Flyway Community Edition 8.5.10 by Redgate
 2022-05-26 10:59:38,320 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : See what's new here: https://flywaydb.org/documentation/learnmore/releaseNotes#8.5.10
-2022-05-26 10:59:38,320 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : 
+2022-05-26 10:59:38,320 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            :
 2022-05-26 10:59:38,328 INFO             [main] com.zaxxer.hikari.HikariDataSource                                                           : HikariPool-1 - Starting...
 2022-05-26 10:59:38,447 INFO             [main] com.zaxxer.hikari.HikariDataSource                                                           : HikariPool-1 - Start completed.
 2022-05-26 10:59:38,459 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : Database: jdbc:postgresql://localhost:5432/cutecut_master (PostgreSQL 14.1)
@@ -661,7 +661,7 @@ Caused by: org.postgresql.util.PSQLException: ERROR: relation "public.favourites
 2022-05-26 11:01:14,505 INFO             [main] org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext              : Root WebApplicationContext: initialization completed in 1152 ms
 2022-05-26 11:01:14,617 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : Flyway Community Edition 8.5.10 by Redgate
 2022-05-26 11:01:14,617 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : See what's new here: https://flywaydb.org/documentation/learnmore/releaseNotes#8.5.10
-2022-05-26 11:01:14,617 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : 
+2022-05-26 11:01:14,617 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            :
 2022-05-26 11:01:14,625 INFO             [main] com.zaxxer.hikari.HikariDataSource                                                           : HikariPool-1 - Starting...
 2022-05-26 11:01:14,749 INFO             [main] com.zaxxer.hikari.HikariDataSource                                                           : HikariPool-1 - Start completed.
 2022-05-26 11:01:14,759 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : Database: jdbc:postgresql://localhost:5432/cutecut_master (PostgreSQL 14.1)
@@ -672,7 +672,7 @@ Offenders:
 2022-05-26 11:01:14,790 INFO             [main] com.zaxxer.hikari.HikariDataSource                                                           : HikariPool-1 - Shutdown initiated...
 2022-05-26 11:01:14,792 INFO             [main] com.zaxxer.hikari.HikariDataSource                                                           : HikariPool-1 - Shutdown completed.
 2022-05-26 11:01:14,794 INFO             [main] org.apache.juli.logging.DirectJDKLog                                                         : Stopping service [Tomcat]
-2022-05-26 11:01:14,803 INFO             [main] org.springframework.boot.autoconfigure.logging.ConditionEvaluationReportLoggingListener      : 
+2022-05-26 11:01:14,803 INFO             [main] org.springframework.boot.autoconfigure.logging.ConditionEvaluationReportLoggingListener      :
 
 Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
 2022-05-26 11:01:14,827 ERROR            [main] org.springframework.boot.SpringApplication                                                   : Application run failed
@@ -734,7 +734,7 @@ Offenders:
 2022-05-26 11:01:37,615 INFO             [main] org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext              : Root WebApplicationContext: initialization completed in 1133 ms
 2022-05-26 11:01:37,710 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : Flyway Community Edition 8.5.10 by Redgate
 2022-05-26 11:01:37,711 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : See what's new here: https://flywaydb.org/documentation/learnmore/releaseNotes#8.5.10
-2022-05-26 11:01:37,711 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : 
+2022-05-26 11:01:37,711 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            :
 2022-05-26 11:01:37,718 INFO             [main] com.zaxxer.hikari.HikariDataSource                                                           : HikariPool-1 - Starting...
 2022-05-26 11:01:37,847 INFO             [main] com.zaxxer.hikari.HikariDataSource                                                           : HikariPool-1 - Start completed.
 2022-05-26 11:01:37,859 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : Database: jdbc:postgresql://localhost:5432/cutecut_master (PostgreSQL 14.1)
