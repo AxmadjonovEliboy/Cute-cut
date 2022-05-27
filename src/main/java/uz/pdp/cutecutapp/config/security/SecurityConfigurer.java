@@ -18,7 +18,7 @@ import uz.pdp.cutecutapp.utils.JwtUtils;
 
 @EnableWebSecurity
 @RequiredArgsConstructor
-@EnableGlobalMethodSecurity
+@EnableGlobalMethodSecurity(securedEnabled = true)
 public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
 
     public final static String[] WHITE_LIST = {
