@@ -3,6 +3,7 @@ package uz.pdp.cutecutapp.config.security;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -17,6 +18,7 @@ import uz.pdp.cutecutapp.utils.JwtUtils;
 
 @EnableWebSecurity
 @RequiredArgsConstructor
+@EnableGlobalMethodSecurity
 public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
 
     public final static String[] WHITE_LIST = {
