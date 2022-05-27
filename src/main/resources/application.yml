@@ -67,5 +67,5 @@ otp:
   body: 'Your verification code : '
   from: 1000
   bound: 9000
-  expiration: 1
+  expiration: 10 #min
 
