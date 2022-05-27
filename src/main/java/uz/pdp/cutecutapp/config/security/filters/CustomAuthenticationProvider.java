@@ -10,6 +10,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
+import uz.pdp.cutecutapp.config.encoder.PasswordConfig;
 import uz.pdp.cutecutapp.dto.organization.OrganizationDto;
 import uz.pdp.cutecutapp.dto.responce.DataDto;
 import uz.pdp.cutecutapp.entity.auth.AuthUser;
@@ -29,6 +30,7 @@ import java.util.Optional;
 public class CustomAuthenticationProvider implements AuthenticationProvider {
 
     private final AuthUserRepository userRepository;
+    private final PasswordConfig passwordConfig;
 
 
 
@@ -60,7 +62,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         if (Objects.isNull(credentials)) {
             UserDetails userDetails = new User(phoneNumber, "11", authorities);
             return new UsernamePasswordAuthenticationToken(userDetails, "11", authorities);
-        } else if (authUser.getPassword().equals(credentials.toString())) {
+        } else if (passwordConfig.passwordEncoder().matches(credentials.toString(),authUser.getPassword())/*authUser.getPassword().equals(credentials.toString())*/) {
             UserDetails userDetails = new User(phoneNumber, credentials.toString(), authorities);
             return new UsernamePasswordAuthenticationToken(userDetails, credentials.toString(), authorities);
         } else

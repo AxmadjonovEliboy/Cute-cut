@@ -909,3 +909,324 @@ Caused by: org.postgresql.util.PSQLException: FATAL: password authentication fai
 	at com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:112)
 	at org.flywaydb.core.internal.jdbc.JdbcUtils.openConnection(JdbcUtils.java:48)
 	... 24 common frames omitted
+2022-05-27 00:23:42,577 INFO             [main] org.springframework.boot.StartupInfoLogger                                                   : Starting CuteCutAppApplication using Java 17.0.3 on shoxruh-acer with PID 7481 (/home/shoxruh/cute-cut-app/target/classes started by shoxruh in /home/shoxruh/cute-cut-app)
+2022-05-27 00:23:42,583 INFO             [main] org.springframework.boot.SpringApplication                                                   : No active profile set, falling back to 1 default profile: "default"
+2022-05-27 00:23:43,912 INFO             [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate                   : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-05-27 00:23:44,022 INFO             [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate                   : Finished Spring Data repository scanning in 102 ms. Found 12 JPA repository interfaces.
+2022-05-27 00:23:44,541 INFO             [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer                                 : Tomcat initialized with port(s): 8080 (http)
+2022-05-27 00:23:44,550 INFO             [main] org.apache.juli.logging.DirectJDKLog                                                         : Initializing ProtocolHandler ["http-nio-8080"]
+2022-05-27 00:23:44,551 INFO             [main] org.apache.juli.logging.DirectJDKLog                                                         : Starting service [Tomcat]
+2022-05-27 00:23:44,552 INFO             [main] org.apache.juli.logging.DirectJDKLog                                                         : Starting Servlet engine: [Apache Tomcat/9.0.62]
+2022-05-27 00:23:44,645 INFO             [main] org.apache.juli.logging.DirectJDKLog                                                         : Initializing Spring embedded WebApplicationContext
+2022-05-27 00:23:44,645 INFO             [main] org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext              : Root WebApplicationContext: initialization completed in 1985 ms
+2022-05-27 00:23:44,761 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : Flyway Community Edition 8.5.10 by Redgate
+2022-05-27 00:23:44,761 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : See what's new here: https://flywaydb.org/documentation/learnmore/releaseNotes#8.5.10
+2022-05-27 00:23:44,762 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : 
+2022-05-27 00:23:44,777 INFO             [main] com.zaxxer.hikari.HikariDataSource                                                           : HikariPool-1 - Starting...
+2022-05-27 00:23:45,043 INFO             [main] com.zaxxer.hikari.HikariDataSource                                                           : HikariPool-1 - Start completed.
+2022-05-27 00:23:45,065 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : Database: jdbc:postgresql://localhost:5432/cute-cut-app (PostgreSQL 14.2)
+2022-05-27 00:23:45,118 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : Current version of schema "public": 10
+2022-05-27 00:23:45,118 WARN             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : outOfOrder mode is active. Migration of schema "public" may not be reproducible.
+2022-05-27 00:23:45,135 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : Migrating schema "public" to version "2 - alter table service barber shop id" [out of order]
+2022-05-27 00:23:45,167 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : Migrating schema "public" to version "3 - alter table favourites barber shop id" [out of order]
+2022-05-27 00:23:45,181 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : Migrating schema "public" to version "4 - alter table favourites client id" [out of order]
+2022-05-27 00:23:45,191 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : Successfully applied 3 migrations to schema "public", now at version v4 (execution time 00:00.098s)
+2022-05-27 00:23:45,359 INFO             [main] org.hibernate.jpa.internal.util.LogHelper                                                    : HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-05-27 00:23:45,417 INFO             [main] org.hibernate.Version                                                                        : HHH000412: Hibernate ORM core version 5.6.8.Final
+2022-05-27 00:23:45,499 INFO             [main] org.hibernate.annotations.common.reflection.java.JavaReflectionManager                       : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2022-05-27 00:23:45,576 INFO             [main] org.hibernate.dialect.Dialect                                                                : HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL10Dialect
+2022-05-27 00:23:46,074 INFO             [main] org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator                  : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-05-27 00:23:46,078 INFO             [main] org.springframework.orm.jpa.AbstractEntityManagerFactoryBean                                 : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2022-05-27 00:23:46,567 WARN             [main] org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration      : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-05-27 00:23:47,096 INFO             [main] org.springframework.security.web.DefaultSecurityFilterChain                                  : Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@4e312811, org.springframework.security.web.context.SecurityContextPersistenceFilter@ae5d544, org.springframework.security.web.header.HeaderWriterFilter@5d200dce, org.springframework.security.web.authentication.logout.LogoutFilter@623bdc46, uz.pdp.cutecutapp.config.security.filters.CustomAuthorizationFilter@71f042b1, uz.pdp.cutecutapp.config.security.filters.CustomAuthenticationFilter@77511e9c, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@74cf2d5f, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@11a0c708, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@32182bf8, org.springframework.security.web.session.SessionManagementFilter@4e3c0627, org.springframework.security.web.access.ExceptionTranslationFilter@60317de8, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@2a6871ad]
+2022-05-27 00:23:47,844 INFO             [main] org.apache.juli.logging.DirectJDKLog                                                         : Starting ProtocolHandler ["http-nio-8080"]
+2022-05-27 00:23:47,856 INFO             [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer                                 : Tomcat started on port(s): 8080 (http) with context path ''
+2022-05-27 00:23:47,866 INFO             [main] org.springframework.boot.StartupInfoLogger                                                   : Started CuteCutAppApplication in 6.071 seconds (JVM running for 7.305)
+2022-05-27 00:23:53,876 INFO             [http-nio-8080-exec-1] org.apache.juli.logging.DirectJDKLog                                         : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-05-27 00:23:53,876 INFO             [http-nio-8080-exec-1] org.springframework.web.servlet.FrameworkServlet                             : Initializing Servlet 'dispatcherServlet'
+2022-05-27 00:23:53,877 INFO             [http-nio-8080-exec-1] org.springframework.web.servlet.FrameworkServlet                             : Completed initialization in 1 ms
+2022-05-27 00:31:09,570 INFO             [SpringApplicationShutdownHook] org.springframework.orm.jpa.AbstractEntityManagerFactoryBean        : Closing JPA EntityManagerFactory for persistence unit 'default'
+2022-05-27 00:31:09,572 INFO             [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource                                  : HikariPool-1 - Shutdown initiated...
+2022-05-27 00:31:09,588 INFO             [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource                                  : HikariPool-1 - Shutdown completed.
+2022-05-27 16:14:13,352 INFO             [main] org.springframework.boot.StartupInfoLogger                                                   : Starting CuteCutAppApplication using Java 17.0.3 on shoxruh-acer with PID 24375 (/home/shoxruh/cute-cut-app/target/classes started by shoxruh in /home/shoxruh/cute-cut-app)
+2022-05-27 16:14:13,362 INFO             [main] org.springframework.boot.SpringApplication                                                   : No active profile set, falling back to 1 default profile: "default"
+2022-05-27 16:14:14,598 INFO             [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate                   : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-05-27 16:14:14,746 INFO             [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate                   : Finished Spring Data repository scanning in 134 ms. Found 12 JPA repository interfaces.
+2022-05-27 16:14:15,396 INFO             [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer                                 : Tomcat initialized with port(s): 8080 (http)
+2022-05-27 16:14:15,403 INFO             [main] org.apache.juli.logging.DirectJDKLog                                                         : Initializing ProtocolHandler ["http-nio-8080"]
+2022-05-27 16:14:15,404 INFO             [main] org.apache.juli.logging.DirectJDKLog                                                         : Starting service [Tomcat]
+2022-05-27 16:14:15,404 INFO             [main] org.apache.juli.logging.DirectJDKLog                                                         : Starting Servlet engine: [Apache Tomcat/9.0.62]
+2022-05-27 16:14:15,566 INFO             [main] org.apache.juli.logging.DirectJDKLog                                                         : Initializing Spring embedded WebApplicationContext
+2022-05-27 16:14:15,566 INFO             [main] org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext              : Root WebApplicationContext: initialization completed in 1997 ms
+2022-05-27 16:14:15,753 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : Flyway Community Edition 8.5.10 by Redgate
+2022-05-27 16:14:15,754 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : See what's new here: https://flywaydb.org/documentation/learnmore/releaseNotes#8.5.10
+2022-05-27 16:14:15,754 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : 
+2022-05-27 16:14:15,766 INFO             [main] com.zaxxer.hikari.HikariDataSource                                                           : HikariPool-1 - Starting...
+2022-05-27 16:14:16,455 INFO             [main] com.zaxxer.hikari.HikariDataSource                                                           : HikariPool-1 - Start completed.
+2022-05-27 16:14:16,480 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : Database: jdbc:postgresql://localhost:5432/cute-cut-app (PostgreSQL 14.3)
+2022-05-27 16:14:16,557 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : Current version of schema "public": 10
+2022-05-27 16:14:16,557 WARN             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : outOfOrder mode is active. Migration of schema "public" may not be reproducible.
+2022-05-27 16:14:16,559 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : Schema "public" is up to date. No migration necessary.
+2022-05-27 16:14:17,001 INFO             [main] org.hibernate.jpa.internal.util.LogHelper                                                    : HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-05-27 16:14:17,151 INFO             [main] org.hibernate.Version                                                                        : HHH000412: Hibernate ORM core version 5.6.8.Final
+2022-05-27 16:14:17,540 INFO             [main] org.hibernate.annotations.common.reflection.java.JavaReflectionManager                       : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2022-05-27 16:14:17,723 INFO             [main] org.hibernate.dialect.Dialect                                                                : HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL10Dialect
+2022-05-27 16:14:18,540 INFO             [main] org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator                  : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-05-27 16:14:18,548 INFO             [main] org.springframework.orm.jpa.AbstractEntityManagerFactoryBean                                 : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2022-05-27 16:14:19,454 WARN             [main] org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration      : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-05-27 16:14:20,088 INFO             [main] org.springframework.security.web.DefaultSecurityFilterChain                                  : Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@32182bf8, org.springframework.security.web.context.SecurityContextPersistenceFilter@14b9817b, org.springframework.security.web.header.HeaderWriterFilter@57f6fc09, org.springframework.security.web.authentication.logout.LogoutFilter@45bbb3e8, uz.pdp.cutecutapp.config.security.filters.CustomAuthorizationFilter@75aeec0a, uz.pdp.cutecutapp.config.security.filters.CustomAuthenticationFilter@6b8cdc4, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@a2ca681, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@5bfeb9ba, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@79e28671, org.springframework.security.web.session.SessionManagementFilter@5aec151b, org.springframework.security.web.access.ExceptionTranslationFilter@3615f8d9, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@5e1e19af]
+2022-05-27 16:14:21,081 INFO             [main] org.apache.juli.logging.DirectJDKLog                                                         : Starting ProtocolHandler ["http-nio-8080"]
+2022-05-27 16:14:21,096 INFO             [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer                                 : Tomcat started on port(s): 8080 (http) with context path ''
+2022-05-27 16:14:21,107 INFO             [main] org.springframework.boot.StartupInfoLogger                                                   : Started CuteCutAppApplication in 8.702 seconds (JVM running for 11.388)
+2022-05-27 16:14:50,664 INFO             [http-nio-8080-exec-1] org.apache.juli.logging.DirectJDKLog                                         : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-05-27 16:14:50,664 INFO             [http-nio-8080-exec-1] org.springframework.web.servlet.FrameworkServlet                             : Initializing Servlet 'dispatcherServlet'
+2022-05-27 16:14:50,666 INFO             [http-nio-8080-exec-1] org.springframework.web.servlet.FrameworkServlet                             : Completed initialization in 2 ms
+2022-05-27 16:14:51,780 INFO             [http-nio-8080-exec-9] org.springdoc.api.AbstractOpenApiResource                                    : Init duration for springdoc-openapi is: 636 ms
+2022-05-27 16:50:09,950 WARN             [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool$HouseKeeper                            : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=33m10s94ms953µs874ns).
+2022-05-27 16:50:13,487 ERROR            [http-nio-8080-exec-7] org.apache.juli.logging.DirectJDKLog                                         : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception
+java.lang.RuntimeException: Bad Credentials
+	at uz.pdp.cutecutapp.config.security.filters.CustomAuthenticationProvider.authenticate(CustomAuthenticationProvider.java:67)
+	at uz.pdp.cutecutapp.config.security.filters.CustomAuthenticationFilter.attemptAuthentication(CustomAuthenticationFilter.java:42)
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:223)
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:213)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at uz.pdp.cutecutapp.config.security.filters.CustomAuthorizationFilter.doFilterInternal(CustomAuthorizationFilter.java:63)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:103)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:89)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:110)
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:80)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:55)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:211)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:183)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:354)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:267)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:197)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:541)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:135)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:360)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:399)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:890)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1743)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+2022-05-27 16:50:29,952 ERROR            [http-nio-8080-exec-8] org.apache.juli.logging.DirectJDKLog                                         : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception
+java.lang.RuntimeException: Bad Credentials
+	at uz.pdp.cutecutapp.config.security.filters.CustomAuthenticationProvider.authenticate(CustomAuthenticationProvider.java:44)
+	at uz.pdp.cutecutapp.config.security.filters.CustomAuthenticationFilter.attemptAuthentication(CustomAuthenticationFilter.java:42)
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:223)
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:213)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at uz.pdp.cutecutapp.config.security.filters.CustomAuthorizationFilter.doFilterInternal(CustomAuthorizationFilter.java:63)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:103)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:89)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:110)
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:80)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:55)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:211)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:183)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:354)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:267)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:197)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:541)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:135)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:360)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:399)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:890)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1743)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+2022-05-27 16:53:25,711 WARN             [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool$HouseKeeper                            : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1m13s178ms676µs370ns).
+2022-05-27 16:53:25,721 ERROR            [http-nio-8080-exec-3] org.apache.juli.logging.DirectJDKLog                                         : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception
+java.lang.RuntimeException: Bad Credentials
+	at uz.pdp.cutecutapp.config.security.filters.CustomAuthenticationProvider.authenticate(CustomAuthenticationProvider.java:67)
+	at uz.pdp.cutecutapp.config.security.filters.CustomAuthenticationFilter.attemptAuthentication(CustomAuthenticationFilter.java:42)
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:223)
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:213)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at uz.pdp.cutecutapp.config.security.filters.CustomAuthorizationFilter.doFilterInternal(CustomAuthorizationFilter.java:63)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:103)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:89)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:110)
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:80)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:55)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:211)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:183)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:354)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:267)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:197)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:541)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:135)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:360)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:399)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:890)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1743)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+2022-05-27 16:53:25,790 INFO             [SpringApplicationShutdownHook] org.springframework.orm.jpa.AbstractEntityManagerFactoryBean        : Closing JPA EntityManagerFactory for persistence unit 'default'
+2022-05-27 16:53:25,792 INFO             [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource                                  : HikariPool-1 - Shutdown initiated...
+2022-05-27 16:53:25,819 INFO             [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource                                  : HikariPool-1 - Shutdown completed.
+2022-05-27 16:55:27,235 INFO             [main] org.springframework.boot.StartupInfoLogger                                                   : Starting CuteCutAppApplication using Java 17.0.3 on shoxruh-acer with PID 26479 (/home/shoxruh/cute-cut-app/target/classes started by shoxruh in /home/shoxruh/cute-cut-app)
+2022-05-27 16:55:27,239 INFO             [main] org.springframework.boot.SpringApplication                                                   : No active profile set, falling back to 1 default profile: "default"
+2022-05-27 16:55:28,014 INFO             [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate                   : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-05-27 16:55:28,094 INFO             [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate                   : Finished Spring Data repository scanning in 73 ms. Found 12 JPA repository interfaces.
+2022-05-27 16:55:28,522 INFO             [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer                                 : Tomcat initialized with port(s): 8080 (http)
+2022-05-27 16:55:28,529 INFO             [main] org.apache.juli.logging.DirectJDKLog                                                         : Initializing ProtocolHandler ["http-nio-8080"]
+2022-05-27 16:55:28,529 INFO             [main] org.apache.juli.logging.DirectJDKLog                                                         : Starting service [Tomcat]
+2022-05-27 16:55:28,530 INFO             [main] org.apache.juli.logging.DirectJDKLog                                                         : Starting Servlet engine: [Apache Tomcat/9.0.62]
+2022-05-27 16:55:28,599 INFO             [main] org.apache.juli.logging.DirectJDKLog                                                         : Initializing Spring embedded WebApplicationContext
+2022-05-27 16:55:28,599 INFO             [main] org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext              : Root WebApplicationContext: initialization completed in 1274 ms
+2022-05-27 16:55:28,706 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : Flyway Community Edition 8.5.10 by Redgate
+2022-05-27 16:55:28,706 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : See what's new here: https://flywaydb.org/documentation/learnmore/releaseNotes#8.5.10
+2022-05-27 16:55:28,706 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : 
+2022-05-27 16:55:28,714 INFO             [main] com.zaxxer.hikari.HikariDataSource                                                           : HikariPool-1 - Starting...
+2022-05-27 16:55:28,943 INFO             [main] com.zaxxer.hikari.HikariDataSource                                                           : HikariPool-1 - Start completed.
+2022-05-27 16:55:28,954 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : Database: jdbc:postgresql://localhost:5432/cute-cut-app (PostgreSQL 14.3)
+2022-05-27 16:55:28,983 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : Current version of schema "public": 10
+2022-05-27 16:55:28,983 WARN             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : outOfOrder mode is active. Migration of schema "public" may not be reproducible.
+2022-05-27 16:55:28,984 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : Schema "public" is up to date. No migration necessary.
+2022-05-27 16:55:29,086 INFO             [main] org.hibernate.jpa.internal.util.LogHelper                                                    : HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-05-27 16:55:29,127 INFO             [main] org.hibernate.Version                                                                        : HHH000412: Hibernate ORM core version 5.6.8.Final
+2022-05-27 16:55:29,262 INFO             [main] org.hibernate.annotations.common.reflection.java.JavaReflectionManager                       : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2022-05-27 16:55:29,346 INFO             [main] org.hibernate.dialect.Dialect                                                                : HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL10Dialect
+2022-05-27 16:55:29,814 INFO             [main] org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator                  : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-05-27 16:55:29,820 INFO             [main] org.springframework.orm.jpa.AbstractEntityManagerFactoryBean                                 : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2022-05-27 16:55:30,317 WARN             [main] org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration      : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-05-27 16:55:30,698 INFO             [main] org.springframework.security.web.DefaultSecurityFilterChain                                  : Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@43735ea0, org.springframework.security.web.context.SecurityContextPersistenceFilter@344acc03, org.springframework.security.web.header.HeaderWriterFilter@775fec4, org.springframework.security.web.authentication.logout.LogoutFilter@13b5598b, uz.pdp.cutecutapp.config.security.filters.CustomAuthorizationFilter@535aa7c7, uz.pdp.cutecutapp.config.security.filters.CustomAuthenticationFilter@578781f7, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@4bba2704, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@3df54fd5, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@7bbd944e, org.springframework.security.web.session.SessionManagementFilter@12f12744, org.springframework.security.web.access.ExceptionTranslationFilter@188532da, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@25c98637]
+2022-05-27 16:55:31,333 INFO             [main] org.apache.juli.logging.DirectJDKLog                                                         : Starting ProtocolHandler ["http-nio-8080"]
+2022-05-27 16:55:31,345 INFO             [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer                                 : Tomcat started on port(s): 8080 (http) with context path ''
+2022-05-27 16:55:31,355 INFO             [main] org.springframework.boot.StartupInfoLogger                                                   : Started CuteCutAppApplication in 4.723 seconds (JVM running for 6.157)
+2022-05-27 16:55:51,079 INFO             [http-nio-8080-exec-2] org.apache.juli.logging.DirectJDKLog                                         : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-05-27 16:55:51,079 INFO             [http-nio-8080-exec-2] org.springframework.web.servlet.FrameworkServlet                             : Initializing Servlet 'dispatcherServlet'
+2022-05-27 16:55:51,082 INFO             [http-nio-8080-exec-2] org.springframework.web.servlet.FrameworkServlet                             : Completed initialization in 2 ms
+2022-05-27 16:57:33,257 INFO             [SpringApplicationShutdownHook] org.springframework.orm.jpa.AbstractEntityManagerFactoryBean        : Closing JPA EntityManagerFactory for persistence unit 'default'
+2022-05-27 16:57:33,258 INFO             [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource                                  : HikariPool-1 - Shutdown initiated...
+2022-05-27 16:57:33,268 INFO             [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource                                  : HikariPool-1 - Shutdown completed.
+2022-05-27 17:31:40,277 INFO             [main] org.springframework.boot.StartupInfoLogger                                                   : Starting CuteCutAppApplication using Java 17.0.3 on shoxruh-acer with PID 28046 (/home/shoxruh/cute-cut-app/target/classes started by shoxruh in /home/shoxruh/cute-cut-app)
+2022-05-27 17:31:40,286 INFO             [main] org.springframework.boot.SpringApplication                                                   : No active profile set, falling back to 1 default profile: "default"
+2022-05-27 17:31:41,835 INFO             [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate                   : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-05-27 17:31:42,021 INFO             [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate                   : Finished Spring Data repository scanning in 178 ms. Found 12 JPA repository interfaces.
+2022-05-27 17:31:43,070 INFO             [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer                                 : Tomcat initialized with port(s): 8080 (http)
+2022-05-27 17:31:43,083 INFO             [main] org.apache.juli.logging.DirectJDKLog                                                         : Initializing ProtocolHandler ["http-nio-8080"]
+2022-05-27 17:31:43,084 INFO             [main] org.apache.juli.logging.DirectJDKLog                                                         : Starting service [Tomcat]
+2022-05-27 17:31:43,086 INFO             [main] org.apache.juli.logging.DirectJDKLog                                                         : Starting Servlet engine: [Apache Tomcat/9.0.62]
+2022-05-27 17:31:43,336 INFO             [main] org.apache.juli.logging.DirectJDKLog                                                         : Initializing Spring embedded WebApplicationContext
+2022-05-27 17:31:43,337 INFO             [main] org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext              : Root WebApplicationContext: initialization completed in 2860 ms
+2022-05-27 17:31:43,735 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : Flyway Community Edition 8.5.10 by Redgate
+2022-05-27 17:31:43,736 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : See what's new here: https://flywaydb.org/documentation/learnmore/releaseNotes#8.5.10
+2022-05-27 17:31:43,736 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : 
+2022-05-27 17:31:43,767 INFO             [main] com.zaxxer.hikari.HikariDataSource                                                           : HikariPool-1 - Starting...
+2022-05-27 17:31:44,436 INFO             [main] com.zaxxer.hikari.HikariDataSource                                                           : HikariPool-1 - Start completed.
+2022-05-27 17:31:44,453 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : Database: jdbc:postgresql://localhost:5432/cute-cut-app (PostgreSQL 14.3)
+2022-05-27 17:31:44,495 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : Current version of schema "public": 10
+2022-05-27 17:31:44,495 WARN             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : outOfOrder mode is active. Migration of schema "public" may not be reproducible.
+2022-05-27 17:31:44,496 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : Schema "public" is up to date. No migration necessary.
+2022-05-27 17:31:44,695 INFO             [main] org.hibernate.jpa.internal.util.LogHelper                                                    : HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-05-27 17:31:44,804 INFO             [main] org.hibernate.Version                                                                        : HHH000412: Hibernate ORM core version 5.6.8.Final
+2022-05-27 17:31:45,203 INFO             [main] org.hibernate.annotations.common.reflection.java.JavaReflectionManager                       : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2022-05-27 17:31:45,496 INFO             [main] org.hibernate.dialect.Dialect                                                                : HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL10Dialect
+2022-05-27 17:31:46,316 INFO             [main] org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator                  : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-05-27 17:31:46,325 INFO             [main] org.springframework.orm.jpa.AbstractEntityManagerFactoryBean                                 : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2022-05-27 17:31:47,227 WARN             [main] org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration      : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-05-27 17:31:47,734 INFO             [main] org.springframework.security.web.DefaultSecurityFilterChain                                  : Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@35d145fb, org.springframework.security.web.context.SecurityContextPersistenceFilter@1a59500b, org.springframework.security.web.header.HeaderWriterFilter@363e2009, org.springframework.security.web.authentication.logout.LogoutFilter@1196537d, uz.pdp.cutecutapp.config.security.filters.CustomAuthorizationFilter@4088c5e6, uz.pdp.cutecutapp.config.security.filters.CustomAuthenticationFilter@6e757f39, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@57f6fc09, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@784c74e, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@4e312811, org.springframework.security.web.session.SessionManagementFilter@3615f8d9, org.springframework.security.web.access.ExceptionTranslationFilter@15af06f, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@9e4388d]
+2022-05-27 17:31:48,539 INFO             [main] org.apache.juli.logging.DirectJDKLog                                                         : Starting ProtocolHandler ["http-nio-8080"]
+2022-05-27 17:31:48,551 INFO             [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer                                 : Tomcat started on port(s): 8080 (http) with context path ''
+2022-05-27 17:31:48,562 INFO             [main] org.springframework.boot.StartupInfoLogger                                                   : Started CuteCutAppApplication in 8.984 seconds (JVM running for 10.188)
+2022-05-27 17:32:32,783 INFO             [http-nio-8080-exec-1] org.apache.juli.logging.DirectJDKLog                                         : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-05-27 17:32:32,783 INFO             [http-nio-8080-exec-1] org.springframework.web.servlet.FrameworkServlet                             : Initializing Servlet 'dispatcherServlet'
+2022-05-27 17:32:32,784 INFO             [http-nio-8080-exec-1] org.springframework.web.servlet.FrameworkServlet                             : Completed initialization in 1 ms
+2022-05-27 18:25:40,492 INFO             [SpringApplicationShutdownHook] org.springframework.orm.jpa.AbstractEntityManagerFactoryBean        : Closing JPA EntityManagerFactory for persistence unit 'default'
+2022-05-27 18:25:40,493 INFO             [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource                                  : HikariPool-1 - Shutdown initiated...
+2022-05-27 18:25:40,508 INFO             [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource                                  : HikariPool-1 - Shutdown completed.
