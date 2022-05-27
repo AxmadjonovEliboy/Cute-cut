@@ -49,14 +49,6 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         if (!authUser.getStatus().equals(Status.ACTIVE)) {
             throw new UserNotActiveException();
         }
-//        DataDto<OrganizationDto> dataDto = organizationService.get(authUser.getOrganizationId());
-//        if (!dataDto.isSuccess()) {
-//            OrganizationDto organizationDto = dataDto.getData();
-//            if (!organizationDto.status.equals(Status.ACTIVE)) {
-//                throw new OrganizationNotActiveException();
-//            }
-//        }
-
         authorities.add(new SimpleGrantedAuthority(authUser.getRole().name()));
 
         if (Objects.isNull(credentials)) {
