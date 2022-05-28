@@ -1,0 +1,39 @@
+{
+  "properties": [
+    {
+      "name": "otp.from",
+      "type": "java.lang.Integer",
+      "description": "This is beginning amount of otp code."
+    },
+    {
+      "name": "otp.bound",
+      "type": "java.lang.String",
+      "description": "This is ending amount of otp code."
+    },
+    {
+      "name": "otp.accessKey",
+      "type": "java.lang.String",
+      "description": "This is a access key to authorize in meesaggebird app."
+    },
+    {
+      "name": "otp.api",
+      "type": "java.lang.String",
+      "description": "API for sending otp."
+    },
+    {
+      "name": "otp.expiration",
+      "type": "java.lang.Integer",
+      "description": "This is a expiration time of otp."
+    },
+    {
+      "name": "otp.body",
+      "type": "java.lang.String",
+      "description": "This is body of otp message."
+    },
+    {
+      "name": "otp.originator",
+      "type": "java.lang.String",
+      "description": "This is otp message originator name."
+    }
+  ]
+}

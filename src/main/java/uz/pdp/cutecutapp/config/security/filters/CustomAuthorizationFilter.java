@@ -1,6 +1,5 @@
 package uz.pdp.cutecutapp.config.security.filters;
 
-import com.auth0.jwt.JWT;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.HttpHeaders;
@@ -10,8 +9,10 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
+import uz.pdp.cutecutapp.entity.auth.AuthUser;
+import uz.pdp.cutecutapp.enums.Status;
+import uz.pdp.cutecutapp.services.auth.AuthUserService;
 import uz.pdp.cutecutapp.utils.JwtUtils;
-
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -22,10 +23,12 @@ import java.util.*;
 
 public class CustomAuthorizationFilter extends OncePerRequestFilter {
 
-    private  final JwtUtils jwtUtils;
+    private final JwtUtils jwtUtils;
+    private final AuthUserService authUserService;
 
-    public CustomAuthorizationFilter(JwtUtils jwtUtils) {
+    public CustomAuthorizationFilter(JwtUtils jwtUtils, AuthUserService authUserService) {
         this.jwtUtils = jwtUtils;
+        this.authUserService = authUserService;
     }
 
 
@@ -37,6 +40,10 @@ public class CustomAuthorizationFilter extends OncePerRequestFilter {
                 String token = authorizationHeader.substring("Bearer ".length());
                 DecodedJWT decodedJWT = jwtUtils.verifier().verify(token);
                 String username = decodedJWT.getSubject();
+                AuthUser user = authUserService.loadAuthUserByUsername(username);
+                if (Objects.isNull(user) || user.getStatus().equals(Status.ACTIVE)) {
+                    filterChain.doFilter(request, response);
+                }
                 String[] roles = decodedJWT.getClaim("roles").asArray(String.class);
                 Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
                 Arrays.stream(roles).forEach(role -> authorities.add(new SimpleGrantedAuthority(role)));

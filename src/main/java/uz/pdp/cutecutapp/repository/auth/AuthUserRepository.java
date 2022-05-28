@@ -31,6 +31,10 @@ public interface AuthUserRepository extends JpaRepository<AuthUser, Long>, BaseR
     @Query(value = "select a from  AuthUser a where a.deleted = false ")
     List<AuthUser> getAllAndNotIsDeleted();
 
+    //todo davom etkazishing kerak
+    @Query(value = "select a from AuthUser a", nativeQuery = true)
+    List<AuthUserRepository> getAllNotIsDeletedAndById(@Param("owner_id") Long id);
+
     @Transactional
     @Modifying
     @Query(value = "update auth_user  set code = :code  where id = :id", nativeQuery = true)

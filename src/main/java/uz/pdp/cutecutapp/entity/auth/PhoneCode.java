@@ -28,13 +28,12 @@ public class PhoneCode {
     private String phoneNumber;
 
     private String code;
-    private String expiration;
+    private LocalDateTime expiration;
 
-    public PhoneCode(String phoneNumber, String code, String expiration) {
+
+    public PhoneCode(String phoneNumber, String code, LocalDateTime expiration) {
         this.phoneNumber = phoneNumber;
         this.code = code;
         this.expiration = expiration;
     }
-
-
 }

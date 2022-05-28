@@ -68,15 +68,12 @@ public class OrganizationService extends AbstractService<OrganizationRepository,
         } catch (Exception e) {
             return new DataDto<>(Boolean.FALSE, HttpStatus.BAD_REQUEST.value());
         }
-
-
     }
 
     @Override
     public DataDto<List<OrganizationDto>> getAll() {
         List<Organization> organizationList = repository.findAllByDeletedFalse();
         List<OrganizationDto> organizationDtos = mapper.toDto(organizationList);
-
         return new DataDto<>(organizationDtos, HttpStatus.OK.value());
     }
 
@@ -88,7 +85,6 @@ public class OrganizationService extends AbstractService<OrganizationRepository,
             return new DataDto<>(organizationDto,HttpStatus.OK.value());
         }else
             return new DataDto<>(new AppErrorDto("Finding item not found with id : "+id,"/organization/getById",HttpStatus.NOT_FOUND));
-
     }
 
     @Override
