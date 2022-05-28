@@ -90,4 +90,10 @@ public class NotificationService extends AbstractService<NotificationRepository,
     public DataDto<List<NotificationDto>> getWithCriteria(BaseCriteria criteria) throws SQLException {
         return null;
     }
+
+    public DataDto<List<NotificationDto>> getNotifications (Long id) {
+        List<Notification> notificationByReceiverId = repository.getNotificationByReceiverId(id);
+        List<NotificationDto> notificationDtoList = mapper.toDto(notificationByReceiverId);
+        return new DataDto<>(notificationDtoList,HttpStatus.OK.value());
+    }
 }
