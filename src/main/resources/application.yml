@@ -51,7 +51,7 @@ service:
     protocol: http
     ip: localhost
     port: 8080
-    url: boom.uz
+    url: boom.uz3
 
 jwt:
   secret: gfhg4561967$%#%$%^?>?>:gjhgsdfsd?>jahdqpdsdhgf

@@ -36,4 +36,8 @@ public interface AuthUserRepository extends JpaRepository<AuthUser, Long>, BaseR
     @Query(value = "update auth_user  set code = :code  where id = :id", nativeQuery = true)
     void setCode(@Param("id") Long id, @Param("code") Integer code);
 
+    @Transactional
+    @Modifying
+    @Query(value = "select a from AuthUser a where a.organizationId=:id and a.deleted=false and a.role='ADMIN'")
+    Optional<AuthUser> findByAndOrganizationId(@Param("id") Long id);
 }

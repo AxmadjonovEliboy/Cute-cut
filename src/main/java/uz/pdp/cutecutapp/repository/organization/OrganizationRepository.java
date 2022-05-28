@@ -14,7 +14,7 @@ import java.util.Optional;
 public interface OrganizationRepository extends JpaRepository<Organization, Long> , BaseRepository {
     @Transactional
     @Modifying
-    @Query(value = "update Organization set deleted=true where Organization.id=:id",nativeQuery = true)
+    @Query(value = "update Organization set deleted=true where Organization.id=:id")
     void isDelete(@Param("id") Long id);
 
     List<Organization> findAllByDeletedFalse();
