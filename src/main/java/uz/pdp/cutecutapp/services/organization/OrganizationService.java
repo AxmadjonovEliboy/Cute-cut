@@ -1,5 +1,7 @@
 package uz.pdp.cutecutapp.services.organization;
 
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import uz.pdp.cutecutapp.criteria.BaseCriteria;
@@ -8,8 +10,13 @@ import uz.pdp.cutecutapp.dto.organization.OrganizationDto;
 import uz.pdp.cutecutapp.dto.organization.OrganizationUpdateDto;
 import uz.pdp.cutecutapp.dto.responce.AppErrorDto;
 import uz.pdp.cutecutapp.dto.responce.DataDto;
+import uz.pdp.cutecutapp.entity.auth.AuthUser;
+import uz.pdp.cutecutapp.entity.barbershop.BarberShop;
 import uz.pdp.cutecutapp.entity.organization.Organization;
+import uz.pdp.cutecutapp.enums.Status;
 import uz.pdp.cutecutapp.mapper.organization.OrganizationMapper;
+import uz.pdp.cutecutapp.repository.auth.AuthUserRepository;
+import uz.pdp.cutecutapp.repository.barbershop.BarberShopRepository;
 import uz.pdp.cutecutapp.repository.organization.OrganizationRepository;
 import uz.pdp.cutecutapp.services.AbstractService;
 import uz.pdp.cutecutapp.services.GenericCrudService;
@@ -19,12 +26,20 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+
 public class OrganizationService extends AbstractService<OrganizationRepository, OrganizationMapper>
         implements GenericCrudService<Organization, OrganizationDto, OrganizationCreateDto, OrganizationUpdateDto, BaseCriteria, Long> {
 
     public OrganizationService(OrganizationRepository repository, OrganizationMapper mapper) {
         super(repository, mapper);
+
     }
+
+    @Autowired
+    AuthUserRepository authUserRepository;
+
+    @Autowired
+    BarberShopRepository barberShopRepository;
 
     @Override
     public DataDto<Long> create(OrganizationCreateDto createDto) {
@@ -75,5 +90,49 @@ public class OrganizationService extends AbstractService<OrganizationRepository,
     @Override
     public DataDto<List<OrganizationDto>> getWithCriteria(BaseCriteria criteria) throws SQLException {
         return null;
+    }
+
+    public DataDto<Boolean> block(OrganizationUpdateDto dto) {
+        try {
+            Optional<Organization> optionalOrganization = repository.findByIdAndDeletedFalse(dto.getId());
+            Optional<AuthUser> optionalAuthUser = authUserRepository.findByAndOrganizationId(dto.getId());
+
+            Organization organization = optionalOrganization.get();
+            AuthUser authUser = optionalAuthUser.get();
+
+            if (optionalOrganization.isPresent() && optionalAuthUser.isPresent() ){
+                organization.setStatus(Status.BLOCKED);
+                authUser.setStatus(Status.BLOCKED);
+                authUserRepository.save(authUser);
+                repository.save(organization);
+                return new DataDto<>(Boolean.TRUE,HttpStatus.OK.value());
+            }
+            return new DataDto<>(new AppErrorDto("Finding item not found  ", HttpStatus.NOT_FOUND));
+
+        } catch (Exception e) {
+            return new DataDto<>(Boolean.FALSE, HttpStatus.BAD_REQUEST.value());
+        }
+
+    }
+
+    public DataDto<Boolean> unblock(OrganizationUpdateDto dto) {
+        try {
+            Optional<Organization> optionalOrganization = repository.findByIdAndDeletedFalse(dto.getId());
+            Optional<AuthUser> optionalAuthUser = authUserRepository.findByAndOrganizationId(dto.getId());
+
+            Organization organization = optionalOrganization.get();
+            AuthUser authUser = optionalAuthUser.get();
+
+            if (optionalOrganization.isPresent() && optionalAuthUser.isPresent() ){
+                organization.setStatus(Status.ACTIVE);
+                authUser.setStatus(Status.ACTIVE);
+                authUserRepository.save(authUser);
+                repository.save(organization);
+                return new DataDto<>(Boolean.TRUE,HttpStatus.OK.value());
+            }
+            return new DataDto<>(new AppErrorDto("Finding item not found  ", HttpStatus.NOT_FOUND));
+        } catch (Exception e) {
+            return new DataDto<>(Boolean.FALSE, HttpStatus.BAD_REQUEST.value());
+        }
     }
 }

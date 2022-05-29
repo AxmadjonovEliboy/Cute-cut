@@ -32,6 +32,8 @@ public class OrganizationController extends AbstractController<OrganizationServi
     //DEADLINE VAQTINI UZAYTIRAOLADIGAN API , SUPER ADMIN QILAOLSIN
 
 
+
+
     @PostMapping(PATH+"/create")
     public ResponseEntity<DataDto<Long>> add(@Valid @RequestBody OrganizationCreateDto dto){
         return new ResponseEntity<>(service.create(dto), HttpStatus.OK);
@@ -40,6 +42,16 @@ public class OrganizationController extends AbstractController<OrganizationServi
     @PutMapping(PATH + "/update")
     public ResponseEntity<DataDto<Boolean>> update(@Valid @RequestBody OrganizationUpdateDto dto) {
         return new ResponseEntity<>(service.update(dto), HttpStatus.OK);
+    }
+
+    @PutMapping(PATH+"/block")
+    public ResponseEntity<DataDto<Boolean>> block(@Valid @RequestBody OrganizationUpdateDto dto){
+        return new ResponseEntity<>(service.block(dto),HttpStatus.OK);
+    }
+
+    @PutMapping(PATH+"/unblock")
+    public ResponseEntity<DataDto<Boolean>> unblock(@Valid @RequestBody OrganizationUpdateDto dto){
+        return new ResponseEntity<>(service.unblock(dto),HttpStatus.OK);
     }
 
     @DeleteMapping(PATH + "/{id}")
