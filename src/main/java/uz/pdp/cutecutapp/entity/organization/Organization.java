@@ -2,12 +2,13 @@ package uz.pdp.cutecutapp.entity.organization;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 import uz.pdp.cutecutapp.entity.Auditable;
 import uz.pdp.cutecutapp.enums.Status;
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
+import javax.persistence.*;
+import java.sql.Timestamp;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -21,5 +22,11 @@ public class Organization extends Auditable {
     private Long logoId;//attachmentId
 
     @Enumerated(EnumType.STRING)
-    private Status status;
+    private Status status=Status.DEFAULT;
+
+    @CreationTimestamp
+    @Temporal(TemporalType.DATE)
+    private Date deadline;
+
+
 }

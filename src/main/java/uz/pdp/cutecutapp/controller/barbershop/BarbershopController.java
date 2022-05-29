@@ -26,7 +26,7 @@ public class BarbershopController extends AbstractController<BarberShopService> 
         return new ResponseEntity<>(service.create(createDto), HttpStatus.OK);
     }
 
-    @GetMapping(PATH+"/getAll")
+    @GetMapping( PATH+"/getAll")
     public ResponseEntity<DataDto<List<BarberShopDto>>> get(){
         return new ResponseEntity<>(service.getAllBarbershops(),HttpStatus.OK);
     }

@@ -21,4 +21,5 @@ public interface BarberShopRepository extends JpaRepository<BarberShop, Long> , 
     Optional<BarberShop> findByIdAndDeletedFalse(Long id);
 
     List<BarberShop> findByOrgIdAndDeletedFalse(Long id);
+
 }

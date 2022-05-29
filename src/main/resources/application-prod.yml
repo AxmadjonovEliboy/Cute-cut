@@ -1,0 +1,71 @@
+logging:
+  level:
+    org.zalando.logbook: DEBUG
+logbook:
+  exclude: /api/v1/auth/**
+server:
+  port: 8080
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    password: unicorn2021
+    username: postgres
+    url: jdbc:postgresql://localhost:5432/cute-cut-app
+
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+    out-of-order: true
+    validate-on-migrate: false
+
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui
+    enabled: true
+  api-docs:
+    path: /api/docs
+api:
+  info:
+    title: Review Service API
+    description: API to fetch review details for product
+    version: 1.0.0
+    terms-of-service: http://pdp.com/terms/
+    contact:
+      name: Review Service API Team
+      email: apiteam@example.com
+      url: http://pdp.com/team
+    license:
+      name: Apache 2.0
+      url: http://www.apache.org/licenses/LICENSE-2.0.html
+
+service:
+  prop:
+    protocol: http
+    ip: localhost
+    port: 8080
+    url: boom.uz
+
+jwt:
+  secret: gfhg4561967$%#%$%^?>?>:gjhgsdfsd?>jahdqpdsdhgf
+  refresh:
+    expire: 864000000
+  access:
+    expire: 900000000
+
+otp:
+  accessKey: 'AccessKey pX4Ti0YqeoTUeCzX9ezBFpWT1'
+  originator: Xurshidbek
+  api: https://rest.messagebird.com/messages
+  body: 'Your verification code : '
+  from: 1000
+  bound: 9000
+  expiration: 1 #min
+
