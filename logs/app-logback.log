@@ -10,7 +10,7 @@
 2022-05-29 23:21:43,658 INFO             [main] org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext              : Root WebApplicationContext: initialization completed in 7724 ms
 2022-05-29 23:21:43,973 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : Flyway Community Edition 8.5.10 by Redgate
 2022-05-29 23:21:43,974 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : See what's new here: https://flywaydb.org/documentation/learnmore/releaseNotes#8.5.10
-2022-05-29 23:21:43,975 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : 
+2022-05-29 23:21:43,975 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            :
 2022-05-29 23:21:44,006 INFO             [main] com.zaxxer.hikari.HikariDataSource                                                           : HikariPool-1 - Starting...
 2022-05-29 23:21:44,535 INFO             [main] com.zaxxer.hikari.HikariDataSource                                                           : HikariPool-1 - Start completed.
 2022-05-29 23:21:44,596 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : Database: jdbc:postgresql://localhost:5432/cutecut_master (PostgreSQL 14.1)

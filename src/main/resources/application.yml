@@ -8,13 +8,13 @@ server:
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    password: 3812
+    password: 7475
     username: postgres
-    url: jdbc:postgresql://localhost:5432/cutecut_master
+    url: jdbc:postgresql://localhost:5432/postgres
 
   jpa:
     hibernate:
-      ddl-auto: none
+      ddl-auto: create
     show-sql: true
     properties:
       hibernate:
