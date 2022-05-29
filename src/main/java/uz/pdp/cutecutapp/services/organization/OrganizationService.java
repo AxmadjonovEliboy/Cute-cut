@@ -22,6 +22,7 @@ import uz.pdp.cutecutapp.services.AbstractService;
 import uz.pdp.cutecutapp.services.GenericCrudService;
 
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -92,15 +93,15 @@ public class OrganizationService extends AbstractService<OrganizationRepository,
         return null;
     }
 
-    public DataDto<Boolean> block(OrganizationUpdateDto dto) {
+    public DataDto<Boolean> block(Long id) {
         try {
-            Optional<Organization> optionalOrganization = repository.findByIdAndDeletedFalse(dto.getId());
-            Optional<AuthUser> optionalAuthUser = authUserRepository.findByAndOrganizationId(dto.getId());
+            Optional<Organization> optionalOrganization = repository.findByIdAndDeletedFalse(id);
+            Optional<AuthUser> optionalAuthUser = authUserRepository.findByAndOrganizationId(id);
 
-            Organization organization = optionalOrganization.get();
-            AuthUser authUser = optionalAuthUser.get();
 
             if (optionalOrganization.isPresent() && optionalAuthUser.isPresent() ){
+            Organization organization = optionalOrganization.get();
+            AuthUser authUser = optionalAuthUser.get();
                 organization.setStatus(Status.BLOCKED);
                 authUser.setStatus(Status.BLOCKED);
                 authUserRepository.save(authUser);
@@ -115,15 +116,15 @@ public class OrganizationService extends AbstractService<OrganizationRepository,
 
     }
 
-    public DataDto<Boolean> unblock(OrganizationUpdateDto dto) {
+    public DataDto<Boolean> unblock(Long id) {
         try {
-            Optional<Organization> optionalOrganization = repository.findByIdAndDeletedFalse(dto.getId());
-            Optional<AuthUser> optionalAuthUser = authUserRepository.findByAndOrganizationId(dto.getId());
+            Optional<Organization> optionalOrganization = repository.findByIdAndDeletedFalse(id);
+            Optional<AuthUser> optionalAuthUser = authUserRepository.findByAndOrganizationId(id);
 
-            Organization organization = optionalOrganization.get();
-            AuthUser authUser = optionalAuthUser.get();
 
             if (optionalOrganization.isPresent() && optionalAuthUser.isPresent() ){
+            Organization organization = optionalOrganization.get();
+            AuthUser authUser = optionalAuthUser.get();
                 organization.setStatus(Status.ACTIVE);
                 authUser.setStatus(Status.ACTIVE);
                 authUserRepository.save(authUser);
@@ -135,4 +136,21 @@ public class OrganizationService extends AbstractService<OrganizationRepository,
             return new DataDto<>(Boolean.FALSE, HttpStatus.BAD_REQUEST.value());
         }
     }
+
+    public DataDto<Boolean> deadline(Long id, Date date) {
+        try {
+            Optional<Organization> optionalOrganization = repository.findByIdAndDeletedFalse(id);
+            if (optionalOrganization.isPresent()) {
+                Organization organization = optionalOrganization.get();
+                organization.setDeadline(date);
+                repository.save(organization);
+                return new DataDto<>(Boolean.TRUE,HttpStatus.OK.value());
+            }
+
+            return new DataDto<>(new AppErrorDto("Finding item not found  ", HttpStatus.NOT_FOUND));
+        } catch (Exception e) {
+            return new DataDto<>(Boolean.FALSE, HttpStatus.BAD_REQUEST.value());
+        }
+    }
+
 }
