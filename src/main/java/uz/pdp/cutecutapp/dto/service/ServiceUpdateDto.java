@@ -15,4 +15,6 @@ public class ServiceUpdateDto extends GenericDto {
     @NotBlank(message = "Service price required")
     @Column(precision = 3, scale = 2)
     public Double price;
+
+    public boolean isDeleted = false;
 }

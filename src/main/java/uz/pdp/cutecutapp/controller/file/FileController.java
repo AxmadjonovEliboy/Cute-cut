@@ -10,6 +10,8 @@ import uz.pdp.cutecutapp.dto.file.UploadsDto;
 import uz.pdp.cutecutapp.dto.responce.DataDto;
 import uz.pdp.cutecutapp.services.file.FileStorageService;
 
+import java.nio.file.NoSuchFileException;
+
 /**
  * @author Axmadjonov Eliboy on Wed 12:32. 25/05/22
  * @project cute-cut-app
@@ -28,7 +30,11 @@ public class FileController extends AbstractController<FileStorageService> {
 
     @GetMapping(value = PATH+"/file/auth/download/{name}")
     public ResponseEntity<DataDto<UploadsDto>> downloadFile(@PathVariable(name = "name") String name){
-        return new ResponseEntity<>(new DataDto<>(service.loadResource(name)),HttpStatus.OK);
+        try {
+            return new ResponseEntity<>(new DataDto<>(service.loadResource(name)),HttpStatus.OK);
+        } catch (NoSuchFileException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 }

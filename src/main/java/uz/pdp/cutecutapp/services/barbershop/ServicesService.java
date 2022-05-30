@@ -1,11 +1,15 @@
 package uz.pdp.cutecutapp.services.barbershop;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import uz.pdp.cutecutapp.criteria.BaseCriteria;
+import uz.pdp.cutecutapp.dto.rating.RatingDto;
+import uz.pdp.cutecutapp.dto.responce.AppErrorDto;
 import uz.pdp.cutecutapp.dto.responce.DataDto;
 import uz.pdp.cutecutapp.dto.service.ServiceCreateDto;
 import uz.pdp.cutecutapp.dto.service.ServiceDto;
 import uz.pdp.cutecutapp.dto.service.ServiceUpdateDto;
+import uz.pdp.cutecutapp.entity.barbershop.Rating;
 import uz.pdp.cutecutapp.exception.NotFoundException;
 import uz.pdp.cutecutapp.mapper.barbershop.ServiceMapper;
 import uz.pdp.cutecutapp.repository.barbershop.ServiceRepository;
@@ -42,12 +46,19 @@ public class ServicesService extends AbstractService<ServiceRepository, ServiceM
 
     @Override
     public DataDto<Boolean> delete(Long id) {
-        Optional<uz.pdp.cutecutapp.entity.barbershop.Service> optionalService = serviceRepository.findById(id);
-        if (optionalService.isPresent()) {
-            serviceRepository.deleteById(id);
-            return new DataDto<>();
+
+        if (this.get(id).isSuccess()) {
+            repository.softDelete(id);
+            return new DataDto<>(null, HttpStatus.NO_CONTENT.value());
+        } else {
+            return new DataDto<>(new AppErrorDto("Finding item not found with id : " + id, "/service/delete", HttpStatus.NOT_FOUND));
         }
-        throw new NotFoundException("Service not found!");
+//        Optional<uz.pdp.cutecutapp.entity.barbershop.Service> optionalService = serviceRepository.findById(id);
+//        if (optionalService.isPresent()) {
+//            serviceRepository.deleteById(id);
+//            return new DataDto<>();
+//        }
+//        throw new NotFoundException("Service not found!");
     }
 
     @Override
@@ -58,6 +69,7 @@ public class ServicesService extends AbstractService<ServiceRepository, ServiceM
             uz.pdp.cutecutapp.entity.barbershop.Service service1 = optionalService.get();
             service1.setPrice(service.getPrice());
             service1.setType(service.getType());
+            service1.setDeleted(updateDto.isDeleted);
             service1.setBarberShopId(service.getBarberShopId());
             serviceRepository.save(service1);
             return new DataDto<>(true);
@@ -71,9 +83,10 @@ public class ServicesService extends AbstractService<ServiceRepository, ServiceM
         return new DataDto<>(mapper.toDto(services));
     }
 
+
     @Override
     public DataDto<ServiceDto> get(Long id) {
-        Optional<uz.pdp.cutecutapp.entity.barbershop.Service> optionalService = serviceRepository.findById(id);
+        Optional<uz.pdp.cutecutapp.entity.barbershop.Service> optionalService = serviceRepository.findByIdAndDeletedFalse(id);
         if (optionalService.isPresent()) {
             ServiceDto serviceDto = mapper.toDto(optionalService.get());
             return new DataDto<>(serviceDto);
@@ -84,5 +97,11 @@ public class ServicesService extends AbstractService<ServiceRepository, ServiceM
     @Override
     public DataDto<List<ServiceDto>> getWithCriteria(BaseCriteria criteria) throws SQLException {
         return null;
+    }
+
+    public DataDto<List<ServiceDto>> getByBarberShopId(Long id) {
+        List<uz.pdp.cutecutapp.entity.barbershop.Service> services = serviceRepository.findAllByBarberShopIdAndDeletedFalse(id);
+        List<ServiceDto> serviceDtos = mapper.toDto(services);
+        return new DataDto<>(serviceDtos, HttpStatus.OK.value());
     }
 }
