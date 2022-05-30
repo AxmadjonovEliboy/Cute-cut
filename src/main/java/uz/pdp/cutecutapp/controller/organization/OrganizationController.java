@@ -14,6 +14,7 @@ import uz.pdp.cutecutapp.dto.responce.DataDto;
 import uz.pdp.cutecutapp.services.organization.OrganizationService;
 
 import javax.validation.Valid;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -32,6 +33,8 @@ public class OrganizationController extends AbstractController<OrganizationServi
     //DEADLINE VAQTINI UZAYTIRAOLADIGAN API , SUPER ADMIN QILAOLSIN
 
 
+
+
     @PostMapping(PATH+"/create")
     public ResponseEntity<DataDto<Long>> add(@Valid @RequestBody OrganizationCreateDto dto){
         return new ResponseEntity<>(service.create(dto), HttpStatus.OK);
@@ -40,6 +43,21 @@ public class OrganizationController extends AbstractController<OrganizationServi
     @PutMapping(PATH + "/update")
     public ResponseEntity<DataDto<Boolean>> update(@Valid @RequestBody OrganizationUpdateDto dto) {
         return new ResponseEntity<>(service.update(dto), HttpStatus.OK);
+    }
+
+    @PatchMapping(PATH+"/block/{id}")
+    public ResponseEntity<DataDto<Boolean>> block(@PathVariable Long id){
+        return new ResponseEntity<>(service.block(id),HttpStatus.OK);
+    }
+
+    @PatchMapping(PATH+"/unblock/{id}")
+    public ResponseEntity<DataDto<Boolean>> unblock(@PathVariable Long id){
+        return new ResponseEntity<>(service.unblock(id),HttpStatus.OK);
+    }
+
+    @PatchMapping(PATH+"/deadline/{id}")
+    public ResponseEntity<DataDto<Boolean>> deadline(@PathVariable Long id,@RequestBody Date date){
+        return new ResponseEntity<>(service.deadline(id,date),HttpStatus.OK);
     }
 
     @DeleteMapping(PATH + "/{id}")

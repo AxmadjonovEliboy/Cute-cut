@@ -38,7 +38,6 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
             AuthUserPasswordDto loginDto = new ObjectMapper().readValue(request.getReader(), AuthUserPasswordDto.class);
             UsernamePasswordAuthenticationToken authenticationToken =
                     new UsernamePasswordAuthenticationToken(loginDto.phoneNumber, loginDto.password);
-            AuthenticationManager authenticationManager ;
             return customAuthenticationProvider.authenticate(authenticationToken);
         } catch (IOException e) {
             throw new RuntimeException(e.getMessage(), e.getCause());

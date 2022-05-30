@@ -1,15 +1,20 @@
+logging:
+  level:
+    org.zalando.logbook: TRACE
+logbook:
+  exclude: /api/v1/auth/**
+server:
+  port: 8080
 spring:
-  profiles:
-    active: dev
   datasource:
     driver-class-name: org.postgresql.Driver
     password: unicorn2021
     username: postgres
-    url: jdbc:postgresql://localhost:5432/cutecut_master
+    url: jdbc:postgresql://localhost:5432/cute-cut-app
 
   jpa:
     hibernate:
-      ddl-auto: none
+      ddl-auto: update
     show-sql: true
     properties:
       hibernate:
@@ -17,8 +22,6 @@ spring:
   flyway:
     enabled: true
     baseline-on-migrate: true
-    out-of-order: true
-    validate-on-migrate: false
 
 
 springdoc:
@@ -46,7 +49,7 @@ service:
     protocol: http
     ip: localhost
     port: 8080
-    url: boom.uz3
+    url: boom.uz
 
 jwt:
   secret: gfhg4561967$%#%$%^?>?>:gjhgsdfsd?>jahdqpdsdhgf
@@ -62,5 +65,5 @@ otp:
   body: 'Your verification code : '
   from: 1000
   bound: 9000
-  expiration: 1
+  expiration: 10 #min
 
