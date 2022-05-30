@@ -1250,3 +1250,225 @@ Caused by: org.postgresql.util.PSQLException: ERROR: relation "public.auth_user"
 	at org.flywaydb.core.internal.sqlscript.ParsedSqlStatement.execute(ParsedSqlStatement.java:95)
 	at org.flywaydb.core.internal.sqlscript.DefaultSqlScriptExecutor.executeStatement(DefaultSqlScriptExecutor.java:210)
 	... 41 common frames omitted
+2022-05-30 13:12:41,418 INFO             [main] org.springframework.boot.StartupInfoLogger                                                   : Starting CuteCutAppApplication using Java 17.0.2 on LAPTOP-RFFHQF0H with PID 28736 (C:\Users\Sirojiddin\Documents\cute-cut-app\target\classes started by Sirojiddin in C:\Users\Sirojiddin\Documents\cute-cut-app)
+2022-05-30 13:12:41,422 INFO             [main] org.springframework.boot.SpringApplication                                                   : No active profile set, falling back to 1 default profile: "default"
+2022-05-30 13:12:45,969 INFO             [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate                   : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-05-30 13:12:46,242 INFO             [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate                   : Finished Spring Data repository scanning in 260 ms. Found 12 JPA repository interfaces.
+2022-05-30 13:12:47,186 INFO             [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer                                 : Tomcat initialized with port(s): 8080 (http)
+2022-05-30 13:12:47,202 INFO             [main] org.apache.juli.logging.DirectJDKLog                                                         : Initializing ProtocolHandler ["http-nio-8080"]
+2022-05-30 13:12:47,203 INFO             [main] org.apache.juli.logging.DirectJDKLog                                                         : Starting service [Tomcat]
+2022-05-30 13:12:47,204 INFO             [main] org.apache.juli.logging.DirectJDKLog                                                         : Starting Servlet engine: [Apache Tomcat/9.0.62]
+2022-05-30 13:12:47,504 INFO             [main] org.apache.juli.logging.DirectJDKLog                                                         : Initializing Spring embedded WebApplicationContext
+2022-05-30 13:12:47,504 INFO             [main] org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext              : Root WebApplicationContext: initialization completed in 5822 ms
+2022-05-30 13:12:47,781 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : Flyway Community Edition 8.5.10 by Redgate
+2022-05-30 13:12:47,782 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : See what's new here: https://flywaydb.org/documentation/learnmore/releaseNotes#8.5.10
+2022-05-30 13:12:47,782 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : 
+2022-05-30 13:12:47,804 INFO             [main] com.zaxxer.hikari.HikariDataSource                                                           : HikariPool-1 - Starting...
+2022-05-30 13:12:48,146 INFO             [main] com.zaxxer.hikari.HikariDataSource                                                           : HikariPool-1 - Start completed.
+2022-05-30 13:12:48,183 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : Database: jdbc:postgresql://localhost:5432/cutecut_master (PostgreSQL 14.1)
+2022-05-30 13:12:48,362 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : Current version of schema "public": << Empty Schema >>
+2022-05-30 13:12:48,363 WARN             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : outOfOrder mode is active. Migration of schema "public" may not be reproducible.
+2022-05-30 13:12:48,407 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : Migrating schema "public" to version "1 - alter table auth user picture id"
+2022-05-30 13:12:48,450 ERROR            [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : Migration of schema "public" to version "1 - alter table auth user picture id" failed! Changes successfully rolled back.
+2022-05-30 13:12:48,459 WARN             [main] org.springframework.context.support.AbstractApplicationContext                               : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'flywayInitializer' defined in class path resource [org/springframework/boot/autoconfigure/flyway/FlywayAutoConfiguration$FlywayConfiguration.class]: Invocation of init method failed; nested exception is org.flywaydb.core.internal.command.DbMigrate$FlywayMigrateException: Migration V1__alter_table_auth_user_picture_id.sql failed
+---------------------------------------------------------
+SQL State  : 42P01
+Error Code : 0
+Message    : ERROR: relation "public.auth_user" does not exist
+Location   : db/migration/V1__alter_table_auth_user_picture_id.sql (C:\Users\Sirojiddin\Documents\cute-cut-app\target\classes\db\migration\V1__alter_table_auth_user_picture_id.sql)
+Line       : 1
+Statement  : ALTER TABLE public.auth_user
+    ADD CONSTRAINT fk_picture_id_bookstore FOREIGN KEY (picture_id)
+        REFERENCES public.uploads (id)
+
+2022-05-30 13:12:48,459 INFO             [main] com.zaxxer.hikari.HikariDataSource                                                           : HikariPool-1 - Shutdown initiated...
+2022-05-30 13:12:48,556 INFO             [main] com.zaxxer.hikari.HikariDataSource                                                           : HikariPool-1 - Shutdown completed.
+2022-05-30 13:12:48,561 INFO             [main] org.apache.juli.logging.DirectJDKLog                                                         : Stopping service [Tomcat]
+2022-05-30 13:12:48,588 INFO             [main] org.springframework.boot.autoconfigure.logging.ConditionEvaluationReportLoggingListener      : 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2022-05-30 13:12:48,649 ERROR            [main] org.springframework.boot.SpringApplication                                                   : Application run failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'flywayInitializer' defined in class path resource [org/springframework/boot/autoconfigure/flyway/FlywayAutoConfiguration$FlywayConfiguration.class]: Invocation of init method failed; nested exception is org.flywaydb.core.internal.command.DbMigrate$FlywayMigrateException: Migration V1__alter_table_auth_user_picture_id.sql failed
+---------------------------------------------------------
+SQL State  : 42P01
+Error Code : 0
+Message    : ERROR: relation "public.auth_user" does not exist
+Location   : db/migration/V1__alter_table_auth_user_picture_id.sql (C:\Users\Sirojiddin\Documents\cute-cut-app\target\classes\db\migration\V1__alter_table_auth_user_picture_id.sql)
+Line       : 1
+Statement  : ALTER TABLE public.auth_user
+    ADD CONSTRAINT fk_picture_id_bookstore FOREIGN KEY (picture_id)
+        REFERENCES public.uploads (id)
+
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1804)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:620)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:542)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:335)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:333)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:208)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:322)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:208)
+	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1154)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:908)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:583)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:145)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:740)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:415)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:303)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1312)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1301)
+	at uz.pdp.cutecutapp.CuteCutAppApplication.main(CuteCutAppApplication.java:34)
+Caused by: org.flywaydb.core.internal.command.DbMigrate$FlywayMigrateException: Migration V1__alter_table_auth_user_picture_id.sql failed
+---------------------------------------------------------
+SQL State  : 42P01
+Error Code : 0
+Message    : ERROR: relation "public.auth_user" does not exist
+Location   : db/migration/V1__alter_table_auth_user_picture_id.sql (C:\Users\Sirojiddin\Documents\cute-cut-app\target\classes\db\migration\V1__alter_table_auth_user_picture_id.sql)
+Line       : 1
+Statement  : ALTER TABLE public.auth_user
+    ADD CONSTRAINT fk_picture_id_bookstore FOREIGN KEY (picture_id)
+        REFERENCES public.uploads (id)
+
+	at org.flywaydb.core.internal.command.DbMigrate.doMigrateGroup(DbMigrate.java:385)
+	at org.flywaydb.core.internal.command.DbMigrate.lambda$applyMigrations$1(DbMigrate.java:275)
+	at org.flywaydb.core.internal.jdbc.TransactionalExecutionTemplate.execute(TransactionalExecutionTemplate.java:55)
+	at org.flywaydb.core.internal.command.DbMigrate.applyMigrations(DbMigrate.java:274)
+	at org.flywaydb.core.internal.command.DbMigrate.migrateGroup(DbMigrate.java:247)
+	at org.flywaydb.core.internal.command.DbMigrate.lambda$migrateAll$0(DbMigrate.java:141)
+	at org.flywaydb.core.internal.database.postgresql.PostgreSQLAdvisoryLockTemplate.execute(PostgreSQLAdvisoryLockTemplate.java:69)
+	at org.flywaydb.core.internal.database.postgresql.PostgreSQLConnection.lock(PostgreSQLConnection.java:99)
+	at org.flywaydb.core.internal.schemahistory.JdbcTableSchemaHistory.lock(JdbcTableSchemaHistory.java:139)
+	at org.flywaydb.core.internal.command.DbMigrate.migrateAll(DbMigrate.java:141)
+	at org.flywaydb.core.internal.command.DbMigrate.migrate(DbMigrate.java:98)
+	at org.flywaydb.core.Flyway$1.execute(Flyway.java:172)
+	at org.flywaydb.core.Flyway$1.execute(Flyway.java:124)
+	at org.flywaydb.core.FlywayExecutor.execute(FlywayExecutor.java:205)
+	at org.flywaydb.core.Flyway.migrate(Flyway.java:124)
+	at org.springframework.boot.autoconfigure.flyway.FlywayMigrationInitializer.afterPropertiesSet(FlywayMigrationInitializer.java:66)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1863)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1800)
+	... 18 common frames omitted
+Caused by: org.flywaydb.core.internal.sqlscript.FlywaySqlScriptException: Migration V1__alter_table_auth_user_picture_id.sql failed
+---------------------------------------------------------
+SQL State  : 42P01
+Error Code : 0
+Message    : ERROR: relation "public.auth_user" does not exist
+Location   : db/migration/V1__alter_table_auth_user_picture_id.sql (C:\Users\Sirojiddin\Documents\cute-cut-app\target\classes\db\migration\V1__alter_table_auth_user_picture_id.sql)
+Line       : 1
+Statement  : ALTER TABLE public.auth_user
+    ADD CONSTRAINT fk_picture_id_bookstore FOREIGN KEY (picture_id)
+        REFERENCES public.uploads (id)
+
+	at org.flywaydb.core.internal.sqlscript.DefaultSqlScriptExecutor.handleException(DefaultSqlScriptExecutor.java:275)
+	at org.flywaydb.core.internal.sqlscript.DefaultSqlScriptExecutor.executeStatement(DefaultSqlScriptExecutor.java:222)
+	at org.flywaydb.core.internal.sqlscript.DefaultSqlScriptExecutor.execute(DefaultSqlScriptExecutor.java:126)
+	at org.flywaydb.core.internal.resolver.sql.SqlMigrationExecutor.executeOnce(SqlMigrationExecutor.java:69)
+	at org.flywaydb.core.internal.resolver.sql.SqlMigrationExecutor.lambda$execute$0(SqlMigrationExecutor.java:58)
+	at org.flywaydb.core.internal.database.DefaultExecutionStrategy.execute(DefaultExecutionStrategy.java:27)
+	at org.flywaydb.core.internal.resolver.sql.SqlMigrationExecutor.execute(SqlMigrationExecutor.java:57)
+	at org.flywaydb.core.internal.command.DbMigrate.doMigrateGroup(DbMigrate.java:377)
+	... 35 common frames omitted
+Caused by: org.postgresql.util.PSQLException: ERROR: relation "public.auth_user" does not exist
+	at org.postgresql.core.v3.QueryExecutorImpl.receiveErrorResponse(QueryExecutorImpl.java:2675)
+	at org.postgresql.core.v3.QueryExecutorImpl.processResults(QueryExecutorImpl.java:2365)
+	at org.postgresql.core.v3.QueryExecutorImpl.execute(QueryExecutorImpl.java:355)
+	at org.postgresql.jdbc.PgStatement.executeInternal(PgStatement.java:490)
+	at org.postgresql.jdbc.PgStatement.execute(PgStatement.java:408)
+	at org.postgresql.jdbc.PgStatement.executeWithFlags(PgStatement.java:329)
+	at org.postgresql.jdbc.PgStatement.executeCachedSql(PgStatement.java:315)
+	at org.postgresql.jdbc.PgStatement.executeWithFlags(PgStatement.java:291)
+	at org.postgresql.jdbc.PgStatement.execute(PgStatement.java:286)
+	at com.zaxxer.hikari.pool.ProxyStatement.execute(ProxyStatement.java:94)
+	at com.zaxxer.hikari.pool.HikariProxyStatement.execute(HikariProxyStatement.java)
+	at org.flywaydb.core.internal.jdbc.JdbcTemplate.executeStatement(JdbcTemplate.java:201)
+	at org.flywaydb.core.internal.sqlscript.ParsedSqlStatement.execute(ParsedSqlStatement.java:95)
+	at org.flywaydb.core.internal.sqlscript.DefaultSqlScriptExecutor.executeStatement(DefaultSqlScriptExecutor.java:210)
+	... 41 common frames omitted
+2022-05-30 13:14:42,448 INFO             [main] org.springframework.boot.StartupInfoLogger                                                   : Starting CuteCutAppApplication using Java 17.0.2 on LAPTOP-RFFHQF0H with PID 29420 (C:\Users\Sirojiddin\Documents\cute-cut-app\target\classes started by Sirojiddin in C:\Users\Sirojiddin\Documents\cute-cut-app)
+2022-05-30 13:14:42,456 INFO             [main] org.springframework.boot.SpringApplication                                                   : No active profile set, falling back to 1 default profile: "default"
+2022-05-30 13:14:45,621 INFO             [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate                   : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-05-30 13:14:46,222 INFO             [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate                   : Finished Spring Data repository scanning in 540 ms. Found 12 JPA repository interfaces.
+2022-05-30 13:14:47,317 INFO             [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer                                 : Tomcat initialized with port(s): 8080 (http)
+2022-05-30 13:14:47,330 INFO             [main] org.apache.juli.logging.DirectJDKLog                                                         : Initializing ProtocolHandler ["http-nio-8080"]
+2022-05-30 13:14:47,331 INFO             [main] org.apache.juli.logging.DirectJDKLog                                                         : Starting service [Tomcat]
+2022-05-30 13:14:47,332 INFO             [main] org.apache.juli.logging.DirectJDKLog                                                         : Starting Servlet engine: [Apache Tomcat/9.0.62]
+2022-05-30 13:14:47,666 INFO             [main] org.apache.juli.logging.DirectJDKLog                                                         : Initializing Spring embedded WebApplicationContext
+2022-05-30 13:14:47,667 INFO             [main] org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext              : Root WebApplicationContext: initialization completed in 4991 ms
+2022-05-30 13:14:48,064 INFO             [main] org.hibernate.jpa.internal.util.LogHelper                                                    : HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-05-30 13:14:48,146 INFO             [main] org.hibernate.Version                                                                        : HHH000412: Hibernate ORM core version 5.6.8.Final
+2022-05-30 13:14:48,442 INFO             [main] org.hibernate.annotations.common.reflection.java.JavaReflectionManager                       : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2022-05-30 13:14:48,596 INFO             [main] com.zaxxer.hikari.HikariDataSource                                                           : HikariPool-1 - Starting...
+2022-05-30 13:14:48,882 INFO             [main] com.zaxxer.hikari.HikariDataSource                                                           : HikariPool-1 - Start completed.
+2022-05-30 13:14:48,917 INFO             [main] org.hibernate.dialect.Dialect                                                                : HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL10Dialect
+2022-05-30 13:14:50,508 WARN             [main] org.hibernate.engine.jdbc.spi.SqlExceptionHelper$StandardWarningHandler                      : SQL Warning Code: 0, SQLState: 00000
+2022-05-30 13:14:50,509 WARN             [main] org.hibernate.engine.jdbc.spi.SqlExceptionHelper$StandardWarningHandler                      : table "auth_user" does not exist, skipping
+2022-05-30 13:14:50,510 WARN             [main] org.hibernate.engine.jdbc.spi.SqlExceptionHelper$StandardWarningHandler                      : SQL Warning Code: 0, SQLState: 00000
+2022-05-30 13:14:50,510 WARN             [main] org.hibernate.engine.jdbc.spi.SqlExceptionHelper$StandardWarningHandler                      : table "barber_shop" does not exist, skipping
+2022-05-30 13:14:50,512 WARN             [main] org.hibernate.engine.jdbc.spi.SqlExceptionHelper$StandardWarningHandler                      : SQL Warning Code: 0, SQLState: 00000
+2022-05-30 13:14:50,512 WARN             [main] org.hibernate.engine.jdbc.spi.SqlExceptionHelper$StandardWarningHandler                      : table "device" does not exist, skipping
+2022-05-30 13:14:50,514 WARN             [main] org.hibernate.engine.jdbc.spi.SqlExceptionHelper$StandardWarningHandler                      : SQL Warning Code: 0, SQLState: 00000
+2022-05-30 13:14:50,514 WARN             [main] org.hibernate.engine.jdbc.spi.SqlExceptionHelper$StandardWarningHandler                      : table "faq" does not exist, skipping
+2022-05-30 13:14:50,516 WARN             [main] org.hibernate.engine.jdbc.spi.SqlExceptionHelper$StandardWarningHandler                      : SQL Warning Code: 0, SQLState: 00000
+2022-05-30 13:14:50,516 WARN             [main] org.hibernate.engine.jdbc.spi.SqlExceptionHelper$StandardWarningHandler                      : table "favorites" does not exist, skipping
+2022-05-30 13:14:50,518 WARN             [main] org.hibernate.engine.jdbc.spi.SqlExceptionHelper$StandardWarningHandler                      : SQL Warning Code: 0, SQLState: 00000
+2022-05-30 13:14:50,518 WARN             [main] org.hibernate.engine.jdbc.spi.SqlExceptionHelper$StandardWarningHandler                      : table "notification" does not exist, skipping
+2022-05-30 13:14:50,519 WARN             [main] org.hibernate.engine.jdbc.spi.SqlExceptionHelper$StandardWarningHandler                      : SQL Warning Code: 0, SQLState: 00000
+2022-05-30 13:14:50,520 WARN             [main] org.hibernate.engine.jdbc.spi.SqlExceptionHelper$StandardWarningHandler                      : table "orders" does not exist, skipping
+2022-05-30 13:14:50,521 WARN             [main] org.hibernate.engine.jdbc.spi.SqlExceptionHelper$StandardWarningHandler                      : SQL Warning Code: 0, SQLState: 00000
+2022-05-30 13:14:50,523 WARN             [main] org.hibernate.engine.jdbc.spi.SqlExceptionHelper$StandardWarningHandler                      : table "organization" does not exist, skipping
+2022-05-30 13:14:50,525 WARN             [main] org.hibernate.engine.jdbc.spi.SqlExceptionHelper$StandardWarningHandler                      : SQL Warning Code: 0, SQLState: 00000
+2022-05-30 13:14:50,525 WARN             [main] org.hibernate.engine.jdbc.spi.SqlExceptionHelper$StandardWarningHandler                      : table "phone_code" does not exist, skipping
+2022-05-30 13:14:50,526 WARN             [main] org.hibernate.engine.jdbc.spi.SqlExceptionHelper$StandardWarningHandler                      : SQL Warning Code: 0, SQLState: 00000
+2022-05-30 13:14:50,527 WARN             [main] org.hibernate.engine.jdbc.spi.SqlExceptionHelper$StandardWarningHandler                      : table "rating" does not exist, skipping
+2022-05-30 13:14:50,529 WARN             [main] org.hibernate.engine.jdbc.spi.SqlExceptionHelper$StandardWarningHandler                      : SQL Warning Code: 0, SQLState: 00000
+2022-05-30 13:14:50,529 WARN             [main] org.hibernate.engine.jdbc.spi.SqlExceptionHelper$StandardWarningHandler                      : table "service" does not exist, skipping
+2022-05-30 13:14:50,530 WARN             [main] org.hibernate.engine.jdbc.spi.SqlExceptionHelper$StandardWarningHandler                      : SQL Warning Code: 0, SQLState: 00000
+2022-05-30 13:14:50,530 WARN             [main] org.hibernate.engine.jdbc.spi.SqlExceptionHelper$StandardWarningHandler                      : table "uploads" does not exist, skipping
+2022-05-30 13:14:50,805 INFO             [main] org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator                  : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-05-30 13:14:50,830 INFO             [main] org.springframework.orm.jpa.AbstractEntityManagerFactoryBean                                 : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2022-05-30 13:14:51,997 WARN             [main] org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration      : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-05-30 13:14:53,226 INFO             [main] org.springframework.security.web.DefaultSecurityFilterChain                                  : Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@55a5eea3, org.springframework.security.web.context.SecurityContextPersistenceFilter@757f47f0, org.springframework.security.web.header.HeaderWriterFilter@6f12fca0, org.springframework.security.web.authentication.logout.LogoutFilter@752e4223, uz.pdp.cutecutapp.config.security.filters.CustomAuthorizationFilter@46ab8e4b, uz.pdp.cutecutapp.config.security.filters.CustomAuthenticationFilter@66428512, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@70680f88, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@29a1dab3, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@e21d73, org.springframework.security.web.session.SessionManagementFilter@7d0e43d6, org.springframework.security.web.access.ExceptionTranslationFilter@38213efa, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@2319c1e0]
+2022-05-30 13:14:55,246 INFO             [main] org.apache.juli.logging.DirectJDKLog                                                         : Starting ProtocolHandler ["http-nio-8080"]
+2022-05-30 13:14:55,289 INFO             [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer                                 : Tomcat started on port(s): 8080 (http) with context path ''
+2022-05-30 13:14:55,306 INFO             [main] org.springframework.boot.StartupInfoLogger                                                   : Started CuteCutAppApplication in 15.534 seconds (JVM running for 18.195)
+2022-05-30 13:17:12,196 INFO             [SpringApplicationShutdownHook] org.springframework.orm.jpa.AbstractEntityManagerFactoryBean        : Closing JPA EntityManagerFactory for persistence unit 'default'
+2022-05-30 13:17:12,210 INFO             [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource                                  : HikariPool-1 - Shutdown initiated...
+2022-05-30 13:17:12,238 INFO             [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource                                  : HikariPool-1 - Shutdown completed.
+2022-05-30 13:17:20,762 INFO             [main] org.springframework.boot.StartupInfoLogger                                                   : Starting CuteCutAppApplication using Java 17.0.2 on LAPTOP-RFFHQF0H with PID 17244 (C:\Users\Sirojiddin\Documents\cute-cut-app\target\classes started by Sirojiddin in C:\Users\Sirojiddin\Documents\cute-cut-app)
+2022-05-30 13:17:20,767 INFO             [main] org.springframework.boot.SpringApplication                                                   : No active profile set, falling back to 1 default profile: "default"
+2022-05-30 13:17:22,389 INFO             [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate                   : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-05-30 13:17:22,731 INFO             [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate                   : Finished Spring Data repository scanning in 325 ms. Found 12 JPA repository interfaces.
+2022-05-30 13:17:23,746 INFO             [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer                                 : Tomcat initialized with port(s): 8080 (http)
+2022-05-30 13:17:23,755 INFO             [main] org.apache.juli.logging.DirectJDKLog                                                         : Initializing ProtocolHandler ["http-nio-8080"]
+2022-05-30 13:17:23,757 INFO             [main] org.apache.juli.logging.DirectJDKLog                                                         : Starting service [Tomcat]
+2022-05-30 13:17:23,757 INFO             [main] org.apache.juli.logging.DirectJDKLog                                                         : Starting Servlet engine: [Apache Tomcat/9.0.62]
+2022-05-30 13:17:24,315 INFO             [main] org.apache.juli.logging.DirectJDKLog                                                         : Initializing Spring embedded WebApplicationContext
+2022-05-30 13:17:24,316 INFO             [main] org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext              : Root WebApplicationContext: initialization completed in 3411 ms
+2022-05-30 13:17:24,543 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : Flyway Community Edition 8.5.10 by Redgate
+2022-05-30 13:17:24,543 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : See what's new here: https://flywaydb.org/documentation/learnmore/releaseNotes#8.5.10
+2022-05-30 13:17:24,544 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : 
+2022-05-30 13:17:24,571 INFO             [main] com.zaxxer.hikari.HikariDataSource                                                           : HikariPool-1 - Starting...
+2022-05-30 13:17:24,913 INFO             [main] com.zaxxer.hikari.HikariDataSource                                                           : HikariPool-1 - Start completed.
+2022-05-30 13:17:24,942 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : Database: jdbc:postgresql://localhost:5432/cutecut_master (PostgreSQL 14.1)
+2022-05-30 13:17:25,017 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : Current version of schema "public": << Empty Schema >>
+2022-05-30 13:17:25,018 WARN             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : outOfOrder mode is active. Migration of schema "public" may not be reproducible.
+2022-05-30 13:17:25,040 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : Migrating schema "public" to version "1 - alter table auth user picture id"
+2022-05-30 13:17:25,097 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : Migrating schema "public" to version "2 - alter table service barber shop id"
+2022-05-30 13:17:25,116 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : Migrating schema "public" to version "3 - alter table favourites barber shop id"
+2022-05-30 13:17:25,137 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : Migrating schema "public" to version "4 - alter table favourites client id"
+2022-05-30 13:17:25,164 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : Migrating schema "public" to version "5 - alter table auth user organization id"
+2022-05-30 13:17:25,189 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : Migrating schema "public" to version "6 - alter table barber shop organization id"
+2022-05-30 13:17:25,204 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : Migrating schema "public" to version "7 - alter table organization logo id"
+2022-05-30 13:17:25,223 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : Migrating schema "public" to version "10 - alter table rating add key"
+2022-05-30 13:17:25,243 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : Successfully applied 8 migrations to schema "public", now at version v10 (execution time 00:00.264s)
+2022-05-30 13:17:25,507 INFO             [main] org.hibernate.jpa.internal.util.LogHelper                                                    : HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-05-30 13:17:25,592 INFO             [main] org.hibernate.Version                                                                        : HHH000412: Hibernate ORM core version 5.6.8.Final
+2022-05-30 13:17:25,806 INFO             [main] org.hibernate.annotations.common.reflection.java.JavaReflectionManager                       : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2022-05-30 13:17:25,949 INFO             [main] org.hibernate.dialect.Dialect                                                                : HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL10Dialect
+2022-05-30 13:17:26,829 INFO             [main] org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator                  : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-05-30 13:17:26,847 INFO             [main] org.springframework.orm.jpa.AbstractEntityManagerFactoryBean                                 : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2022-05-30 13:17:27,677 WARN             [main] org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration      : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-05-30 13:17:28,367 INFO             [main] org.springframework.security.web.DefaultSecurityFilterChain                                  : Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@28b47211, org.springframework.security.web.context.SecurityContextPersistenceFilter@3ef04239, org.springframework.security.web.header.HeaderWriterFilter@50eae15a, org.springframework.security.web.authentication.logout.LogoutFilter@76876421, uz.pdp.cutecutapp.config.security.filters.CustomAuthorizationFilter@4abb4041, uz.pdp.cutecutapp.config.security.filters.CustomAuthenticationFilter@247415be, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@49994a4, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@5980e29f, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@48dc9950, org.springframework.security.web.session.SessionManagementFilter@5b5f61cc, org.springframework.security.web.access.ExceptionTranslationFilter@c7d173f, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@2ef63b6d]
+2022-05-30 13:17:30,692 INFO             [main] org.apache.juli.logging.DirectJDKLog                                                         : Starting ProtocolHandler ["http-nio-8080"]
+2022-05-30 13:17:30,744 INFO             [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer                                 : Tomcat started on port(s): 8080 (http) with context path ''
+2022-05-30 13:17:30,761 INFO             [main] org.springframework.boot.StartupInfoLogger                                                   : Started CuteCutAppApplication in 10.68 seconds (JVM running for 12.43)
