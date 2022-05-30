@@ -39,7 +39,7 @@ public class AuthController extends AbstractController<AuthUserService> {
 
     @PostMapping(PATH + "/auth/loginByPassword")
     public ResponseEntity<DataDto<SessionDto>> loginByPassword(@Valid @RequestBody AuthUserPasswordDto loginDto) {
-        loginDto.phoneNumber="+998"+loginDto.phoneNumber;
+        loginDto.phoneNumber = "+998" + loginDto.phoneNumber;
         return new ResponseEntity<>(service.login(loginDto), HttpStatus.OK);
     }
 
@@ -60,10 +60,10 @@ public class AuthController extends AbstractController<AuthUserService> {
         return new ResponseEntity<>(service.register(dto), HttpStatus.OK);
     }
 
-    @PostMapping
 
     @PutMapping(PATH + "/auth/update")
     public ResponseEntity<DataDto<Boolean>> update(@RequestBody AuthUpdateDto dto) {
+        dto.phoneNumber=String.format("+998%s",dto.phoneNumber);
         return new ResponseEntity<>(service.update(dto), HttpStatus.OK);
     }
 
@@ -82,5 +82,13 @@ public class AuthController extends AbstractController<AuthUserService> {
         return new ResponseEntity<>(service.getAll(), HttpStatus.OK);
     }
 
+    @GetMapping(PATH+"/auth/blockOrUnblock")
+    public ResponseEntity<DataDto> blockOrUnblockUser(@PathVariable(name = "id") Long id){
+        return new ResponseEntity<>(service.blockOrUnblock(id),HttpStatus.OK);
+    }
 
+//    @GetMapping(PATH+"/auth/unblock")
+//    public ResponseEntity<DataDto> unblockUser(@PathVariable(name = "id") Long id){
+//        return null;
+//    }
 }

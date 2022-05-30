@@ -30,6 +30,7 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
             "/api/v1/auth/confirmLoginCode",
             "/api/v1/auth/confirmRegisterCode",
             "/api/v1/auth/register",
+            "/api/v1/auth/update",
 
             "/api/v1/file/auth/uploadPicture",
             "/api/v1/file/auth/download/**",

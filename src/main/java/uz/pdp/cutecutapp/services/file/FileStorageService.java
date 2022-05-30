@@ -11,6 +11,7 @@ import uz.pdp.cutecutapp.dto.file.UploadsDto;
 import uz.pdp.cutecutapp.entity.file.Uploads;
 import uz.pdp.cutecutapp.repository.file.UploadsRepository;
 import uz.pdp.cutecutapp.services.BaseService;
+import uz.pdp.cutecutapp.session.SessionUser;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;
@@ -24,9 +25,11 @@ public class FileStorageService implements BaseService {
     public static final String UNICORN_UPLOADS_B_4_LIB = "\\home\\jarvis\\uploads\\";
     public static final Path PATH = Paths.get(UNICORN_UPLOADS_B_4_LIB);
 
+    private final SessionUser sessionUser;
     private final UploadsRepository repository;
 
-    public FileStorageService(UploadsRepository repository) {
+    public FileStorageService(SessionUser sessionUser, UploadsRepository repository) {
+        this.sessionUser = sessionUser;
         this.repository = repository;
     }
 
@@ -52,7 +55,8 @@ public class FileStorageService implements BaseService {
             Path rootPath = Paths.get(UNICORN_UPLOADS_B_4_LIB, generatedName);
             Files.copy(file.getInputStream(), rootPath, StandardCopyOption.REPLACE_EXISTING);
             Uploads uploadedFile = new Uploads(originalFilename, generatedName, file.getContentType(), (UNICORN_UPLOADS_B_4_LIB + generatedName), file.getSize());
-            repository.save(uploadedFile);
+            Uploads saveFile = repository.save(uploadedFile);
+
             return generatedName;
         } catch (IOException e) {
             throw new RuntimeException(e);

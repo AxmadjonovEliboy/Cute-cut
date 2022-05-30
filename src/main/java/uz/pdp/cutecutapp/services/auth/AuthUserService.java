@@ -209,9 +209,10 @@ public class AuthUserService extends AbstractService<AuthUserRepository, AuthUse
     public DataDto<List<AuthDto>> getAll() {
         Role role = sessionUser.getRole();
         List<AuthUser> users = new ArrayList<>();
-//        if (role.equals(Role.ADMIN)) {
-//            repository
-//        }
+        if (role.equals(Role.ADMIN)) {
+            Long sessionUserId = sessionUser.getId();
+           users =  repository.getAllNotIsDeletedAndById(sessionUserId);
+        }
         if (role.equals(Role.SUPER_ADMIN))
             users = repository.getAllAndNotIsDeleted();
         return new DataDto<>(mapper.toDto(users));
@@ -278,13 +279,11 @@ public class AuthUserService extends AbstractService<AuthUserRepository, AuthUse
         AuthUserPasswordDto authUserPasswordDto = confirmCode(dto);
         if (Objects.nonNull(authUserPasswordDto)) {
             repository.save(new AuthUser(phoneNumber, Role.CLIENT, false));
-//            this.create(new AuthCreateDto(phoneNumber, Role.CLIENT.name()));
             return this.login(authUserPasswordDto);
         }
         return new DataDto<>(new AppErrorDto(HttpStatus.BAD_REQUEST, "Incorrect Code entered", "/auth/confirmOtp"));
 
     }
-
 
     public DataDto<Boolean> register(AuthUserPhoneDto dto) {
         try {
@@ -303,5 +302,10 @@ public class AuthUserService extends AbstractService<AuthUserRepository, AuthUse
         } catch (Exception e) {
             return new DataDto<>(new AppErrorDto(HttpStatus.BAD_REQUEST, "Bad request ", "/auth/register"));
         }
+    }
+
+    public DataDto<Boolean> blockOrUnblock(Long id) {
+
+        return null;
     }
 }

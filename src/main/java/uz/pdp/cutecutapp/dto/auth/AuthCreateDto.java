@@ -4,12 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import uz.pdp.cutecutapp.annotations.HaveOrg;
 import uz.pdp.cutecutapp.dto.BaseDto;
-import uz.pdp.cutecutapp.enums.Role;
 
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
@@ -30,7 +26,6 @@ public class AuthCreateDto implements BaseDto {
     @NotBlank
     private String password;
 
-    @NotBlank
     private String role;
 
     private Long organizationId;
