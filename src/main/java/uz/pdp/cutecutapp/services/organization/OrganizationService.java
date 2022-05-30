@@ -27,7 +27,6 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-
 public class OrganizationService extends AbstractService<OrganizationRepository, OrganizationMapper>
         implements GenericCrudService<Organization, OrganizationDto, OrganizationCreateDto, OrganizationUpdateDto, BaseCriteria, Long> {
 

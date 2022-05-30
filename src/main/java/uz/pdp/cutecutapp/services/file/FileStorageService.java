@@ -8,9 +8,11 @@ import org.springframework.core.io.FileSystemResource;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
+import uz.pdp.cutecutapp.dto.BaseDto;
 import uz.pdp.cutecutapp.dto.file.UploadsDto;
 import uz.pdp.cutecutapp.entity.file.Uploads;
 import uz.pdp.cutecutapp.repository.file.UploadsRepository;
+import uz.pdp.cutecutapp.services.BaseService;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;
@@ -20,8 +22,8 @@ import java.util.Optional;
 
 @Slf4j
 @Service("fileService")
-public class FileStorageService {
-    public static final String UNICORN_UPLOADS_B_4_LIB = "D:\\picture";
+public class FileStorageService implements BaseService {
+    public static final String UNICORN_UPLOADS_B_4_LIB = "C:\\picture";
     public static final Path PATH = Paths.get(UNICORN_UPLOADS_B_4_LIB);
 
     private final UploadsRepository repository;
