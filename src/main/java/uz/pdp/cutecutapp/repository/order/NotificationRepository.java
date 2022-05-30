@@ -20,4 +20,6 @@ public interface NotificationRepository extends JpaRepository<Notification, Long
 
     Optional<Notification> findByIdAndDeletedFalse(Long id);
     List<Notification> findAllByDeletedFalse();
+
+    List<Notification> getNotificationByReceiverId(Long id);
 }
