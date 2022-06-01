@@ -18,7 +18,7 @@ import java.util.Date;
 import java.util.List;
 
 @RestController
-@RequestMapping("/organization/*")
+//@RequestMapping("/organization/*")
 public class OrganizationController extends AbstractController<OrganizationService> {
 
 

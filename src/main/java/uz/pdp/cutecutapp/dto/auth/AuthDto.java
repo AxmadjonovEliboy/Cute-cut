@@ -7,6 +7,7 @@ import uz.pdp.cutecutapp.enums.Role;
 
 @Getter
 @Setter
+
 public class AuthDto extends GenericDto {
 
     public String fullName;

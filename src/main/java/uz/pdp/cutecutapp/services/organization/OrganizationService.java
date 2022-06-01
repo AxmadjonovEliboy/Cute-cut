@@ -27,7 +27,6 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-
 public class OrganizationService extends AbstractService<OrganizationRepository, OrganizationMapper>
         implements GenericCrudService<Organization, OrganizationDto, OrganizationCreateDto, OrganizationUpdateDto, BaseCriteria, Long> {
 
@@ -73,7 +72,7 @@ public class OrganizationService extends AbstractService<OrganizationRepository,
 
     @Override
     public DataDto<List<OrganizationDto>> getAll() {
-        List<Organization> organizationList = repository.findAllByDeletedFalse();
+        List<Organization> organizationList = repository.findAllByAndDeletedFalse();
         List<OrganizationDto> organizationDtos = mapper.toDto(organizationList);
         return new DataDto<>(organizationDtos, HttpStatus.OK.value());
     }
@@ -97,7 +96,6 @@ public class OrganizationService extends AbstractService<OrganizationRepository,
         try {
             Optional<Organization> optionalOrganization = repository.findByIdAndDeletedFalse(id);
             Optional<AuthUser> optionalAuthUser = authUserRepository.findByAndOrganizationId(id);
-
 
             if (optionalOrganization.isPresent() && optionalAuthUser.isPresent() ){
             Organization organization = optionalOrganization.get();
