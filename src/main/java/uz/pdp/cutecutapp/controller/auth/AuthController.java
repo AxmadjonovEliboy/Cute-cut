@@ -13,52 +13,53 @@ import uz.pdp.cutecutapp.services.auth.AuthUserService;
 import java.util.List;
 
 @RestController
+@RequestMapping("/auth")
 public class AuthController extends AbstractController<AuthUserService> {
     protected AuthController(AuthUserService authUserService) {
         super(authUserService);
     }
 
 
-    @PostMapping(PATH + "/auth/loginByPhone")
+    @PostMapping(PATH + "/loginByPhone")
     public ResponseEntity<DataDto<OtpResponse>> loginByPhone(@RequestBody AuthUserPhoneDto loginDto) {
         return new ResponseEntity<>(service.loginByPhone(loginDto), HttpStatus.OK);
     }
 
-    @PostMapping(PATH + "/auth/confirmLoginCode")
+    @PostMapping(PATH + "/confirmLoginCode")
     public ResponseEntity<DataDto<SessionDto>> confirmLoginSms(@RequestBody AuthUserCodePhoneDto dto) {
         return new ResponseEntity<>(service.confirmLoginCode(dto), HttpStatus.OK);
     }
 
-    @PostMapping(PATH + "/auth/confirmRegisterCode")
+    @PostMapping(PATH + "/confirmRegisterCode")
     public ResponseEntity<DataDto<SessionDto>> confirmRegisterSms(@RequestBody AuthUserCodePhoneDto dto) {
         return new ResponseEntity<>(service.confirmRegisterCode(dto), HttpStatus.OK);
     }
 
     //    @PreAuthorize(value = "hasRole('ADMIN')")
-    @PostMapping(PATH + "/auth/create")
+    @PostMapping(PATH + "/create")
     public ResponseEntity<DataDto<Long>> create(@RequestBody AuthCreateDto dto) {
         return new ResponseEntity<>(service.create(dto), HttpStatus.OK);
     }
 
-    @PostMapping(PATH + "/auth/register")
+    @PostMapping(PATH + "/register")
     public ResponseEntity<DataDto<Boolean>> register(@RequestBody AuthUserPhoneDto dto) {
         return new ResponseEntity<>(service.register(dto), HttpStatus.OK);
     }
 
 
-    @PutMapping(PATH + "/auth/update")
+    @PutMapping(PATH + "/update")
     public ResponseEntity<DataDto<Boolean>> update(@RequestBody AuthUpdateDto dto) {
         dto.phoneNumber = String.format("+998%s", dto.phoneNumber);
         return new ResponseEntity<>(service.update(dto), HttpStatus.OK);
     }
 
-    @DeleteMapping(PATH + "/auth/{id}")
+    @DeleteMapping(PATH + "/{id}")
     public ResponseEntity<DataDto<Boolean>> deleted(@PathVariable(name = "id") Long id) {
         return new ResponseEntity<>(service.delete(id), HttpStatus.OK);
     }
 
     @PreAuthorize(value = "hasRole('CLIENT')")
-    @GetMapping(PATH + "/auth/{id}")
+    @GetMapping(PATH + "/{id}")
     public ResponseEntity<DataDto<AuthDto>> get(@PathVariable(name = "id") Long id) {
         return new ResponseEntity<>(service.get(id), HttpStatus.OK);
     }
@@ -69,13 +70,13 @@ public class AuthController extends AbstractController<AuthUserService> {
     }
 
     //    @PreAuthorize("isAuthenticated()")
-    @GetMapping(PATH + "/auth/block/{id}")
+    @GetMapping(PATH + "/block/{id}")
     public ResponseEntity<DataDto<Boolean>> block(@PathVariable(name = "id") Long id) {
         return new ResponseEntity<>(service.block(id), HttpStatus.OK);
     }
 
     @PreAuthorize(value = "hasRole('ADMIN')")
-    @GetMapping(PATH + "/auth/unblock{id}")
+    @GetMapping(PATH + "/unblock{id}")
     public ResponseEntity<DataDto<Boolean>> unblockUser(@PathVariable(name = "id") Long id) {
         return new ResponseEntity<>(service.unblock(id), HttpStatus.OK);
     }
