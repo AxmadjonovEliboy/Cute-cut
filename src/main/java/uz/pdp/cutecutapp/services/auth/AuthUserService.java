@@ -181,7 +181,7 @@ public class AuthUserService extends AbstractService<AuthUserRepository, AuthUse
     public DataDto<AuthDto> get(Long id) {
         if (Objects.isNull(id)) return new DataDto<>(new AppErrorDto("Bad Request", HttpStatus.BAD_REQUEST));
         Optional<AuthUser> user = repository.getByIdAndNotDeleted(id);
-        if (user.isEmpty()) return new DataDto<>(new AppErrorDto("Not Found", HttpStatus.NOT_FOUND));
+        if (!user.isPresent()) return new DataDto<>(new AppErrorDto("Not Found", HttpStatus.NOT_FOUND));
         AuthDto authDto = mapper.toDto(user.get());
         System.out.println(authDto);
         return new DataDto<>(authDto);
@@ -217,7 +217,7 @@ public class AuthUserService extends AbstractService<AuthUserRepository, AuthUse
     public DataDto<Boolean> delete(Long id) {
         if (Objects.isNull(id)) return new DataDto<>(new AppErrorDto("Bad Request", HttpStatus.BAD_REQUEST));
         Optional<AuthUser> user = repository.getByIdAndNotDeleted(id);
-        if (user.isEmpty()) return new DataDto<>(new AppErrorDto("Not Found", HttpStatus.NOT_FOUND));
+        if (!user.isPresent()) return new DataDto<>(new AppErrorDto("Not Found", HttpStatus.NOT_FOUND));
         String code = UUID.randomUUID().toString();
         repository.softDeleted(id, code);
         return new DataDto<>(Boolean.TRUE);
@@ -262,7 +262,7 @@ public class AuthUserService extends AbstractService<AuthUserRepository, AuthUse
     public AuthUserPasswordDto confirmCode(AuthUserCodePhoneDto dto) {
         String phoneNumber = String.format("+998%s", dto.phoneNumber);
         Optional<PhoneCode> phoneCodeOptional = phoneCodeRepository.findByPhoneNumberAndDeletedFalse(phoneNumber);
-        if (phoneCodeOptional.isEmpty()) return null;
+        if (!phoneCodeOptional.isPresent()) return null;
         PhoneCode phoneCode = phoneCodeOptional.get();
         long between = ChronoUnit.MINUTES.between(LocalDateTime.now(), phoneCode.getExpiration());
         if (phoneCode.getCode().equals(dto.code.toString()) && between >= 0)

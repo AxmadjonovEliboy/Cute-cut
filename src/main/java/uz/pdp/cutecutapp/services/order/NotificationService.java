@@ -37,15 +37,15 @@ public class NotificationService extends AbstractService<NotificationRepository,
     @Override
     public DataDto<Long> create(NotificationCreteDto createDto) {
         Optional<AuthUser> optionalSender = authUserRepository.findById(createDto.getSenderId());
-        if (optionalSender.isEmpty()) {
+        if (!optionalSender.isPresent()) {
             return new DataDto<>(new AppErrorDto("Sender not found with id : " + createDto.getSenderId(), HttpStatus.NOT_FOUND));
         }
         Optional<AuthUser> optionalReceiver = authUserRepository.findById(createDto.getReceiverId());
-        if (optionalReceiver.isEmpty()) {
+        if (!optionalReceiver.isPresent()) {
             return new DataDto<>(new AppErrorDto("Receiver not found with id : " + createDto.getReceiverId(),HttpStatus.NOT_FOUND));
         }
         Optional<Order> optionalOrder = orderRepository.findByIdAndDeletedFalse(createDto.getOrderId());
-        if (optionalOrder.isEmpty()) {
+        if (!optionalOrder.isPresent()) {
             return new DataDto<>(new AppErrorDto("Order not found with id : " + createDto.getOrderId(), HttpStatus.NOT_FOUND));
         }
         Notification notification = mapper.fromCreateDto(createDto);
@@ -78,7 +78,7 @@ public class NotificationService extends AbstractService<NotificationRepository,
     @Override
     public DataDto<NotificationDto> get(Long id) {
         Optional<Notification> optionalNotification = repository.findByIdAndDeletedFalse(id);
-        if (optionalNotification.isEmpty()) {
+        if (!optionalNotification.isPresent()) {
             NotificationDto notificationDto = mapper.toDto(optionalNotification.get());
             return new DataDto<>(notificationDto,HttpStatus.OK.value());
         } else {

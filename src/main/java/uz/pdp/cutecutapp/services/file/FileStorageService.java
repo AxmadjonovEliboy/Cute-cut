@@ -67,7 +67,7 @@ public class FileStorageService implements BaseService {
     public UploadsDto loadResource(@NonNull String fileName) {
         Optional<Uploads> uploads = repository.findByGeneratedName(fileName);
 
-        if (uploads.isEmpty()) {
+        if (!uploads.isPresent()) {
             try {
                 throw new NoSuchFileException("not found");
             } catch (NoSuchFileException e) {
