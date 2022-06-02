@@ -41,7 +41,7 @@ public class CustomAuthorizationFilter extends OncePerRequestFilter {
                 DecodedJWT decodedJWT = jwtUtils.verifier().verify(token);
                 String username = decodedJWT.getSubject();
                 AuthUser user = authUserService.loadAuthUserByUsername(username);
-                if (Objects.isNull(user) || user.getStatus().equals(Status.ACTIVE)) {
+                if (Objects.isNull(user) || !user.getStatus().equals(Status.ACTIVE)) {
                     filterChain.doFilter(request, response);
                 }
                 String[] roles = decodedJWT.getClaim("roles").asArray(String.class);
