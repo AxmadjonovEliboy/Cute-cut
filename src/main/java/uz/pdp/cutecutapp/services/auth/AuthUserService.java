@@ -114,7 +114,7 @@ public class AuthUserService extends AbstractService<AuthUserRepository, AuthUse
         try {
 
             HttpClient httpclient = HttpClientBuilder.create().build();
-            String url = serverProperties.getServerUrl() + "/api/login";
+            String url = "https://cutecutapp.herokuapp.com/api/login";
             HttpPost httppost = new HttpPost(url);
             AuthLoginDto loginDto = new AuthLoginDto(dto.phoneNumber, dto.password);
             byte[] bytes = objectMapper.writeValueAsBytes(loginDto);
