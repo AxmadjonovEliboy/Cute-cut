@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 import uz.pdp.cutecutapp.entity.auth.AuthUser;
 import uz.pdp.cutecutapp.enums.Language;
 import uz.pdp.cutecutapp.enums.Role;
+import uz.pdp.cutecutapp.enums.Status;
 import uz.pdp.cutecutapp.repository.auth.AuthUserRepository;
 
 import java.util.Optional;
@@ -40,4 +41,10 @@ public class SessionUser {
         Optional<AuthUser> user = repository.findByPhoneNumberAndDeletedFalse(this.getUsername());
         return user.get().getLanguage();
     }
+
+    public Status getStatus() {
+        Optional<AuthUser> user = repository.findByPhoneNumberAndDeletedFalse(this.getUsername());
+        return user.get().getStatus();
+    }
+
 }

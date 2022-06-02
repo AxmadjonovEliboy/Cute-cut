@@ -10,13 +10,11 @@ import uz.pdp.cutecutapp.dto.otp.OtpResponse;
 import uz.pdp.cutecutapp.dto.responce.DataDto;
 import uz.pdp.cutecutapp.services.auth.AuthUserService;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
 import java.util.List;
 
 @RestController
 public class AuthController extends AbstractController<AuthUserService> {
-    protected AuthController(AuthUserService authUserService, AuthUserService authUserService1) {
+    protected AuthController(AuthUserService authUserService) {
         super(authUserService);
     }
 
@@ -36,20 +34,7 @@ public class AuthController extends AbstractController<AuthUserService> {
         return new ResponseEntity<>(service.confirmRegisterCode(dto), HttpStatus.OK);
     }
 
-
-    @PostMapping(PATH + "/auth/loginByPassword")
-    public ResponseEntity<DataDto<SessionDto>> loginByPassword(@Valid @RequestBody AuthUserPasswordDto loginDto) {
-        loginDto.phoneNumber="+998"+loginDto.phoneNumber;
-        return new ResponseEntity<>(service.login(loginDto), HttpStatus.OK);
-    }
-
-
-    @PostMapping(PATH + "/auth/refresh")
-    public ResponseEntity<DataDto<SessionDto>> refreshToken(@RequestBody AuthRefreshToken token, HttpServletRequest request) {
-        return new ResponseEntity<>(service.refreshToken(token.getToken(), request), HttpStatus.OK);
-    }
-
-    @PreAuthorize(value = "hasRole('ADMIN')")
+    //    @PreAuthorize(value = "hasRole('ADMIN')")
     @PostMapping(PATH + "/auth/create")
     public ResponseEntity<DataDto<Long>> create(@RequestBody AuthCreateDto dto) {
         return new ResponseEntity<>(service.create(dto), HttpStatus.OK);
@@ -60,10 +45,10 @@ public class AuthController extends AbstractController<AuthUserService> {
         return new ResponseEntity<>(service.register(dto), HttpStatus.OK);
     }
 
-    @PostMapping
 
     @PutMapping(PATH + "/auth/update")
     public ResponseEntity<DataDto<Boolean>> update(@RequestBody AuthUpdateDto dto) {
+        dto.phoneNumber = String.format("+998%s", dto.phoneNumber);
         return new ResponseEntity<>(service.update(dto), HttpStatus.OK);
     }
 
@@ -72,6 +57,7 @@ public class AuthController extends AbstractController<AuthUserService> {
         return new ResponseEntity<>(service.delete(id), HttpStatus.OK);
     }
 
+    @PreAuthorize(value = "hasRole('CLIENT')")
     @GetMapping(PATH + "/auth/{id}")
     public ResponseEntity<DataDto<AuthDto>> get(@PathVariable(name = "id") Long id) {
         return new ResponseEntity<>(service.get(id), HttpStatus.OK);
@@ -80,6 +66,18 @@ public class AuthController extends AbstractController<AuthUserService> {
     @GetMapping(PATH + "/auth")
     public ResponseEntity<DataDto<List<AuthDto>>> getAll() {
         return new ResponseEntity<>(service.getAll(), HttpStatus.OK);
+    }
+
+    //    @PreAuthorize("isAuthenticated()")
+    @GetMapping(PATH + "/auth/block/{id}")
+    public ResponseEntity<DataDto<Boolean>> block(@PathVariable(name = "id") Long id) {
+        return new ResponseEntity<>(service.block(id), HttpStatus.OK);
+    }
+
+    @PreAuthorize(value = "hasRole('ADMIN')")
+    @GetMapping(PATH + "/auth/unblock{id}")
+    public ResponseEntity<DataDto<Boolean>> unblockUser(@PathVariable(name = "id") Long id) {
+        return new ResponseEntity<>(service.unblock(id), HttpStatus.OK);
     }
 
 

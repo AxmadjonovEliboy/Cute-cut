@@ -1,7 +1,5 @@
 package uz.pdp.cutecutapp.services.auth;
 
-import com.auth0.jwt.JWT;
-import com.auth0.jwt.interfaces.DecodedJWT;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.http.HttpResponse;
@@ -11,7 +9,6 @@ import org.apache.http.entity.InputStreamEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -40,7 +37,6 @@ import uz.pdp.cutecutapp.services.GenericCrudService;
 import uz.pdp.cutecutapp.session.SessionUser;
 import uz.pdp.cutecutapp.utils.JwtUtils;
 
-import javax.servlet.http.HttpServletRequest;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -50,7 +46,6 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
-import java.util.stream.Collectors;
 
 
 @Service
@@ -98,7 +93,11 @@ public class AuthUserService extends AbstractService<AuthUserRepository, AuthUse
         if (optional.isPresent()) {
             AuthUser user = optional.get();
             if (user.getStatus().equals(Status.ACTIVE)) {
-                return User.builder().username(user.getPhoneNumber()).password(user.getPassword()).authorities(new SimpleGrantedAuthority(user.getRole().name())).build();
+                return User.builder()
+                        .username(user.getPhoneNumber())
+                        .password(user.getPassword())
+                        .authorities(new SimpleGrantedAuthority(user.getRole().name()))
+                        .build();
             } else throw new RuntimeException("User Not Active");
         } else {
             throw new UsernameNotFoundException("User not found");
@@ -141,27 +140,23 @@ public class AuthUserService extends AbstractService<AuthUserRepository, AuthUse
         }
     }
 
-    private User read(String token) {
-        DecodedJWT decodedJWT = jwtUtils.verifier().verify(token);
-        String username = decodedJWT.getSubject();
-        return loadUser(username);
-    }
-
-    private User loadUser(String username) {
-        Optional<AuthUser> optional = repository.findByPhoneNumberAndDeletedFalse(username);
-        if (optional.isPresent()) {
-            AuthUser user = optional.get();
-            return new User(user.getPhoneNumber(), user.getPassword(), Collections.singleton(new SimpleGrantedAuthority(user.getRole().name())));
+    public DataDto<Boolean> register(AuthUserPhoneDto dto) {
+        try {
+            String phoneNumber = String.format("+998%s", dto.phoneNumber);
+            Optional<AuthUser> authUser = repository.findByPhoneNumberAndDeletedFalse(phoneNumber);
+            if (authUser.isPresent())
+                return new DataDto<>(new AppErrorDto(HttpStatus.ALREADY_REPORTED, "phone number available", "/auth/register"));
+            OtpResponse send = otpService.send(new AuthUserPhoneDto(phoneNumber));
+            if (send.success) {
+                LocalDateTime expire = LocalDateTime.now().plusMinutes(otpProperties.getExpiration());
+                PhoneCode phoneCode = new PhoneCode(phoneNumber, send.code.toString(), expire);
+                phoneCodeRepository.save(phoneCode);
+                return new DataDto<>(Boolean.TRUE, HttpStatus.OK.value());
+            }
+            return new DataDto<>(Boolean.FALSE, HttpStatus.BAD_REQUEST.value());
+        } catch (Exception e) {
+            return new DataDto<>(new AppErrorDto(HttpStatus.BAD_REQUEST, "Bad request ", "/auth/register"));
         }
-        throw new RuntimeException("user not found");
-    }
-
-    public DataDto<SessionDto> refreshToken(String token, HttpServletRequest request) {
-        User user = read(token);
-        Date expiryForAccessToken = jwtUtils.getExpireDate();
-        Date expiryForRefreshToken = jwtUtils.getExpireDateForRefreshToken();
-        String accessToken = JWT.create().withSubject(user.getUsername()).withExpiresAt(expiryForAccessToken).withIssuer(request.getRequestURL().toString()).withClaim("roles", user.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList())).sign(jwtUtils.getAlgorithm());
-        return new DataDto<>(SessionDto.builder().accessToken(accessToken).expiresIn(expiryForAccessToken.getTime()).refreshToken(token).refreshTokenExpire(expiryForRefreshToken.getTime()).issuedAt(System.currentTimeMillis()).build());
     }
 
     @Override
@@ -183,14 +178,28 @@ public class AuthUserService extends AbstractService<AuthUserRepository, AuthUse
     }
 
     @Override
-    public DataDto<Boolean> delete(Long id) {
+    public DataDto<AuthDto> get(Long id) {
         if (Objects.isNull(id)) return new DataDto<>(new AppErrorDto("Bad Request", HttpStatus.BAD_REQUEST));
         Optional<AuthUser> user = repository.getByIdAndNotDeleted(id);
         if (user.isEmpty()) return new DataDto<>(new AppErrorDto("Not Found", HttpStatus.NOT_FOUND));
-        String code = UUID.randomUUID().toString();
-        repository.softDeleted(id, code);
-        return new DataDto<>(null);
+        AuthDto authDto = mapper.toDto(user.get());
+        System.out.println(authDto);
+        return new DataDto<>(authDto);
     }
+
+
+    @Override
+    public DataDto<List<AuthDto>> getAll() {
+        Role role = sessionUser.getRole();
+        List<AuthUser> users = new ArrayList<>();
+        if (role.equals(Role.ADMIN)) {
+            Long sessionUserId = sessionUser.getId();
+            users = repository.getAllNotIsDeletedAndById(sessionUserId);
+        }
+        if (role.equals(Role.SUPER_ADMIN)) users = repository.getAllAndNotIsDeleted();
+        return new DataDto<>(mapper.toDto(users));
+    }
+
 
     @Override
     public DataDto<Boolean> update(AuthUpdateDto dto) {
@@ -198,34 +207,22 @@ public class AuthUserService extends AbstractService<AuthUserRepository, AuthUse
             Optional<AuthUser> user = repository.getByIdAndNotDeleted(dto.getId());
             AuthUser authUser = mapper.updateFrom(dto, user.get());
             repository.save(authUser);
-            return new DataDto<>(Boolean.TRUE, HttpStatus.OK.value());
+            return new DataDto<>(Boolean.TRUE);
         } catch (Exception e) {
-            return new DataDto<>(Boolean.FALSE, HttpStatus.BAD_REQUEST.value());
+            return new DataDto<>(Boolean.FALSE);
         }
-
     }
 
     @Override
-    public DataDto<List<AuthDto>> getAll() {
-        Role role = sessionUser.getRole();
-        List<AuthUser> users = new ArrayList<>();
-//        if (role.equals(Role.ADMIN)) {
-//            repository
-//        }
-        if (role.equals(Role.SUPER_ADMIN))
-            users = repository.getAllAndNotIsDeleted();
-        return new DataDto<>(mapper.toDto(users));
-    }
-
-    @Override
-    public DataDto<AuthDto> get(Long id) {
+    public DataDto<Boolean> delete(Long id) {
         if (Objects.isNull(id)) return new DataDto<>(new AppErrorDto("Bad Request", HttpStatus.BAD_REQUEST));
         Optional<AuthUser> user = repository.getByIdAndNotDeleted(id);
         if (user.isEmpty()) return new DataDto<>(new AppErrorDto("Not Found", HttpStatus.NOT_FOUND));
-        Optional<AuthUser> authUser = repository.getByIdAndNotDeleted(id);
-        AuthDto authDto = mapper.toDto(authUser.get());
-        return new DataDto<>(authDto);
+        String code = UUID.randomUUID().toString();
+        repository.softDeleted(id, code);
+        return new DataDto<>(Boolean.TRUE);
     }
+
 
     @Override
     public DataDto<List<AuthDto>> getWithCriteria(BaseCriteria criteria) throws SQLException {
@@ -235,7 +232,9 @@ public class AuthUserService extends AbstractService<AuthUserRepository, AuthUse
 
     public DataDto<OtpResponse> loginByPhone(AuthUserPhoneDto loginDto) {
         String phoneNumber = String.format("+998%s", loginDto.phoneNumber);
+
         Optional<AuthUser> user = repository.findByPhoneNumberAndDeletedFalse(phoneNumber);
+
         if (user.isPresent()) {
             if (user.get().getStatus().equals(Status.ACTIVE)) {
                 AuthUser authUser = user.get();
@@ -263,12 +262,11 @@ public class AuthUserService extends AbstractService<AuthUserRepository, AuthUse
     public AuthUserPasswordDto confirmCode(AuthUserCodePhoneDto dto) {
         String phoneNumber = String.format("+998%s", dto.phoneNumber);
         Optional<PhoneCode> phoneCodeOptional = phoneCodeRepository.findByPhoneNumberAndDeletedFalse(phoneNumber);
-        if (phoneCodeOptional.isEmpty())
-            return null;
+        if (phoneCodeOptional.isEmpty()) return null;
         PhoneCode phoneCode = phoneCodeOptional.get();
         long between = ChronoUnit.MINUTES.between(LocalDateTime.now(), phoneCode.getExpiration());
         if (phoneCode.getCode().equals(dto.code.toString()) && between >= 0)
-            return new AuthUserPasswordDto(null, phoneNumber, dto.deviceToken, dto.deviceId);
+            return new AuthUserPasswordDto(phoneNumber, phoneNumber, dto.deviceToken, dto.deviceId);
         return null;
     }
 
@@ -277,31 +275,49 @@ public class AuthUserService extends AbstractService<AuthUserRepository, AuthUse
         String phoneNumber = String.format("+998%s", dto.phoneNumber);
         AuthUserPasswordDto authUserPasswordDto = confirmCode(dto);
         if (Objects.nonNull(authUserPasswordDto)) {
-            repository.save(new AuthUser(phoneNumber, Role.CLIENT, false));
-//            this.create(new AuthCreateDto(phoneNumber, Role.CLIENT.name()));
+            repository.save(new AuthUser(phoneNumber, passwordEncoder.encode(phoneNumber), Role.CLIENT, false));
             return this.login(authUserPasswordDto);
         }
         return new DataDto<>(new AppErrorDto(HttpStatus.BAD_REQUEST, "Incorrect Code entered", "/auth/confirmOtp"));
-
     }
 
-
-    public DataDto<Boolean> register(AuthUserPhoneDto dto) {
+    public DataDto<Boolean> block(Long id) {
         try {
-            String phoneNumber = String.format("+998%s", dto.phoneNumber);
-            Optional<AuthUser> authUser = repository.findByPhoneNumberAndDeletedFalse(phoneNumber);
-            if (authUser.isPresent())
-                return new DataDto<>(new AppErrorDto(HttpStatus.ALREADY_REPORTED, "phone number available", "/auth/register"));
-            OtpResponse send = otpService.send(new AuthUserPhoneDto(phoneNumber));
-            if (send.success) {
-                LocalDateTime expire = LocalDateTime.now().plusMinutes(otpProperties.getExpiration());
-                PhoneCode phoneCode = new PhoneCode(phoneNumber, send.code.toString(), expire);
-                phoneCodeRepository.save(phoneCode);
-                return new DataDto<>(Boolean.TRUE, HttpStatus.OK.value());
-            }
-            return new DataDto<>(Boolean.FALSE, HttpStatus.BAD_REQUEST.value());
+            AuthUser authUser = blockUnblock(id);
+            authUser.setStatus(Status.BLOCKED);
+            repository.save(authUser);
+            return new DataDto<>(Boolean.TRUE);
         } catch (Exception e) {
-            return new DataDto<>(new AppErrorDto(HttpStatus.BAD_REQUEST, "Bad request ", "/auth/register"));
+            if (e.getMessage().equals("FORBIDDEN"))
+                return new DataDto<>(new AppErrorDto("FORBIDDEN", "/auth/block", HttpStatus.FORBIDDEN));
+            if (e.getMessage().equals("NOT_ACTIVE"))
+                return new DataDto<>(new AppErrorDto("Bad Request", "/auth/block", HttpStatus.BAD_REQUEST));
         }
+        return new DataDto<>(Boolean.FALSE);
+    }
+
+    public AuthUser blockUnblock(Long id) {
+        Optional<AuthUser> user = repository.getByIdAndNotDeleted(id);
+        if (!sessionUser.getRole().equals(Role.ADMIN)) throw new RuntimeException("FORBIDDEN");
+        Status status = sessionUser.getStatus();
+        if (user.isPresent() && status.equals(Status.ACTIVE)) {
+            return user.get();
+        }
+        throw new RuntimeException("NOT_ACTIVE");
+    }
+
+    public DataDto<Boolean> unblock(Long id) {
+        try {
+            AuthUser authUser = blockUnblock(id);
+            authUser.setStatus(Status.ACTIVE);
+            repository.save(authUser);
+            return new DataDto<>(Boolean.TRUE);
+        } catch (Exception e) {
+            if (e.getMessage().equals("FORBIDDEN"))
+                return new DataDto<>(new AppErrorDto("FORBIDDEN", "/auth/unblock", HttpStatus.FORBIDDEN));
+            if (e.getMessage().equals("NOT_ACTIVE"))
+                return new DataDto<>(new AppErrorDto("Bad Request", "/auth/unblock", HttpStatus.BAD_REQUEST));
+        }
+        return new DataDto<>(Boolean.FALSE);
     }
 }

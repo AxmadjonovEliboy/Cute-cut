@@ -23,11 +23,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
-    private final CustomAuthenticationProvider customAuthenticationProvider;
+    private final AuthenticationManager authenticationManager;
     private final JwtUtils jwtUtils;
 
-    public CustomAuthenticationFilter(CustomAuthenticationProvider customAuthenticationProvider, JwtUtils jwtUtils) {
-        this.customAuthenticationProvider = customAuthenticationProvider;
+    public CustomAuthenticationFilter(AuthenticationManager authenticationManager, JwtUtils jwtUtils) {
+        this.authenticationManager = authenticationManager;
         this.jwtUtils = jwtUtils;
         super.setFilterProcessesUrl("/api/login");
     }
@@ -38,7 +38,7 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
             AuthUserPasswordDto loginDto = new ObjectMapper().readValue(request.getReader(), AuthUserPasswordDto.class);
             UsernamePasswordAuthenticationToken authenticationToken =
                     new UsernamePasswordAuthenticationToken(loginDto.phoneNumber, loginDto.password);
-            return customAuthenticationProvider.authenticate(authenticationToken);
+            return authenticationManager.authenticate(authenticationToken);
         } catch (IOException e) {
             throw new RuntimeException(e.getMessage(), e.getCause());
         }
