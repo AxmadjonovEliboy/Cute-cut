@@ -49,7 +49,7 @@ api:
 service:
   prop:
     protocol: http
-    ip: localhost
+    ip: ec2-44-196-174-238.compute-1.amazonaws.com
     port: 8080
     url: boom.uz
 
