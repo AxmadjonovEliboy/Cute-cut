@@ -7,9 +7,9 @@ server:
   port: 8080
 spring:
   datasource:
-    url: postgres://agkrpqggngxtze:6d92615f2ac7376b93d49b1659cbf7f99fcfdec6859ac3d41ac74fd5eec12ae0@ec2-99-80-170-190.eu-west-1.compute.amazonaws.com:5432/d8mv1nob8pupef
-    password: 6d92615f2ac7376b93d49b1659cbf7f99fcfdec6859ac3d41ac74fd5eec12ae0
-    username: agkrpqggngxtze
+    url: jdbc:postgresql://ec2-44-196-174-238.compute-1.amazonaws.com:5432/d5ra9mpj7hag8n
+    password: 75bff02421b9f62f0f1a0c5625d9f4e62244861ebc84a9cdbae0585a8863ac84
+    username: efyuovdzrdjnuh
     driver-class-name: org.postgresql.Driver
 
   jpa:
