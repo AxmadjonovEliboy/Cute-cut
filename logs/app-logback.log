@@ -288,3 +288,6 @@ Need more flexibility with validation rules? Learn more: https://rd.gt/3AbJUZE
 2022-06-02 19:14:23,969 INFO             [http-nio-8080-exec-1] org.springframework.web.servlet.FrameworkServlet                             : Initializing Servlet 'dispatcherServlet'
 2022-06-02 19:14:23,972 INFO             [http-nio-8080-exec-1] org.springframework.web.servlet.FrameworkServlet                             : Completed initialization in 1 ms
 2022-06-02 19:14:36,982 INFO             [http-nio-8080-exec-6] org.springdoc.api.AbstractOpenApiResource                                    : Init duration for springdoc-openapi is: 519 ms
+2022-06-02 20:32:41,896 INFO             [SpringApplicationShutdownHook] org.springframework.orm.jpa.AbstractEntityManagerFactoryBean        : Closing JPA EntityManagerFactory for persistence unit 'default'
+2022-06-02 20:32:41,898 INFO             [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource                                  : HikariPool-1 - Shutdown initiated...
+2022-06-02 20:32:41,907 INFO             [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource                                  : HikariPool-1 - Shutdown completed.
