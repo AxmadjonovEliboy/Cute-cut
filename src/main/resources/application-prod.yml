@@ -61,7 +61,7 @@ jwt:
     expire: 900000000
 
 otp:
-  accessKey: 'AccessKey pX4Ti0YqeoTUeCzX9ezBFpWT1'
+  accessKey: 'AccessKey xsTieTlZpZJjxyexNB2LK8PzJ'
   originator: Xurshidbek
   api: https://rest.messagebird.com/messages
   body: 'Your verification code : '
