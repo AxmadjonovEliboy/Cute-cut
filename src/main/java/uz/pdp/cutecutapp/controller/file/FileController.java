@@ -30,11 +30,7 @@ public class FileController extends AbstractController<FileStorageService> {
 
     @GetMapping(value = PATH+"/file/auth/download/{name}")
     public ResponseEntity<DataDto<UploadsDto>> downloadFile(@PathVariable(name = "name") String name){
-        try {
-            return new ResponseEntity<>(new DataDto<>(service.loadResource(name)),HttpStatus.OK);
-        } catch (NoSuchFileException e) {
-            throw new RuntimeException(e);
-        }
+        return new ResponseEntity<>(new DataDto<>(service.loadResource(name)),HttpStatus.OK);
     }
 
 }
