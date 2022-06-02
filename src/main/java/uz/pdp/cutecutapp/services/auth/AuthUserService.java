@@ -113,7 +113,7 @@ public class AuthUserService extends AbstractService<AuthUserRepository, AuthUse
     public DataDto<SessionDto> login(AuthUserPasswordDto dto) {
         try {
             HttpClient httpclient = HttpClientBuilder.create().build();
-            String url = serverProperties.getUrl()+"/api/login";
+            String url = serverProperties.getServerUrl()+"/api/login";
             HttpPost httppost = new HttpPost(url);
             AuthLoginDto loginDto = new AuthLoginDto(dto.phoneNumber, dto.password);
             byte[] bytes = objectMapper.writeValueAsBytes(loginDto);

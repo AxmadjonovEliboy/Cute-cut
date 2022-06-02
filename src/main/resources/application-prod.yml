@@ -49,7 +49,7 @@ api:
 service:
   prop:
     protocol: https
-    ip: cutecutapp.herokuapp.com
+    ip: cutecutapp.herokuapp.com #https://cutecutapp.herokuapp.com
     url: boom.uz
 
 jwt:
