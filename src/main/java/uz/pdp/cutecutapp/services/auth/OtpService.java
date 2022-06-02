@@ -35,31 +35,31 @@ public class OtpService {
     }
 
     public OtpResponse send(AuthUserPhoneDto dto) {
-        try {
-            HttpClient httpClient = HttpClientBuilder.create().build();
-            String url = otpProperties.getApi();
-            Random random = SecureRandom.getInstanceStrong();
-            int code = otpProperties.getFrom() + random.nextInt(otpProperties.getBound());
-            OtpDto otpDto = new OtpDto(dto.phoneNumber, otpProperties.getOriginator(),
-                    (otpProperties.getBody() + code));
-            HttpPost httpPost = new HttpPost(url);
-            httpPost.addHeader("Authorization", otpProperties.getAccessKey());
-            httpPost.addHeader("Content-Type", MediaType.APPLICATION_JSON_VALUE);
-            httpPost.setEntity(new StringEntity(objectMapper.writeValueAsString(otpDto)));
-
-
-            HttpResponse response = httpClient.execute(httpPost);
-
-            if (response.getStatusLine().getStatusCode() == HttpStatus.CREATED.value()) {
-            return new OtpResponse(code, dto.phoneNumber);
-            } else
-                return new OtpResponse(false, response.getStatusLine().getStatusCode(), response.getStatusLine().getReasonPhrase());
-
-        } catch (NoSuchAlgorithmException e) {
-            return new OtpResponse(false, HttpStatus.INTERNAL_SERVER_ERROR.value(), e.getMessage());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+//        try {
+//            HttpClient httpClient = HttpClientBuilder.create().build();
+//            String url = otpProperties.getApi();
+//            Random random = SecureRandom.getInstanceStrong();
+//            int code = otpProperties.getFrom() + random.nextInt(otpProperties.getBound());
+//            OtpDto otpDto = new OtpDto(dto.phoneNumber, otpProperties.getOriginator(),
+//                    (otpProperties.getBody() + code));
+//            HttpPost httpPost = new HttpPost(url);
+//            httpPost.addHeader("Authorization", otpProperties.getAccessKey());
+//            httpPost.addHeader("Content-Type", MediaType.APPLICATION_JSON_VALUE);
+//            httpPost.setEntity(new StringEntity(objectMapper.writeValueAsString(otpDto)));
+//
+//
+//            HttpResponse response = httpClient.execute(httpPost);
+//
+//            if (response.getStatusLine().getStatusCode() == HttpStatus.CREATED.value()) {
+            return new OtpResponse(4444, dto.phoneNumber);
+//            } else
+//                return new OtpResponse(false, response.getStatusLine().getStatusCode(), response.getStatusLine().getReasonPhrase());
+//
+//        } catch (NoSuchAlgorithmException e) {
+//            return new OtpResponse(false, HttpStatus.INTERNAL_SERVER_ERROR.value(), e.getMessage());
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
     }
 
 }
