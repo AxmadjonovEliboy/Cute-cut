@@ -49,7 +49,7 @@ api:
 service:
   prop:
     protocol: http
-    ip: ec2-44-196-174-238.compute-1.amazonaws.com
+    ip: cutecutapp.herokuapp.com
     port: 8080
     url: boom.uz
 
