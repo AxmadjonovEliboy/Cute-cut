@@ -7,14 +7,16 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Profile;
 import uz.pdp.cutecutapp.dto.auth.AuthCreateDto;
+import uz.pdp.cutecutapp.dto.organization.OrganizationCreateDto;
+import uz.pdp.cutecutapp.dto.responce.DataDto;
 import uz.pdp.cutecutapp.enums.Role;
 import uz.pdp.cutecutapp.properties.JwtProperties;
 import uz.pdp.cutecutapp.properties.OpenApiProperties;
 import uz.pdp.cutecutapp.properties.OtpProperties;
 import uz.pdp.cutecutapp.properties.ServerProperties;
 import uz.pdp.cutecutapp.services.auth.AuthUserService;
+import uz.pdp.cutecutapp.services.organization.OrganizationService;
 
 @EnableConfigurationProperties(value = {
         OpenApiProperties.class,
@@ -28,6 +30,7 @@ import uz.pdp.cutecutapp.services.auth.AuthUserService;
 public class CuteCutAppApplication {
 
     private final AuthUserService service;
+    private final OrganizationService organizationService;
 
 
     public static void main(String[] args) {
@@ -35,14 +38,14 @@ public class CuteCutAppApplication {
     }
 
 
-
     @Bean
-//    @Profile("dev")
     public void run() throws Exception {
         CommandLineRunner runner = (a) -> {
-            service.create(new AuthCreateDto("+998999999999", "123", Role.SUPER_ADMIN.name(), -1L, -1L));
-            service.create(new AuthCreateDto("+998888888888", "123", Role.ADMIN.name(), -1L, -1L));
-            service.create(new AuthCreateDto("+998777777777", "123", Role.BARBER.name(), -1L, -1L));
+            DataDto<Long> id = service.create(new AuthCreateDto("+998999999999", "+998999999999", Role.SUPER_ADMIN.name()));
+            service.create(new AuthCreateDto("+998888888888", "+998888888888", Role.ADMIN.name()));
+            service.create(new AuthCreateDto("+998777777777", "+998777777777", Role.BARBER.name()));
+            organizationService.create(new OrganizationCreateDto("SuperOrg", id.getData()));
+
         };
         runner.run("s", "b"
         );

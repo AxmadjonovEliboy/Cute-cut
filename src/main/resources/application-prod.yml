@@ -1,6 +1,6 @@
 logging:
   level:
-    org.zalando.logbook: DEBUG
+    org.zalando.logbook: TRACE
 logbook:
   exclude: /api/v1/auth/**
 server:
@@ -14,7 +14,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: none
+      ddl-auto: update
     show-sql: true
     properties:
       hibernate:
@@ -49,7 +49,7 @@ api:
 service:
   prop:
     protocol: http
-    ip: localhost
+    ip: ec2-44-196-174-238.compute-1.amazonaws.com
     port: 8080
     url: boom.uz
 
@@ -67,5 +67,5 @@ otp:
   body: 'Your verification code : '
   from: 1000
   bound: 9000
-  expiration: 1
+  expiration: 3
 
