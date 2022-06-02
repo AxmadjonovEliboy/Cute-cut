@@ -48,7 +48,7 @@ api:
 
 service:
   prop:
-    protocol: http
+    protocol: https
     ip: cutecutapp.herokuapp.com
     url: boom.uz
 
