@@ -20,8 +20,8 @@ spring:
       hibernate:
         format_sql: true
   flyway:
-    enabled: false
-    baseline-on-migrate: false
+    enabled: true
+    baseline-on-migrate: true
     out-of-order: true
     validate-on-migrate: false
 
