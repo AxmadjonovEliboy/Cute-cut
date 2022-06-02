@@ -14,7 +14,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping
+@RequestMapping("/favourites")
 public class FavouritesController extends AbstractController<FavoritesService> {
 
     private final FavoritesService favoritesService;
@@ -24,22 +24,22 @@ public class FavouritesController extends AbstractController<FavoritesService> {
         this.favoritesService = favoritesService;
     }
 
-    @PostMapping(PATH + "/favourite/add")
+    @PostMapping(PATH + "/add")
     public HttpEntity<DataDto<Long>> addFavourites(@RequestBody @Valid FavoritesCreateDto favoritesCreateDto){
         return ResponseEntity.ok(favoritesService.create(favoritesCreateDto));
     }
 
-    @GetMapping(PATH + "/favourite/get/{id}")
+    @GetMapping(PATH + "/get/{id}")
     public HttpEntity<DataDto<FavoritesDto>> getFavourite(@PathVariable Long id){
         return ResponseEntity.ok(favoritesService.get(id));
     }
 
-    @GetMapping(PATH + "favourite/get/all")
+    @GetMapping(PATH + "/get/all")
     public HttpEntity<DataDto<List<FavoritesDto>>> getFavourites(){
         return ResponseEntity.ok(favoritesService.getAll());
     }
 
-    @DeleteMapping(PATH + "/favourite/delete/{id}")
+    @DeleteMapping(PATH + "/delete/{id}")
     public HttpEntity<DataDto<Boolean>> deleteFavourite(@PathVariable Long id){
         return ResponseEntity.ok(favoritesService.delete(id));
     }

@@ -18,7 +18,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping
+@RequestMapping("/services")
 public class ServiceController extends AbstractController<FavoritesService> {
 
     private final ServicesService servicesService;
@@ -28,12 +28,12 @@ public class ServiceController extends AbstractController<FavoritesService> {
         this.servicesService = servicesService;
     }
 
-    @PostMapping(PATH + "/services/add")
+    @PostMapping(PATH + "/add")
     public HttpEntity<DataDto<Long>> addService(@RequestBody @Valid ServiceCreateDto createDto){
         return ResponseEntity.ok(servicesService.create(createDto));
     }
 
-    @GetMapping(PATH + "/services/get/{id}")
+    @GetMapping(PATH + "/get/{id}")
     public HttpEntity<DataDto<ServiceDto>> getService(@PathVariable Long id){
         return ResponseEntity.ok(servicesService.get(id));
     }
@@ -47,12 +47,12 @@ public class ServiceController extends AbstractController<FavoritesService> {
     public ResponseEntity<DataDto<List<ServiceDto>>> getAll(@PathVariable(name = "id") Long id) {
         return new ResponseEntity<>(servicesService.getByBarberShopId(id), HttpStatus.OK);
     }
-    @PutMapping(PATH + "/service/edit/{id}")
+    @PutMapping(PATH + "/edit/{id}")
     public HttpEntity<DataDto<Boolean>> editService(@RequestBody @Valid ServiceUpdateDto serviceUpdateDto){
         return ResponseEntity.ok(servicesService.update(serviceUpdateDto));
     }
 
-    @DeleteMapping(PATH + "/service/delete/{id}")
+    @DeleteMapping(PATH + "/delete/{id}")
     public HttpEntity<DataDto<Boolean>> deleteService(@PathVariable Long id){
         return ResponseEntity.ok(servicesService.delete(id));
     }
