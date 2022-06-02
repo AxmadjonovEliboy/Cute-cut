@@ -25,11 +25,11 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
     public final static String[] WHITE_LIST = {
 //            "/**",
             "/api/login",
-            "/auth/api/v1/auth/token",
-            "/auth/api/v1/auth/loginByPhone",
-            "/auth/api/v1/auth/register",
-            "/auth/api/v1/auth/confirmLoginCode",
-            "/auth/api/v1/auth/confirmRegisterCode",
+            "/auth/api/v1/token",
+            "/auth/api/v1/loginByPhone",
+            "/auth/api/v1/register",
+            "/auth/api/v1/confirmLoginCode",
+            "/auth/api/v1/confirmRegisterCode",
             "/swagger-ui/**",
             "/api/docs/**",
 
