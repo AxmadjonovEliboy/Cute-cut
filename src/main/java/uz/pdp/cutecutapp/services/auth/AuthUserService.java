@@ -165,7 +165,7 @@ public class AuthUserService extends AbstractService<AuthUserRepository, AuthUse
 //            if (!sessionUser.getRole().equals(Role.ADMIN)) {
 //                return new DataDto<>(new AppErrorDto(HttpStatus.BAD_REQUEST, "role does not exist", "/auth/create"));
 //            }
-            Role role = Role.ADMIN.checkRole(Role.BARBER.toString());
+            Role role = Role.ADMIN.checkRole(dto.getRole());
             AuthUser authUser = mapper.fromCreateDto(dto);
             authUser.setRole(role);
             if (Objects.nonNull(authUser.getPassword())) {
@@ -193,10 +193,10 @@ public class AuthUserService extends AbstractService<AuthUserRepository, AuthUse
         Role role = sessionUser.getRole();
         List<AuthUser> users = new ArrayList<>();
         if (role.equals(Role.ADMIN)) {
-            Long sessionUserId = sessionUser.getId();
-            users = repository.getAllNotIsDeletedAndById(sessionUserId);
+            Long orgId = sessionUser.getOrgId();
+            users = repository.findAllByOrganizationIdAndDeletedFalse(orgId);
         }
-        if (role.equals(Role.SUPER_ADMIN)) users = repository.getAllAndNotIsDeleted();
+        if (role.equals(Role.SUPER_ADMIN)) users = repository.findAllByDeletedFalse();
         return new DataDto<>(mapper.toDto(users));
     }
 

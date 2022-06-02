@@ -28,11 +28,10 @@ public interface AuthUserRepository extends JpaRepository<AuthUser, Long>, BaseR
     @Query(value = "update auth_user   set deleted = true , phone_number = (phone_number || :token ) where id = :id", nativeQuery = true)
     void softDeleted(@Param("id") Long id, @Param("token") String toke);
 
-    @Query(value = "select a from  AuthUser a where a.deleted = false ")
-    List<AuthUser> getAllAndNotIsDeleted();
 
-    @Query(value = "select * from auth_user a where a.organization_id =(select o.id from organization o where o.owner_id = :owner_id)", nativeQuery = true)
-    List<AuthUser> getAllNotIsDeletedAndById(@Param("owner_id") Long id);
+    List<AuthUser> findAllByDeletedFalse();
+
+    List<AuthUser> findAllByOrganizationIdAndDeletedFalse(Long id);
 
     @Transactional
     @Modifying
