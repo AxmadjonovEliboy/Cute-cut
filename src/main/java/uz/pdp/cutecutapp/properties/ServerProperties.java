@@ -9,8 +9,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = "service.prop")
 public class ServerProperties {
 
-    private String port;
-
     private String ip;
 
     private String url;
@@ -18,6 +16,6 @@ public class ServerProperties {
     private String protocol;
 
     public String getServerUrl() {
-        return this.protocol + "://" + this.ip + ":" + this.port;
+        return this.protocol + "://" + this.ip;
     }
 }

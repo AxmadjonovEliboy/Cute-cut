@@ -50,7 +50,6 @@ service:
   prop:
     protocol: http
     ip: cutecutapp.herokuapp.com
-    port: 8080
     url: boom.uz
 
 jwt:
