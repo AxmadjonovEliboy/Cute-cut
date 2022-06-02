@@ -1,6 +1,6 @@
 logging:
   level:
-    org.zalando.logbook: DEBUG
+    org.zalando.logbook: TRACE
 logbook:
   exclude: /api/v1/auth/**
 server:

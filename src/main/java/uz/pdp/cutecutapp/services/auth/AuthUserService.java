@@ -162,9 +162,9 @@ public class AuthUserService extends AbstractService<AuthUserRepository, AuthUse
     @Override
     public DataDto<Long> create(AuthCreateDto dto) {
         try {
-            if (!sessionUser.getRole().equals(Role.ADMIN)) {
-                return new DataDto<>(new AppErrorDto(HttpStatus.BAD_REQUEST, "role does not exist", "/auth/create"));
-            }
+//            if (!sessionUser.getRole().equals(Role.ADMIN)) {
+//                return new DataDto<>(new AppErrorDto(HttpStatus.BAD_REQUEST, "role does not exist", "/auth/create"));
+//            }
             Role role = Role.ADMIN.checkRole(Role.BARBER.toString());
             AuthUser authUser = mapper.fromCreateDto(dto);
             authUser.setRole(role);

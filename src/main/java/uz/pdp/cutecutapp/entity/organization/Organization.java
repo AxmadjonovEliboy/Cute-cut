@@ -22,7 +22,7 @@ public class Organization extends Auditable {
     private Long logoId;//attachmentId
 
     @Enumerated(EnumType.STRING)
-    private Status status=Status.DEFAULT;
+    private Status status=Status.ACTIVE;
 
     @CreationTimestamp
     @Temporal(TemporalType.DATE)
