@@ -3,17 +3,20 @@ package uz.pdp.cutecutapp.controller.auth;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.web.bind.annotation.*;
 import uz.pdp.cutecutapp.controller.AbstractController;
 import uz.pdp.cutecutapp.dto.auth.*;
 import uz.pdp.cutecutapp.dto.otp.OtpResponse;
 import uz.pdp.cutecutapp.dto.responce.DataDto;
+import uz.pdp.cutecutapp.enums.Role;
 import uz.pdp.cutecutapp.services.auth.AuthUserService;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/auth")
+@EnableGlobalMethodSecurity
 public class AuthController extends AbstractController<AuthUserService> {
     protected AuthController(AuthUserService authUserService) {
         super(authUserService);
@@ -25,17 +28,17 @@ public class AuthController extends AbstractController<AuthUserService> {
         return new ResponseEntity<>(service.loginByPhone(loginDto), HttpStatus.OK);
     }
 
-    @PostMapping(PATH + "/confirmLoginCode")
-    public ResponseEntity<DataDto<SessionDto>> confirmLoginSms(@RequestBody AuthUserCodePhoneDto dto) {
-        return new ResponseEntity<>(service.confirmLoginCode(dto), HttpStatus.OK);
+    @PostMapping(PATH + "/confirmUserCode")
+    public ResponseEntity<DataDto<SessionDto>> confirmUserSms(@RequestBody AuthUserCodePhoneDto dto) {
+        return new ResponseEntity<>(service.confirmUserCode(dto, Role.CLIENT), HttpStatus.OK);
     }
 
-    @PostMapping(PATH + "/confirmRegisterCode")
-    public ResponseEntity<DataDto<SessionDto>> confirmRegisterSms(@RequestBody AuthUserCodePhoneDto dto) {
-        return new ResponseEntity<>(service.confirmRegisterCode(dto), HttpStatus.OK);
+    @PostMapping(PATH + "/confirmAdminCode")
+    public ResponseEntity<DataDto<SessionDto>> confirmAdminSms(@RequestBody AuthUserCodePhoneDto dto) {
+        return new ResponseEntity<>(service.confirmUserCode(dto, Role.ADMIN), HttpStatus.OK);
     }
 
-    //    @PreAuthorize(value = "hasRole('ADMIN')")
+    @PreAuthorize(value = "hasRole('ADMIN')")
     @PostMapping(PATH + "/create")
     public ResponseEntity<DataDto<Long>> create(@RequestBody AuthCreateDto dto) {
         return new ResponseEntity<>(service.create(dto), HttpStatus.OK);

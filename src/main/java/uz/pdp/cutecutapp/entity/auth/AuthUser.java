@@ -9,16 +9,16 @@ import uz.pdp.cutecutapp.enums.Language;
 import uz.pdp.cutecutapp.enums.Role;
 import uz.pdp.cutecutapp.enums.Status;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
+import javax.persistence.*;
 
 @Getter
 @Setter
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(indexes = {
+        @Index(name = "phoneRole", columnList = "phoneNumber, role", unique = true)
+})
 public class AuthUser extends Auditable {
 
     private String firstName;

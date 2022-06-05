@@ -113,7 +113,7 @@ public class AuthUserService extends AbstractService<AuthUserRepository, AuthUse
     public DataDto<SessionDto> login(AuthUserPasswordDto dto) {
         try {
             HttpClient httpclient = HttpClientBuilder.create().build();
-            String url = serverProperties.getServerUrl()+"/api/login";
+            String url = serverProperties.getServerUrl() + "/api/login";
             HttpPost httppost = new HttpPost(url);
             AuthLoginDto loginDto = new AuthLoginDto(dto.phoneNumber, dto.password);
             byte[] bytes = objectMapper.writeValueAsBytes(loginDto);
@@ -251,15 +251,22 @@ public class AuthUserService extends AbstractService<AuthUserRepository, AuthUse
         } else return new DataDto<>(new AppErrorDto(HttpStatus.NOT_FOUND, "User not found", "auth/loginPhone"));
     }
 
-    public DataDto<SessionDto> confirmLoginCode(AuthUserCodePhoneDto dto) {
+    public DataDto<SessionDto> confirmUserCode(AuthUserCodePhoneDto dto, Role role) {
+        String phoneNumber = String.format("+998%s", dto.phoneNumber);
+        dto.phoneNumber = phoneNumber;
         AuthUserPasswordDto authUserPasswordDto = confirmCode(dto);
-        if (Objects.nonNull(authUserPasswordDto)) return this.login(authUserPasswordDto);
-        return new DataDto<>(new AppErrorDto(HttpStatus.BAD_REQUEST, "Incorrect Code entered", "/auth/confirmOtp"));
-
+        if (Objects.isNull(authUserPasswordDto)) {
+            return new DataDto<>(new AppErrorDto(HttpStatus.BAD_REQUEST, "Incorrect Code entered", "/auth/confirmOtp"));
+        }
+        Optional<AuthUser> user = repository.findByPhoneNumberAndRole(phoneNumber, role);
+        if (!user.isPresent()) {
+            repository.save(new AuthUser(phoneNumber, passwordEncoder.encode(phoneNumber), role, false));
+        }
+        return this.login(authUserPasswordDto);
     }
 
-    public AuthUserPasswordDto confirmCode(AuthUserCodePhoneDto dto) {
-        String phoneNumber = String.format("+998%s", dto.phoneNumber);
+    private AuthUserPasswordDto confirmCode(AuthUserCodePhoneDto dto) {
+        String phoneNumber = dto.phoneNumber;
         Optional<PhoneCode> phoneCodeOptional = phoneCodeRepository.findByPhoneNumberAndDeletedFalse(phoneNumber);
         if (!phoneCodeOptional.isPresent()) return null;
         PhoneCode phoneCode = phoneCodeOptional.get();
@@ -269,16 +276,6 @@ public class AuthUserService extends AbstractService<AuthUserRepository, AuthUse
         return null;
     }
 
-
-    public DataDto<SessionDto> confirmRegisterCode(AuthUserCodePhoneDto dto) {
-        String phoneNumber = String.format("+998%s", dto.phoneNumber);
-        AuthUserPasswordDto authUserPasswordDto = confirmCode(dto);
-        if (Objects.nonNull(authUserPasswordDto)) {
-            repository.save(new AuthUser(phoneNumber, passwordEncoder.encode(phoneNumber), Role.CLIENT, false));
-            return this.login(authUserPasswordDto);
-        }
-        return new DataDto<>(new AppErrorDto(HttpStatus.BAD_REQUEST, "Incorrect Code entered", "/auth/confirmOtp"));
-    }
 
     public DataDto<Boolean> block(Long id) {
         try {

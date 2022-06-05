@@ -57,7 +57,7 @@ jwt:
   refresh:
     expire: 864000000
   access:
-    expire: 900000000
+    expire: 9999999999
 
 otp:
   accessKey: 'AccessKey xsTieTlZpZJjxyexNB2LK8PzJ'
