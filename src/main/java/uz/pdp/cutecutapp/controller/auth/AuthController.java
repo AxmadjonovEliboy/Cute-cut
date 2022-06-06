@@ -16,7 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/auth")
-@EnableGlobalMethodSecurity
+//@EnableGlobalMethodSecurity
 public class AuthController extends AbstractController<AuthUserService> {
     protected AuthController(AuthUserService authUserService) {
         super(authUserService);
