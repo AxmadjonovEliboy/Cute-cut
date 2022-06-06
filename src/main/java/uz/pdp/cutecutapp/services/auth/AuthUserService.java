@@ -24,6 +24,7 @@ import uz.pdp.cutecutapp.dto.responce.DataDto;
 import uz.pdp.cutecutapp.entity.auth.AuthUser;
 import uz.pdp.cutecutapp.entity.auth.Device;
 import uz.pdp.cutecutapp.entity.auth.PhoneCode;
+import uz.pdp.cutecutapp.entity.file.Uploads;
 import uz.pdp.cutecutapp.enums.Role;
 import uz.pdp.cutecutapp.enums.Status;
 import uz.pdp.cutecutapp.mapper.auth.AuthUserMapper;
@@ -32,6 +33,7 @@ import uz.pdp.cutecutapp.properties.ServerProperties;
 import uz.pdp.cutecutapp.repository.auth.AuthUserRepository;
 import uz.pdp.cutecutapp.repository.auth.DeviceRepository;
 import uz.pdp.cutecutapp.repository.auth.PhoneCodeRepository;
+import uz.pdp.cutecutapp.repository.file.UploadsRepository;
 import uz.pdp.cutecutapp.services.AbstractService;
 import uz.pdp.cutecutapp.services.GenericCrudService;
 import uz.pdp.cutecutapp.session.SessionUser;
@@ -51,6 +53,7 @@ import java.util.*;
 @Service
 public class AuthUserService extends AbstractService<AuthUserRepository, AuthUserMapper> implements UserDetailsService, GenericCrudService<AuthUser, AuthDto, AuthCreateDto, AuthUpdateDto, BaseCriteria, Long> {
 
+    private final UploadsRepository uploadsRepository;
 
     private final PhoneCodeRepository phoneCodeRepository;
     private final OtpProperties otpProperties;
@@ -62,10 +65,13 @@ public class AuthUserService extends AbstractService<AuthUserRepository, AuthUse
 
     private final SessionUser sessionUser;
     private final DeviceRepository deviceRepository;
+
+
     private Path root = Paths.get("C:\\uploads");
 
-    public AuthUserService(AuthUserRepository repository, AuthUserMapper mapper, PhoneCodeRepository phoneCodeRepository, OtpProperties otpProperties, ObjectMapper objectMapper, ServerProperties serverProperties, PasswordEncoder passwordEncoder, JwtUtils jwtUtils, OtpService otpService, SessionUser sessionUser, DeviceRepository deviceRepository) {
+    public AuthUserService(AuthUserRepository repository, AuthUserMapper mapper, UploadsRepository uploadsRepository, PhoneCodeRepository phoneCodeRepository, OtpProperties otpProperties, ObjectMapper objectMapper, ServerProperties serverProperties, PasswordEncoder passwordEncoder, JwtUtils jwtUtils, OtpService otpService, SessionUser sessionUser, DeviceRepository deviceRepository) {
         super(repository, mapper);
+        this.uploadsRepository = uploadsRepository;
         this.phoneCodeRepository = phoneCodeRepository;
         this.otpProperties = otpProperties;
         this.objectMapper = objectMapper;
@@ -181,8 +187,10 @@ public class AuthUserService extends AbstractService<AuthUserRepository, AuthUse
         if (Objects.isNull(id)) return new DataDto<>(new AppErrorDto("Bad Request", HttpStatus.BAD_REQUEST));
         Optional<AuthUser> user = repository.getByIdAndNotDeleted(id);
         if (!user.isPresent()) return new DataDto<>(new AppErrorDto("Not Found", HttpStatus.NOT_FOUND));
-        AuthDto authDto = mapper.toDto(user.get());
-        System.out.println(authDto);
+        AuthUser authUser = user.get();
+        Optional<Uploads> optionalUploads = uploadsRepository.findById(authUser.getPictureId());
+        AuthDto authDto = mapper.toDto(authUser);
+        optionalUploads.ifPresent(uploads -> authDto.setPicturePath(uploads.getPath()));
         return new DataDto<>(authDto);
     }
 
