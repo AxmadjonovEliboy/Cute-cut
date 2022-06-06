@@ -22,8 +22,8 @@ spring:
   flyway:
     enabled: true
     baseline-on-migrate: true
-
-
+  main:
+    allow-bean-definition-overriding: true
 springdoc:
   swagger-ui:
     path: /swagger-ui

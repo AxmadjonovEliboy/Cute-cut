@@ -24,7 +24,8 @@ spring:
     baseline-on-migrate: false
     out-of-order: true
     validate-on-migrate: false
-
+  main:
+    allow-bean-definition-overriding: true
 
 springdoc:
   swagger-ui:
