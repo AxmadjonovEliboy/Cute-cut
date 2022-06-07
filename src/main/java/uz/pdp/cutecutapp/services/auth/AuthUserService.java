@@ -44,7 +44,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
@@ -232,7 +231,7 @@ public class AuthUserService extends AbstractService<AuthUserRepository, AuthUse
 
 
     @Override
-    public DataDto<List<AuthDto>> getWithCriteria(BaseCriteria criteria) throws SQLException {
+    public DataDto<List<AuthDto>> getWithCriteria(BaseCriteria criteria) {
 
         return null;
     }
@@ -266,7 +265,16 @@ public class AuthUserService extends AbstractService<AuthUserRepository, AuthUse
         if (Objects.isNull(authUserPasswordDto)) {
             return new DataDto<>(new AppErrorDto(HttpStatus.BAD_REQUEST, "Incorrect Code entered", "/auth/confirmOtp"));
         }
-        Optional<AuthUser> user = repository.findByPhoneNumberAndRole(phoneNumber, role);
+        Optional<AuthUser> user;
+        if (role.equals(Role.ADMIN)) {
+            user = repository.findByPhoneNumberAndRole(phoneNumber, role);
+        } else {
+            List<Role> roles = new ArrayList<>();
+            roles.add(Role.CLIENT);
+            roles.add(Role.BARBER);
+            roles.add(Role.SUPER_ADMIN);
+            user = repository.findByPhoneNumberAndRoleIn(phoneNumber, roles);
+        }
         if (!user.isPresent()) {
             repository.save(new AuthUser(phoneNumber, passwordEncoder.encode(phoneNumber), role, false));
         }

@@ -18,7 +18,6 @@ import uz.pdp.cutecutapp.repository.order.OrderRepository;
 import uz.pdp.cutecutapp.services.AbstractService;
 import uz.pdp.cutecutapp.services.GenericCrudService;
 
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,6 +30,7 @@ public class NotificationService extends AbstractService<NotificationRepository,
         this.orderRepository = orderRepository;
         this.authUserRepository = authUserRepository;
     }
+
     private final OrderRepository orderRepository;
     private final AuthUserRepository authUserRepository;
 
@@ -42,7 +42,7 @@ public class NotificationService extends AbstractService<NotificationRepository,
         }
         Optional<AuthUser> optionalReceiver = authUserRepository.findById(createDto.getReceiverId());
         if (!optionalReceiver.isPresent()) {
-            return new DataDto<>(new AppErrorDto("Receiver not found with id : " + createDto.getReceiverId(),HttpStatus.NOT_FOUND));
+            return new DataDto<>(new AppErrorDto("Receiver not found with id : " + createDto.getReceiverId(), HttpStatus.NOT_FOUND));
         }
         Optional<Order> optionalOrder = orderRepository.findByIdAndDeletedFalse(createDto.getOrderId());
         if (!optionalOrder.isPresent()) {
@@ -50,9 +50,8 @@ public class NotificationService extends AbstractService<NotificationRepository,
         }
         Notification notification = mapper.fromCreateDto(createDto);
         Notification save = repository.save(notification);
-        return new DataDto<>(save.getId(),HttpStatus.CREATED.value());
+        return new DataDto<>(save.getId(), HttpStatus.CREATED.value());
     }
-
 
 
     @Override
@@ -72,7 +71,7 @@ public class NotificationService extends AbstractService<NotificationRepository,
     @Override
     public DataDto<List<NotificationDto>> getAll() {
         List<NotificationDto> notificationDtoList = mapper.toDto(repository.findAllByDeletedFalse());
-        return new DataDto<>(notificationDtoList,HttpStatus.OK.value());
+        return new DataDto<>(notificationDtoList, HttpStatus.OK.value());
     }
 
     @Override
@@ -80,20 +79,20 @@ public class NotificationService extends AbstractService<NotificationRepository,
         Optional<Notification> optionalNotification = repository.findByIdAndDeletedFalse(id);
         if (!optionalNotification.isPresent()) {
             NotificationDto notificationDto = mapper.toDto(optionalNotification.get());
-            return new DataDto<>(notificationDto,HttpStatus.OK.value());
+            return new DataDto<>(notificationDto, HttpStatus.OK.value());
         } else {
             return new DataDto<>(new AppErrorDto("Order not found with id : " + id, HttpStatus.NOT_FOUND));
         }
     }
 
     @Override
-    public DataDto<List<NotificationDto>> getWithCriteria(BaseCriteria criteria) throws SQLException {
+    public DataDto<List<NotificationDto>> getWithCriteria(BaseCriteria criteria) {
         return null;
     }
 
-    public DataDto<List<NotificationDto>> getNotifications (Long id) {
+    public DataDto<List<NotificationDto>> getNotifications(Long id) {
         List<Notification> notificationByReceiverId = repository.getNotificationByReceiverId(id);
         List<NotificationDto> notificationDtoList = mapper.toDto(notificationByReceiverId);
-        return new DataDto<>(notificationDtoList,HttpStatus.OK.value());
+        return new DataDto<>(notificationDtoList, HttpStatus.OK.value());
     }
 }

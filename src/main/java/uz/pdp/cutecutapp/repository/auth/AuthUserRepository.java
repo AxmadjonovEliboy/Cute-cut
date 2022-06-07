@@ -10,6 +10,7 @@ import uz.pdp.cutecutapp.repository.BaseRepository;
 
 import javax.swing.text.html.Option;
 import javax.transaction.Transactional;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -46,4 +47,6 @@ public interface AuthUserRepository extends JpaRepository<AuthUser, Long>, BaseR
     Optional<AuthUser> findByAndOrganizationId(@Param("id") Long id);
 
     Optional<AuthUser> findByPhoneNumberAndRole(String phoneNumber, Role role);
+
+    Optional<AuthUser> findByPhoneNumberAndRoleIn(String phoneNumber, Collection<Role> role);
 }

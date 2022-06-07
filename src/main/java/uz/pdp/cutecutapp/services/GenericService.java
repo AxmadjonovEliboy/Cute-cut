@@ -24,5 +24,5 @@ public interface GenericService<
 
     DataDto<D> get(K id);
 
-    DataDto<List<D>> getWithCriteria(C criteria) throws SQLException;
+    DataDto<List<D>> getWithCriteria(C criteria);
 }

@@ -1,6 +1,5 @@
 package uz.pdp.cutecutapp.services.organization;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -11,7 +10,6 @@ import uz.pdp.cutecutapp.dto.organization.OrganizationUpdateDto;
 import uz.pdp.cutecutapp.dto.responce.AppErrorDto;
 import uz.pdp.cutecutapp.dto.responce.DataDto;
 import uz.pdp.cutecutapp.entity.auth.AuthUser;
-import uz.pdp.cutecutapp.entity.barbershop.BarberShop;
 import uz.pdp.cutecutapp.entity.organization.Organization;
 import uz.pdp.cutecutapp.enums.Status;
 import uz.pdp.cutecutapp.mapper.organization.OrganizationMapper;
@@ -21,7 +19,6 @@ import uz.pdp.cutecutapp.repository.organization.OrganizationRepository;
 import uz.pdp.cutecutapp.services.AbstractService;
 import uz.pdp.cutecutapp.services.GenericCrudService;
 
-import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -50,9 +47,9 @@ public class OrganizationService extends AbstractService<OrganizationRepository,
 
     @Override
     public DataDto<Boolean> delete(Long id) {
-        if (this.get(id).isSuccess()){
+        if (this.get(id).isSuccess()) {
             repository.isDelete(id);
-            return new DataDto<>(Boolean.TRUE,HttpStatus.NO_CONTENT.value());
+            return new DataDto<>(Boolean.TRUE, HttpStatus.NO_CONTENT.value());
         }
         return new DataDto<>(new AppErrorDto("Finding item not found with id : " + id, "/organization/delete", HttpStatus.NOT_FOUND));
 
@@ -64,7 +61,7 @@ public class OrganizationService extends AbstractService<OrganizationRepository,
             Optional<Organization> optionalOrganization = repository.findByIdAndDeletedFalse(updateDto.getId());
             Organization newOrganization = mapper.fromUpdate(updateDto, optionalOrganization.get());
             repository.save(newOrganization);
-            return new DataDto<>(Boolean.TRUE,HttpStatus.OK.value());
+            return new DataDto<>(Boolean.TRUE, HttpStatus.OK.value());
         } catch (Exception e) {
             return new DataDto<>(Boolean.FALSE, HttpStatus.BAD_REQUEST.value());
         }
@@ -82,13 +79,13 @@ public class OrganizationService extends AbstractService<OrganizationRepository,
         Optional<Organization> optionalOrganization = repository.findByIdAndDeletedFalse(id);
         if (optionalOrganization.isPresent()) {
             OrganizationDto organizationDto = mapper.toDto(optionalOrganization.get());
-            return new DataDto<>(organizationDto,HttpStatus.OK.value());
-        }else
-            return new DataDto<>(new AppErrorDto("Finding item not found with id : "+id,"/organization/getById",HttpStatus.NOT_FOUND));
+            return new DataDto<>(organizationDto, HttpStatus.OK.value());
+        } else
+            return new DataDto<>(new AppErrorDto("Finding item not found with id : " + id, "/organization/getById", HttpStatus.NOT_FOUND));
     }
 
     @Override
-    public DataDto<List<OrganizationDto>> getWithCriteria(BaseCriteria criteria) throws SQLException {
+    public DataDto<List<OrganizationDto>> getWithCriteria(BaseCriteria criteria) {
         return null;
     }
 
@@ -97,14 +94,14 @@ public class OrganizationService extends AbstractService<OrganizationRepository,
             Optional<Organization> optionalOrganization = repository.findByIdAndDeletedFalse(id);
             Optional<AuthUser> optionalAuthUser = authUserRepository.findByAndOrganizationId(id);
 
-            if (optionalOrganization.isPresent() && optionalAuthUser.isPresent() ){
-            Organization organization = optionalOrganization.get();
-            AuthUser authUser = optionalAuthUser.get();
+            if (optionalOrganization.isPresent() && optionalAuthUser.isPresent()) {
+                Organization organization = optionalOrganization.get();
+                AuthUser authUser = optionalAuthUser.get();
                 organization.setStatus(Status.BLOCKED);
                 authUser.setStatus(Status.BLOCKED);
                 authUserRepository.save(authUser);
                 repository.save(organization);
-                return new DataDto<>(Boolean.TRUE,HttpStatus.OK.value());
+                return new DataDto<>(Boolean.TRUE, HttpStatus.OK.value());
             }
             return new DataDto<>(new AppErrorDto("Finding item not found  ", HttpStatus.NOT_FOUND));
 
@@ -120,14 +117,14 @@ public class OrganizationService extends AbstractService<OrganizationRepository,
             Optional<AuthUser> optionalAuthUser = authUserRepository.findByAndOrganizationId(id);
 
 
-            if (optionalOrganization.isPresent() && optionalAuthUser.isPresent() ){
-            Organization organization = optionalOrganization.get();
-            AuthUser authUser = optionalAuthUser.get();
+            if (optionalOrganization.isPresent() && optionalAuthUser.isPresent()) {
+                Organization organization = optionalOrganization.get();
+                AuthUser authUser = optionalAuthUser.get();
                 organization.setStatus(Status.ACTIVE);
                 authUser.setStatus(Status.ACTIVE);
                 authUserRepository.save(authUser);
                 repository.save(organization);
-                return new DataDto<>(Boolean.TRUE,HttpStatus.OK.value());
+                return new DataDto<>(Boolean.TRUE, HttpStatus.OK.value());
             }
             return new DataDto<>(new AppErrorDto("Finding item not found  ", HttpStatus.NOT_FOUND));
         } catch (Exception e) {
@@ -142,7 +139,7 @@ public class OrganizationService extends AbstractService<OrganizationRepository,
                 Organization organization = optionalOrganization.get();
                 organization.setDeadline(date);
                 repository.save(organization);
-                return new DataDto<>(Boolean.TRUE,HttpStatus.OK.value());
+                return new DataDto<>(Boolean.TRUE, HttpStatus.OK.value());
             }
 
             return new DataDto<>(new AppErrorDto("Finding item not found  ", HttpStatus.NOT_FOUND));
