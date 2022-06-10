@@ -417,3 +417,164 @@ Need more flexibility with validation rules? Learn more: https://rd.gt/3AbJUZE
 2022-06-02 23:16:21,604 INFO             [http-nio-8080-exec-2] org.springframework.web.servlet.FrameworkServlet                             : Initializing Servlet 'dispatcherServlet'
 2022-06-02 23:16:21,624 INFO             [http-nio-8080-exec-2] org.springframework.web.servlet.FrameworkServlet                             : Completed initialization in 7 ms
 2022-06-02 23:16:25,617 INFO             [http-nio-8080-exec-7] org.springdoc.api.AbstractOpenApiResource                                    : Init duration for springdoc-openapi is: 2514 ms
+2022-06-02 23:18:34,989 INFO             [SpringApplicationShutdownHook] org.springframework.orm.jpa.AbstractEntityManagerFactoryBean        : Closing JPA EntityManagerFactory for persistence unit 'default'
+2022-06-02 23:18:35,043 INFO             [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource                                  : HikariPool-1 - Shutdown initiated...
+2022-06-02 23:18:38,196 INFO             [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource                                  : HikariPool-1 - Shutdown completed.
+2022-06-02 23:18:43,762 INFO             [main] org.springframework.boot.StartupInfoLogger                                                   : Starting CuteCutAppApplication using Java 17.0.2 on LAPTOP-RFFHQF0H with PID 24056 (C:\PDP -IT Academy\cute-cut-app-shoxruh\target\classes started by Sirojiddin in C:\PDP -IT Academy\cute-cut-app-shoxruh)
+2022-06-02 23:18:43,767 INFO             [main] org.springframework.boot.SpringApplication                                                   : The following 1 profile is active: "dev"
+2022-06-02 23:18:44,939 INFO             [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate                   : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-06-02 23:18:45,211 INFO             [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate                   : Finished Spring Data repository scanning in 257 ms. Found 12 JPA repository interfaces.
+2022-06-02 23:18:45,998 INFO             [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer                                 : Tomcat initialized with port(s): 8080 (http)
+2022-06-02 23:18:46,009 INFO             [main] org.apache.juli.logging.DirectJDKLog                                                         : Initializing ProtocolHandler ["http-nio-8080"]
+2022-06-02 23:18:46,009 INFO             [main] org.apache.juli.logging.DirectJDKLog                                                         : Starting service [Tomcat]
+2022-06-02 23:18:46,010 INFO             [main] org.apache.juli.logging.DirectJDKLog                                                         : Starting Servlet engine: [Apache Tomcat/9.0.62]
+2022-06-02 23:18:46,200 INFO             [main] org.apache.juli.logging.DirectJDKLog                                                         : Initializing Spring embedded WebApplicationContext
+2022-06-02 23:18:46,201 INFO             [main] org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext              : Root WebApplicationContext: initialization completed in 2343 ms
+2022-06-02 23:18:46,444 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : Flyway Community Edition 8.5.10 by Redgate
+2022-06-02 23:18:46,445 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : See what's new here: https://flywaydb.org/documentation/learnmore/releaseNotes#8.5.10
+2022-06-02 23:18:46,445 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : 
+2022-06-02 23:18:46,467 INFO             [main] com.zaxxer.hikari.HikariDataSource                                                           : HikariPool-1 - Starting...
+2022-06-02 23:18:47,676 ERROR            [main] com.zaxxer.hikari.pool.HikariPool                                                            : HikariPool-1 - Exception during pool initialization.
+org.postgresql.util.PSQLException: FATAL: database "cute-cut-app" does not exist
+	at org.postgresql.core.v3.QueryExecutorImpl.receiveErrorResponse(QueryExecutorImpl.java:2675)
+	at org.postgresql.core.v3.QueryExecutorImpl.readStartupMessages(QueryExecutorImpl.java:2787)
+	at org.postgresql.core.v3.QueryExecutorImpl.<init>(QueryExecutorImpl.java:173)
+	at org.postgresql.core.v3.ConnectionFactoryImpl.openConnectionImpl(ConnectionFactoryImpl.java:290)
+	at org.postgresql.core.ConnectionFactory.openConnection(ConnectionFactory.java:49)
+	at org.postgresql.jdbc.PgConnection.<init>(PgConnection.java:223)
+	at org.postgresql.Driver.makeConnection(Driver.java:402)
+	at org.postgresql.Driver.connect(Driver.java:261)
+	at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:138)
+	at com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:364)
+	at com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:206)
+	at com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:476)
+	at com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:561)
+	at com.zaxxer.hikari.pool.HikariPool.<init>(HikariPool.java:115)
+	at com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:112)
+	at org.flywaydb.core.internal.jdbc.JdbcUtils.openConnection(JdbcUtils.java:48)
+	at org.flywaydb.core.internal.jdbc.JdbcConnectionFactory.<init>(JdbcConnectionFactory.java:75)
+	at org.flywaydb.core.FlywayExecutor.execute(FlywayExecutor.java:147)
+	at org.flywaydb.core.Flyway.migrate(Flyway.java:124)
+	at org.springframework.boot.autoconfigure.flyway.FlywayMigrationInitializer.afterPropertiesSet(FlywayMigrationInitializer.java:66)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1863)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1800)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:620)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:542)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:335)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:333)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:208)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:322)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:208)
+	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1154)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:908)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:583)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:145)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:740)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:415)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:303)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1312)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1301)
+	at uz.pdp.cutecutapp.CuteCutAppApplication.main(CuteCutAppApplication.java:37)
+2022-06-02 23:18:47,683 WARN             [main] org.springframework.context.support.AbstractApplicationContext                               : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'flywayInitializer' defined in class path resource [org/springframework/boot/autoconfigure/flyway/FlywayAutoConfiguration$FlywayConfiguration.class]: Invocation of init method failed; nested exception is org.flywaydb.core.internal.exception.FlywaySqlException: Unable to obtain connection from database: FATAL: database "cute-cut-app" does not exist
+----------------------------------------------------------------------------------------
+SQL State  : 3D000
+Error Code : 0
+Message    : FATAL: database "cute-cut-app" does not exist
+
+2022-06-02 23:18:47,687 INFO             [main] org.apache.juli.logging.DirectJDKLog                                                         : Stopping service [Tomcat]
+2022-06-02 23:18:47,701 INFO             [main] org.springframework.boot.autoconfigure.logging.ConditionEvaluationReportLoggingListener      : 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2022-06-02 23:18:47,727 ERROR            [main] org.springframework.boot.SpringApplication                                                   : Application run failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'flywayInitializer' defined in class path resource [org/springframework/boot/autoconfigure/flyway/FlywayAutoConfiguration$FlywayConfiguration.class]: Invocation of init method failed; nested exception is org.flywaydb.core.internal.exception.FlywaySqlException: Unable to obtain connection from database: FATAL: database "cute-cut-app" does not exist
+----------------------------------------------------------------------------------------
+SQL State  : 3D000
+Error Code : 0
+Message    : FATAL: database "cute-cut-app" does not exist
+
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1804)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:620)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:542)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:335)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:333)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:208)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:322)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:208)
+	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1154)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:908)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:583)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:145)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:740)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:415)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:303)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1312)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1301)
+	at uz.pdp.cutecutapp.CuteCutAppApplication.main(CuteCutAppApplication.java:37)
+Caused by: org.flywaydb.core.internal.exception.FlywaySqlException: Unable to obtain connection from database: FATAL: database "cute-cut-app" does not exist
+----------------------------------------------------------------------------------------
+SQL State  : 3D000
+Error Code : 0
+Message    : FATAL: database "cute-cut-app" does not exist
+
+	at org.flywaydb.core.internal.jdbc.JdbcUtils.openConnection(JdbcUtils.java:60)
+	at org.flywaydb.core.internal.jdbc.JdbcConnectionFactory.<init>(JdbcConnectionFactory.java:75)
+	at org.flywaydb.core.FlywayExecutor.execute(FlywayExecutor.java:147)
+	at org.flywaydb.core.Flyway.migrate(Flyway.java:124)
+	at org.springframework.boot.autoconfigure.flyway.FlywayMigrationInitializer.afterPropertiesSet(FlywayMigrationInitializer.java:66)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1863)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1800)
+	... 18 common frames omitted
+Caused by: org.postgresql.util.PSQLException: FATAL: database "cute-cut-app" does not exist
+	at org.postgresql.core.v3.QueryExecutorImpl.receiveErrorResponse(QueryExecutorImpl.java:2675)
+	at org.postgresql.core.v3.QueryExecutorImpl.readStartupMessages(QueryExecutorImpl.java:2787)
+	at org.postgresql.core.v3.QueryExecutorImpl.<init>(QueryExecutorImpl.java:173)
+	at org.postgresql.core.v3.ConnectionFactoryImpl.openConnectionImpl(ConnectionFactoryImpl.java:290)
+	at org.postgresql.core.ConnectionFactory.openConnection(ConnectionFactory.java:49)
+	at org.postgresql.jdbc.PgConnection.<init>(PgConnection.java:223)
+	at org.postgresql.Driver.makeConnection(Driver.java:402)
+	at org.postgresql.Driver.connect(Driver.java:261)
+	at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:138)
+	at com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:364)
+	at com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:206)
+	at com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:476)
+	at com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:561)
+	at com.zaxxer.hikari.pool.HikariPool.<init>(HikariPool.java:115)
+	at com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:112)
+	at org.flywaydb.core.internal.jdbc.JdbcUtils.openConnection(JdbcUtils.java:48)
+	... 24 common frames omitted
+2022-06-02 23:19:16,925 INFO             [main] org.springframework.boot.StartupInfoLogger                                                   : Starting CuteCutAppApplication using Java 17.0.2 on LAPTOP-RFFHQF0H with PID 31104 (C:\PDP -IT Academy\cute-cut-app-shoxruh\target\classes started by Sirojiddin in C:\PDP -IT Academy\cute-cut-app-shoxruh)
+2022-06-02 23:19:16,929 INFO             [main] org.springframework.boot.SpringApplication                                                   : The following 1 profile is active: "dev"
+2022-06-02 23:19:18,082 INFO             [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate                   : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-06-02 23:19:18,288 INFO             [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate                   : Finished Spring Data repository scanning in 194 ms. Found 12 JPA repository interfaces.
+2022-06-02 23:19:19,098 INFO             [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer                                 : Tomcat initialized with port(s): 8080 (http)
+2022-06-02 23:19:19,108 INFO             [main] org.apache.juli.logging.DirectJDKLog                                                         : Initializing ProtocolHandler ["http-nio-8080"]
+2022-06-02 23:19:19,109 INFO             [main] org.apache.juli.logging.DirectJDKLog                                                         : Starting service [Tomcat]
+2022-06-02 23:19:19,110 INFO             [main] org.apache.juli.logging.DirectJDKLog                                                         : Starting Servlet engine: [Apache Tomcat/9.0.62]
+2022-06-02 23:19:19,308 INFO             [main] org.apache.juli.logging.DirectJDKLog                                                         : Initializing Spring embedded WebApplicationContext
+2022-06-02 23:19:19,309 INFO             [main] org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext              : Root WebApplicationContext: initialization completed in 2301 ms
+2022-06-02 23:19:19,548 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : Flyway Community Edition 8.5.10 by Redgate
+2022-06-02 23:19:19,548 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : See what's new here: https://flywaydb.org/documentation/learnmore/releaseNotes#8.5.10
+2022-06-02 23:19:19,549 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : 
+2022-06-02 23:19:19,567 INFO             [main] com.zaxxer.hikari.HikariDataSource                                                           : HikariPool-1 - Starting...
+2022-06-02 23:19:19,819 INFO             [main] com.zaxxer.hikari.HikariDataSource                                                           : HikariPool-1 - Start completed.
+2022-06-02 23:19:19,857 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : Database: jdbc:postgresql://localhost:5432/cutecut_master (PostgreSQL 14.1)
+2022-06-02 23:19:20,026 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : Successfully validated 8 migrations (execution time 00:00.131s)
+2022-06-02 23:19:20,041 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : Current version of schema "public": 10
+2022-06-02 23:19:20,043 INFO             [main] org.flywaydb.core.internal.logging.slf4j.Slf4jLog                                            : Schema "public" is up to date. No migration necessary.
+2022-06-02 23:19:20,250 INFO             [main] org.hibernate.jpa.internal.util.LogHelper                                                    : HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-06-02 23:19:20,344 INFO             [main] org.hibernate.Version                                                                        : HHH000412: Hibernate ORM core version 5.6.8.Final
+2022-06-02 23:19:20,556 INFO             [main] org.hibernate.annotations.common.reflection.java.JavaReflectionManager                       : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2022-06-02 23:19:20,719 INFO             [main] org.hibernate.dialect.Dialect                                                                : HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL10Dialect
+2022-06-02 23:19:21,637 INFO             [main] org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator                  : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-06-02 23:19:21,652 INFO             [main] org.springframework.orm.jpa.AbstractEntityManagerFactoryBean                                 : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2022-06-02 23:19:22,633 WARN             [main] org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration      : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-06-02 23:19:23,312 INFO             [main] org.springframework.security.web.DefaultSecurityFilterChain                                  : Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@40da1644, org.springframework.security.web.context.SecurityContextPersistenceFilter@4197e859, org.springframework.security.web.header.HeaderWriterFilter@37922937, org.springframework.security.web.authentication.logout.LogoutFilter@121c1a08, uz.pdp.cutecutapp.config.security.filters.CustomAuthorizationFilter@5980e29f, uz.pdp.cutecutapp.config.security.filters.CustomAuthenticationFilter@2cdd156b, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@4bdbfbc6, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@498f1f63, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@487bc2fe, org.springframework.security.web.session.SessionManagementFilter@8961e55, org.springframework.security.web.access.ExceptionTranslationFilter@2f0e7008, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@49994a4]
+2022-06-02 23:19:25,259 INFO             [main] org.apache.juli.logging.DirectJDKLog                                                         : Starting ProtocolHandler ["http-nio-8080"]
+2022-06-02 23:19:25,283 INFO             [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer                                 : Tomcat started on port(s): 8080 (http) with context path ''
+2022-06-02 23:19:25,298 INFO             [main] org.springframework.boot.StartupInfoLogger                                                   : Started CuteCutAppApplication in 8.944 seconds (JVM running for 10.441)
+2022-06-02 23:19:30,599 INFO             [http-nio-8080-exec-1] org.apache.juli.logging.DirectJDKLog                                         : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-06-02 23:19:30,600 INFO             [http-nio-8080-exec-1] org.springframework.web.servlet.FrameworkServlet                             : Initializing Servlet 'dispatcherServlet'
+2022-06-02 23:19:30,602 INFO             [http-nio-8080-exec-1] org.springframework.web.servlet.FrameworkServlet                             : Completed initialization in 2 ms
+2022-06-02 23:19:32,808 INFO             [http-nio-8080-exec-9] org.springdoc.api.AbstractOpenApiResource                                    : Init duration for springdoc-openapi is: 1043 ms
