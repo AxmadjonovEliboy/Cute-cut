@@ -84,7 +84,7 @@ public class FavoritesService extends AbstractService<FavoritesRepository, Favor
     }
 
     @Override
-    public DataDto<List<FavoritesDto>> getWithCriteria(BaseCriteria criteria) throws SQLException {
+    public DataDto<List<FavoritesDto>> getWithCriteria(BaseCriteria criteria)  {
         return null;
     }
 }

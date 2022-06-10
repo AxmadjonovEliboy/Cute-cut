@@ -14,7 +14,6 @@ import uz.pdp.cutecutapp.repository.order.OrderRepository;
 import uz.pdp.cutecutapp.services.AbstractService;
 import uz.pdp.cutecutapp.services.GenericCrudService;
 
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
@@ -57,7 +56,7 @@ public class OrderService extends AbstractService<OrderRepository, OrderMapper>
     @Override
     public DataDto<List<OrderDto>> getAll() {
         List<OrderDto> orderDtoList = mapper.toDto(repository.findAllByDeletedFalse());
-        return new DataDto<>(orderDtoList,HttpStatus.OK.value());
+        return new DataDto<>(orderDtoList, HttpStatus.OK.value());
     }
 
     @Override
@@ -72,7 +71,7 @@ public class OrderService extends AbstractService<OrderRepository, OrderMapper>
     }
 
     @Override
-    public DataDto<List<OrderDto>> getWithCriteria(BaseCriteria criteria) throws SQLException {
+    public DataDto<List<OrderDto>> getWithCriteria(BaseCriteria criteria) {
         return null;
     }
 }

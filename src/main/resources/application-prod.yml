@@ -24,7 +24,8 @@ spring:
     baseline-on-migrate: false
     out-of-order: true
     validate-on-migrate: false
-
+  main:
+    allow-bean-definition-overriding: true
 
 springdoc:
   swagger-ui:
@@ -48,9 +49,8 @@ api:
 
 service:
   prop:
-    protocol: http
-    ip: cutecutapp.herokuapp.com
-    port: 8080
+    protocol: https
+    ip: cutecutapp.herokuapp.com #https://cutecutapp.herokuapp.com
     url: boom.uz
 
 jwt:
@@ -58,7 +58,7 @@ jwt:
   refresh:
     expire: 864000000
   access:
-    expire: 900000000
+    expire: 9999999999
 
 otp:
   accessKey: 'AccessKey xsTieTlZpZJjxyexNB2LK8PzJ'

@@ -5,9 +5,12 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import uz.pdp.cutecutapp.entity.auth.AuthUser;
+import uz.pdp.cutecutapp.enums.Role;
 import uz.pdp.cutecutapp.repository.BaseRepository;
 
+import javax.swing.text.html.Option;
 import javax.transaction.Transactional;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,11 +31,10 @@ public interface AuthUserRepository extends JpaRepository<AuthUser, Long>, BaseR
     @Query(value = "update auth_user   set deleted = true , phone_number = (phone_number || :token ) where id = :id", nativeQuery = true)
     void softDeleted(@Param("id") Long id, @Param("token") String toke);
 
-    @Query(value = "select a from  AuthUser a where a.deleted = false ")
-    List<AuthUser> getAllAndNotIsDeleted();
 
-    @Query(value = "select * from auth_user a where a.organization_id =(select o.id from organization o where o.owner_id = :owner_id)", nativeQuery = true)
-    List<AuthUser> getAllNotIsDeletedAndById(@Param("owner_id") Long id);
+    List<AuthUser> findAllByDeletedFalse();
+
+    List<AuthUser> findAllByOrganizationIdAndDeletedFalse(Long id);
 
     @Transactional
     @Modifying
@@ -43,4 +45,8 @@ public interface AuthUserRepository extends JpaRepository<AuthUser, Long>, BaseR
     @Modifying
     @Query(value = "select a from AuthUser a where a.organizationId=:id and a.deleted=false and a.role='ADMIN'")
     Optional<AuthUser> findByAndOrganizationId(@Param("id") Long id);
+
+    Optional<AuthUser> findByPhoneNumberAndRole(String phoneNumber, Role role);
+
+    Optional<AuthUser> findByPhoneNumberAndRoleIn(String phoneNumber, Collection<Role> role);
 }

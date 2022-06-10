@@ -24,6 +24,7 @@ import uz.pdp.cutecutapp.dto.responce.DataDto;
 import uz.pdp.cutecutapp.entity.auth.AuthUser;
 import uz.pdp.cutecutapp.entity.auth.Device;
 import uz.pdp.cutecutapp.entity.auth.PhoneCode;
+import uz.pdp.cutecutapp.entity.file.Uploads;
 import uz.pdp.cutecutapp.enums.Role;
 import uz.pdp.cutecutapp.enums.Status;
 import uz.pdp.cutecutapp.mapper.auth.AuthUserMapper;
@@ -32,6 +33,7 @@ import uz.pdp.cutecutapp.properties.ServerProperties;
 import uz.pdp.cutecutapp.repository.auth.AuthUserRepository;
 import uz.pdp.cutecutapp.repository.auth.DeviceRepository;
 import uz.pdp.cutecutapp.repository.auth.PhoneCodeRepository;
+import uz.pdp.cutecutapp.repository.file.UploadsRepository;
 import uz.pdp.cutecutapp.services.AbstractService;
 import uz.pdp.cutecutapp.services.GenericCrudService;
 import uz.pdp.cutecutapp.session.SessionUser;
@@ -42,7 +44,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
@@ -51,6 +52,7 @@ import java.util.*;
 @Service
 public class AuthUserService extends AbstractService<AuthUserRepository, AuthUserMapper> implements UserDetailsService, GenericCrudService<AuthUser, AuthDto, AuthCreateDto, AuthUpdateDto, BaseCriteria, Long> {
 
+    private final UploadsRepository uploadsRepository;
 
     private final PhoneCodeRepository phoneCodeRepository;
     private final OtpProperties otpProperties;
@@ -62,10 +64,13 @@ public class AuthUserService extends AbstractService<AuthUserRepository, AuthUse
 
     private final SessionUser sessionUser;
     private final DeviceRepository deviceRepository;
+
+
     private Path root = Paths.get("C:\\uploads");
 
-    public AuthUserService(AuthUserRepository repository, AuthUserMapper mapper, PhoneCodeRepository phoneCodeRepository, OtpProperties otpProperties, ObjectMapper objectMapper, ServerProperties serverProperties, PasswordEncoder passwordEncoder, JwtUtils jwtUtils, OtpService otpService, SessionUser sessionUser, DeviceRepository deviceRepository) {
+    public AuthUserService(AuthUserRepository repository, AuthUserMapper mapper, UploadsRepository uploadsRepository, PhoneCodeRepository phoneCodeRepository, OtpProperties otpProperties, ObjectMapper objectMapper, ServerProperties serverProperties, PasswordEncoder passwordEncoder, JwtUtils jwtUtils, OtpService otpService, SessionUser sessionUser, DeviceRepository deviceRepository) {
         super(repository, mapper);
+        this.uploadsRepository = uploadsRepository;
         this.phoneCodeRepository = phoneCodeRepository;
         this.otpProperties = otpProperties;
         this.objectMapper = objectMapper;
@@ -112,7 +117,6 @@ public class AuthUserService extends AbstractService<AuthUserRepository, AuthUse
 
     public DataDto<SessionDto> login(AuthUserPasswordDto dto) {
         try {
-
             HttpClient httpclient = HttpClientBuilder.create().build();
             String url = serverProperties.getServerUrl() + "/api/login";
             HttpPost httppost = new HttpPost(url);
@@ -165,7 +169,7 @@ public class AuthUserService extends AbstractService<AuthUserRepository, AuthUse
 //            if (!sessionUser.getRole().equals(Role.ADMIN)) {
 //                return new DataDto<>(new AppErrorDto(HttpStatus.BAD_REQUEST, "role does not exist", "/auth/create"));
 //            }
-            Role role = Role.ADMIN.checkRole(Role.BARBER.toString());
+            Role role = Role.ADMIN.checkRole(dto.getRole());
             AuthUser authUser = mapper.fromCreateDto(dto);
             authUser.setRole(role);
             if (Objects.nonNull(authUser.getPassword())) {
@@ -182,8 +186,10 @@ public class AuthUserService extends AbstractService<AuthUserRepository, AuthUse
         if (Objects.isNull(id)) return new DataDto<>(new AppErrorDto("Bad Request", HttpStatus.BAD_REQUEST));
         Optional<AuthUser> user = repository.getByIdAndNotDeleted(id);
         if (!user.isPresent()) return new DataDto<>(new AppErrorDto("Not Found", HttpStatus.NOT_FOUND));
-        AuthDto authDto = mapper.toDto(user.get());
-        System.out.println(authDto);
+        AuthUser authUser = user.get();
+        Optional<Uploads> optionalUploads = uploadsRepository.findById(authUser.getPictureId());
+        AuthDto authDto = mapper.toDto(authUser);
+        optionalUploads.ifPresent(uploads -> authDto.setPicturePath(uploads.getPath()));
         return new DataDto<>(authDto);
     }
 
@@ -193,10 +199,10 @@ public class AuthUserService extends AbstractService<AuthUserRepository, AuthUse
         Role role = sessionUser.getRole();
         List<AuthUser> users = new ArrayList<>();
         if (role.equals(Role.ADMIN)) {
-            Long sessionUserId = sessionUser.getId();
-            users = repository.getAllNotIsDeletedAndById(sessionUserId);
+            Long orgId = sessionUser.getOrgId();
+            users = repository.findAllByOrganizationIdAndDeletedFalse(orgId);
         }
-        if (role.equals(Role.SUPER_ADMIN)) users = repository.getAllAndNotIsDeleted();
+        if (role.equals(Role.SUPER_ADMIN)) users = repository.findAllByDeletedFalse();
         return new DataDto<>(mapper.toDto(users));
     }
 
@@ -225,7 +231,7 @@ public class AuthUserService extends AbstractService<AuthUserRepository, AuthUse
 
 
     @Override
-    public DataDto<List<AuthDto>> getWithCriteria(BaseCriteria criteria) throws SQLException {
+    public DataDto<List<AuthDto>> getWithCriteria(BaseCriteria criteria) {
 
         return null;
     }
@@ -252,15 +258,31 @@ public class AuthUserService extends AbstractService<AuthUserRepository, AuthUse
         } else return new DataDto<>(new AppErrorDto(HttpStatus.NOT_FOUND, "User not found", "auth/loginPhone"));
     }
 
-    public DataDto<SessionDto> confirmLoginCode(AuthUserCodePhoneDto dto) {
+    public DataDto<SessionDto> confirmUserCode(AuthUserCodePhoneDto dto, Role role) {
+        String phoneNumber = String.format("+998%s", dto.phoneNumber);
+        dto.phoneNumber = phoneNumber;
         AuthUserPasswordDto authUserPasswordDto = confirmCode(dto);
-        if (Objects.nonNull(authUserPasswordDto)) return this.login(authUserPasswordDto);
-        return new DataDto<>(new AppErrorDto(HttpStatus.BAD_REQUEST, "Incorrect Code entered", "/auth/confirmOtp"));
-
+        if (Objects.isNull(authUserPasswordDto)) {
+            return new DataDto<>(new AppErrorDto(HttpStatus.BAD_REQUEST, "Incorrect Code entered", "/auth/confirmOtp"));
+        }
+        Optional<AuthUser> user;
+        if (role.equals(Role.ADMIN)) {
+            user = repository.findByPhoneNumberAndRole(phoneNumber, role);
+        } else {
+            List<Role> roles = new ArrayList<>();
+            roles.add(Role.CLIENT);
+            roles.add(Role.BARBER);
+            roles.add(Role.SUPER_ADMIN);
+            user = repository.findByPhoneNumberAndRoleIn(phoneNumber, roles);
+        }
+        if (!user.isPresent()) {
+            repository.save(new AuthUser(phoneNumber, passwordEncoder.encode(phoneNumber), role, false));
+        }
+        return this.login(authUserPasswordDto);
     }
 
-    public AuthUserPasswordDto confirmCode(AuthUserCodePhoneDto dto) {
-        String phoneNumber = String.format("+998%s", dto.phoneNumber);
+    private AuthUserPasswordDto confirmCode(AuthUserCodePhoneDto dto) {
+        String phoneNumber = dto.phoneNumber;
         Optional<PhoneCode> phoneCodeOptional = phoneCodeRepository.findByPhoneNumberAndDeletedFalse(phoneNumber);
         if (!phoneCodeOptional.isPresent()) return null;
         PhoneCode phoneCode = phoneCodeOptional.get();
@@ -270,16 +292,6 @@ public class AuthUserService extends AbstractService<AuthUserRepository, AuthUse
         return null;
     }
 
-
-    public DataDto<SessionDto> confirmRegisterCode(AuthUserCodePhoneDto dto) {
-        String phoneNumber = String.format("+998%s", dto.phoneNumber);
-        AuthUserPasswordDto authUserPasswordDto = confirmCode(dto);
-        if (Objects.nonNull(authUserPasswordDto)) {
-            repository.save(new AuthUser(phoneNumber, passwordEncoder.encode(phoneNumber), Role.CLIENT, false));
-            return this.login(authUserPasswordDto);
-        }
-        return new DataDto<>(new AppErrorDto(HttpStatus.BAD_REQUEST, "Incorrect Code entered", "/auth/confirmOtp"));
-    }
 
     public DataDto<Boolean> block(Long id) {
         try {

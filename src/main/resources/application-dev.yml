@@ -8,7 +8,7 @@ server:
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    password: 3812
+    password: Shoxruh0912
     username: postgres
     url: jdbc:postgresql://localhost:5432/cutecut_master
 
@@ -22,8 +22,8 @@ spring:
   flyway:
     enabled: true
     baseline-on-migrate: true
-
-
+  main:
+    allow-bean-definition-overriding: true
 springdoc:
   swagger-ui:
     path: /swagger-ui
@@ -47,8 +47,7 @@ api:
 service:
   prop:
     protocol: http
-    ip: localhost
-    port: 8080
+    ip: localhost:${server.port}
     url: boom.uz
 
 jwt:

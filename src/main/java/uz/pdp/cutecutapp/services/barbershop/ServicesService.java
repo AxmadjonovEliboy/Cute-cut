@@ -3,20 +3,17 @@ package uz.pdp.cutecutapp.services.barbershop;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import uz.pdp.cutecutapp.criteria.BaseCriteria;
-import uz.pdp.cutecutapp.dto.rating.RatingDto;
 import uz.pdp.cutecutapp.dto.responce.AppErrorDto;
 import uz.pdp.cutecutapp.dto.responce.DataDto;
 import uz.pdp.cutecutapp.dto.service.ServiceCreateDto;
 import uz.pdp.cutecutapp.dto.service.ServiceDto;
 import uz.pdp.cutecutapp.dto.service.ServiceUpdateDto;
-import uz.pdp.cutecutapp.entity.barbershop.Rating;
 import uz.pdp.cutecutapp.exception.NotFoundException;
 import uz.pdp.cutecutapp.mapper.barbershop.ServiceMapper;
 import uz.pdp.cutecutapp.repository.barbershop.ServiceRepository;
 import uz.pdp.cutecutapp.services.AbstractService;
 import uz.pdp.cutecutapp.services.GenericCrudService;
 
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
@@ -95,7 +92,7 @@ public class ServicesService extends AbstractService<ServiceRepository, ServiceM
     }
 
     @Override
-    public DataDto<List<ServiceDto>> getWithCriteria(BaseCriteria criteria) throws SQLException {
+    public DataDto<List<ServiceDto>> getWithCriteria(BaseCriteria criteria) {
         return null;
     }
 

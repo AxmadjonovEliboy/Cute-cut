@@ -2,7 +2,7 @@ package uz.pdp.cutecutapp.services.barbershop;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import uz.pdp.cutecutapp.criteria.BaseCriteria;
+import uz.pdp.cutecutapp.criteria.BarberShopCriteria;
 import uz.pdp.cutecutapp.dto.barbershop.BarberShopCreateDto;
 import uz.pdp.cutecutapp.dto.barbershop.BarberShopDto;
 import uz.pdp.cutecutapp.dto.barbershop.BarberShopUpdateDto;
@@ -14,13 +14,12 @@ import uz.pdp.cutecutapp.repository.barbershop.BarberShopRepository;
 import uz.pdp.cutecutapp.services.AbstractService;
 import uz.pdp.cutecutapp.services.GenericCrudService;
 
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class BarberShopService extends AbstractService<BarberShopRepository, BarberShopMapper>
-        implements GenericCrudService<BarberShop, BarberShopDto, BarberShopCreateDto, BarberShopUpdateDto, BaseCriteria, Long> {
+        implements GenericCrudService<BarberShop, BarberShopDto, BarberShopCreateDto, BarberShopUpdateDto, BarberShopCriteria, Long> {
 
     public BarberShopService(BarberShopRepository repository, BarberShopMapper mapper) {
         super(repository, mapper);
@@ -39,8 +38,7 @@ public class BarberShopService extends AbstractService<BarberShopRepository, Bar
         if (this.get(id).isSuccess()) {
             repository.softDelete(id);
             return new DataDto<>(null, HttpStatus.NO_CONTENT.value());
-        }
-        else
+        } else
             return new DataDto<>(new AppErrorDto("Finding item not found with id : " + id, "/rating/delete"
                     , HttpStatus.NOT_FOUND));
     }
@@ -49,12 +47,11 @@ public class BarberShopService extends AbstractService<BarberShopRepository, Bar
     public DataDto<Boolean> update(BarberShopUpdateDto updateDto) {
         try {
 
-        Optional<BarberShop> optionalBarberShop = repository.findByIdAndDeletedFalse(updateDto.getId());
-        BarberShop barberShop = mapper.fromUpdate(updateDto, optionalBarberShop.get());
-        repository.save(barberShop);
-        return new DataDto<>(Boolean.TRUE, HttpStatus.OK.value());
-        }
-        catch (Exception e){
+            Optional<BarberShop> optionalBarberShop = repository.findByIdAndDeletedFalse(updateDto.getId());
+            BarberShop barberShop = mapper.fromUpdate(updateDto, optionalBarberShop.get());
+            repository.save(barberShop);
+            return new DataDto<>(Boolean.TRUE, HttpStatus.OK.value());
+        } catch (Exception e) {
             return new DataDto<>(Boolean.FALSE, HttpStatus.BAD_REQUEST.value());
         }
     }
@@ -78,8 +75,10 @@ public class BarberShopService extends AbstractService<BarberShopRepository, Bar
     }
 
     @Override
-    public DataDto<List<BarberShopDto>> getWithCriteria(BaseCriteria criteria) throws SQLException {
-        return null;
+    public DataDto<List<BarberShopDto>> getWithCriteria(BarberShopCriteria criteria) {
+        List<BarberShop> barberShops = repository.findByCriteria(criteria.getLongitude(), criteria.getLatitude(), criteria.getDistance()
+               /* , criteria.getSize(), criteria.getPage()*/);
+        return new DataDto<>(mapper.toDto(barberShops));
     }
 
     public DataDto<List<BarberShopDto>> getByOrganizationId(Long id) {

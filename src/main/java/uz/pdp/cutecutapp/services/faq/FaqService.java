@@ -8,14 +8,12 @@ import uz.pdp.cutecutapp.dto.faq.FaqDto;
 import uz.pdp.cutecutapp.dto.faq.FaqUpdateDto;
 import uz.pdp.cutecutapp.dto.responce.AppErrorDto;
 import uz.pdp.cutecutapp.dto.responce.DataDto;
-import uz.pdp.cutecutapp.entity.barbershop.Rating;
 import uz.pdp.cutecutapp.entity.faq.FAQ;
 import uz.pdp.cutecutapp.mapper.faq.FaqMapper;
 import uz.pdp.cutecutapp.repository.faq.FaqRepository;
 import uz.pdp.cutecutapp.services.AbstractService;
 import uz.pdp.cutecutapp.services.GenericCrudService;
 
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,18 +26,19 @@ public class FaqService extends AbstractService<FaqRepository, FaqMapper>
     }
 
     private final FaqRepository faqRepository;
+
     @Override
     public DataDto<Long> create(FaqCreateDto createDto) {
         FAQ faq = mapper.fromCreateDto(createDto);
         FAQ newFaq = faqRepository.save(faq);
-        return new DataDto<>(newFaq.getId(),HttpStatus.CREATED.value());
+        return new DataDto<>(newFaq.getId(), HttpStatus.CREATED.value());
     }
 
     @Override
     public DataDto<Boolean> delete(Long id) {
-        if (this.get(id).isSuccess()){
+        if (this.get(id).isSuccess()) {
             faqRepository.isDelete(id);
-            return new DataDto<>(Boolean.TRUE,HttpStatus.NO_CONTENT.value());
+            return new DataDto<>(Boolean.TRUE, HttpStatus.NO_CONTENT.value());
         }
         return new DataDto<>(new AppErrorDto("Finding item not found with id : " + id, "/faq/delete", HttpStatus.NOT_FOUND));
     }
@@ -48,7 +47,7 @@ public class FaqService extends AbstractService<FaqRepository, FaqMapper>
     public DataDto<Boolean> update(FaqUpdateDto updateDto) {
         try {
             Optional<FAQ> optionalFAQ = faqRepository.findByIdAndDeletedFalse(updateDto.getId());
-            FAQ newFaq = mapper.fromUpdate(updateDto,optionalFAQ.get());
+            FAQ newFaq = mapper.fromUpdate(updateDto, optionalFAQ.get());
             repository.save(newFaq);
             return new DataDto<>(Boolean.TRUE, HttpStatus.OK.value());
         } catch (Exception e) {
@@ -60,22 +59,22 @@ public class FaqService extends AbstractService<FaqRepository, FaqMapper>
     public DataDto<List<FaqDto>> getAll() {
         List<FAQ> faqList = faqRepository.findAllByDeletedFalse();
         List<FaqDto> faqDtos = mapper.toDto(faqList);
-        return new DataDto<>(faqDtos,HttpStatus.OK.value());
+        return new DataDto<>(faqDtos, HttpStatus.OK.value());
     }
 
     @Override
     public DataDto<FaqDto> get(Long id) {
 
         Optional<FAQ> faq = faqRepository.findByIdAndDeletedFalse(id);
-        if (faq.isPresent()){
+        if (faq.isPresent()) {
             FaqDto faqDto = mapper.toDto(faq.get());
-            return new DataDto<>(faqDto,HttpStatus.OK.value());
-        }else
-            return new DataDto<>(new AppErrorDto("Finding item not found with id : "+id,"/faq/getById",HttpStatus.NOT_FOUND));
+            return new DataDto<>(faqDto, HttpStatus.OK.value());
+        } else
+            return new DataDto<>(new AppErrorDto("Finding item not found with id : " + id, "/faq/getById", HttpStatus.NOT_FOUND));
     }
 
     @Override
-    public DataDto<List<FaqDto>> getWithCriteria(BaseCriteria criteria) throws SQLException {
+    public DataDto<List<FaqDto>> getWithCriteria(BaseCriteria criteria) {
         return null;
     }
 
