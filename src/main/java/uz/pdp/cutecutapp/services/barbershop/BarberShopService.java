@@ -8,6 +8,7 @@ import uz.pdp.cutecutapp.dto.barbershop.BarberShopDto;
 import uz.pdp.cutecutapp.dto.barbershop.BarberShopUpdateDto;
 import uz.pdp.cutecutapp.dto.responce.AppErrorDto;
 import uz.pdp.cutecutapp.dto.responce.DataDto;
+import uz.pdp.cutecutapp.entity.auth.AuthUser;
 import uz.pdp.cutecutapp.entity.barbershop.BarberShop;
 import uz.pdp.cutecutapp.mapper.barbershop.BarberShopMapper;
 import uz.pdp.cutecutapp.repository.barbershop.BarberShopRepository;
@@ -90,5 +91,9 @@ public class BarberShopService extends AbstractService<BarberShopRepository, Bar
     public DataDto<List<BarberShopDto>> getAllBarbershops() {
         List<BarberShop> all = repository.findAll();
         return new DataDto<>(mapper.toDto(all));
+    }
+
+    public DataDto<List<AuthUser>> getBarbersByBarbershopId(Long id) {
+        return null;
     }
 }

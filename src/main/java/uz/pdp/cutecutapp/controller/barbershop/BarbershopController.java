@@ -9,6 +9,7 @@ import uz.pdp.cutecutapp.dto.barbershop.BarberShopCreateDto;
 import uz.pdp.cutecutapp.dto.barbershop.BarberShopDto;
 import uz.pdp.cutecutapp.dto.barbershop.BarberShopUpdateDto;
 import uz.pdp.cutecutapp.dto.responce.DataDto;
+import uz.pdp.cutecutapp.entity.auth.AuthUser;
 import uz.pdp.cutecutapp.services.barbershop.BarberShopService;
 
 import javax.validation.Valid;
@@ -55,5 +56,10 @@ public class BarbershopController extends AbstractController<BarberShopService> 
     @PostMapping(PATH + "/getByCriteria")
     public ResponseEntity<DataDto<List<BarberShopDto>>> getByCriteria(@RequestBody BarberShopCriteria criteria) {
         return new ResponseEntity<>(service.getWithCriteria(criteria), HttpStatus.OK);
+    }
+
+    @GetMapping(PATH + "/barberShopId/{id}")
+    public ResponseEntity<DataDto<List<AuthUser>>> getBarbersByBarbershopId(@PathVariable Long id){
+            return new ResponseEntity<>(service.getBarbersByBarbershopId(id), HttpStatus.OK);
     }
 }
