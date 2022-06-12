@@ -14,4 +14,5 @@ public class SessionDto {
     private Long refreshTokenExpire;
     private Long issuedAt;
     private Long expiresIn;
+    private AuthTokenDto authUser;
 }

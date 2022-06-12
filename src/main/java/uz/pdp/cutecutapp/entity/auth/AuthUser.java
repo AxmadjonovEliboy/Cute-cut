@@ -28,7 +28,8 @@ public class AuthUser extends Auditable {
 
     private boolean isBusy;
 
-    private Language language;
+    @Enumerated(EnumType.STRING)
+    private Language language = Language.UZ;
 
     @Enumerated(EnumType.STRING)
     private Role role;
