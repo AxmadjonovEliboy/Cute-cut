@@ -15,9 +15,7 @@ import javax.validation.constraints.Pattern;
 @NoArgsConstructor
 public class AuthCreateDto implements BaseDto {
 
-    private String firstName;
-
-    private String lastName;
+   private String fullName;
 
     @NotBlank
     @Pattern(regexp = "[0-9]{9}]")

@@ -21,9 +21,7 @@ import javax.persistence.*;
 })
 public class AuthUser extends Auditable {
 
-    private String firstName;
-
-    private String lastName;
+    private String fullName;
 
     @Column(nullable = false, unique = true)
     private String phoneNumber;
@@ -32,7 +30,8 @@ public class AuthUser extends Auditable {
 
     private boolean isBusy;
 
-    private Language language;
+    @Enumerated(EnumType.STRING)
+    private Language language = Language.UZ;
 
     @Enumerated(EnumType.STRING)
     private Role role;
