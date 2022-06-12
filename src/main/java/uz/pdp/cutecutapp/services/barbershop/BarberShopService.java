@@ -1,5 +1,7 @@
 package uz.pdp.cutecutapp.services.barbershop;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import uz.pdp.cutecutapp.criteria.BarberShopCriteria;
@@ -16,6 +18,7 @@ import uz.pdp.cutecutapp.services.GenericCrudService;
 import uz.pdp.cutecutapp.services.organization.OrganizationService;
 import uz.pdp.cutecutapp.session.SessionUser;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,10 +28,13 @@ public class BarberShopService extends AbstractService<BarberShopRepository, Bar
 
     private final OrganizationService organizationService;
     private final SessionUser sessionUser;
-    public BarberShopService(BarberShopRepository repository, BarberShopMapper mapper, OrganizationService organizationService, SessionUser sessionUser) {
+    private final ObjectMapper objectMapper;
+
+    public BarberShopService(BarberShopRepository repository, BarberShopMapper mapper, OrganizationService organizationService, SessionUser sessionUser, ObjectMapper objectMapper) {
         super(repository, mapper);
         this.organizationService = organizationService;
         this.sessionUser = sessionUser;
+        this.objectMapper = objectMapper;
     }
 
     @Override
@@ -78,16 +84,22 @@ public class BarberShopService extends AbstractService<BarberShopRepository, Bar
             return new DataDto<>(new AppErrorDto("Finding item not found with id : " + id, "/rating/getById",
                     HttpStatus.NOT_FOUND));
         }
-
     }
 
     @Override
     public DataDto<List<BarberShopDto>> getWithCriteria(BarberShopCriteria criteria) {
-        List<BarberShop> barberShops = repository.findByCriteria(criteria.getLongitude(), criteria.getLatitude(), criteria.getDistance()
+        String barberShopsString = repository.findByCriteria(criteria.getLongitude(), criteria.getLatitude(), criteria.getDistance()
                 /* , criteria.getSize(), criteria.getPage()*/);
-        List<BarberShopDto> barberShopDtos = mapper.toDto(barberShops);
 
-        return new DataDto<>(barberShopDtos);
+        List<BarberShopDto> barberShops = new ArrayList<>();
+
+        try {
+            barberShops = objectMapper.readValue(barberShopsString,
+                    objectMapper.getTypeFactory().constructCollectionType(List.class, BarberShopDto.class));
+        } catch (JsonProcessingException e) {
+            System.out.println(e.getMessage());
+        }
+        return new DataDto<>(barberShops);
     }
 
     public DataDto<List<BarberShopDto>> getByOrganizationId(Long id) {
