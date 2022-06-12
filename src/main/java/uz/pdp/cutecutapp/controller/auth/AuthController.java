@@ -5,9 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import uz.pdp.cutecutapp.controller.AbstractController;
-import uz.pdp.cutecutapp.criteria.BarberShopCriteria;
 import uz.pdp.cutecutapp.dto.auth.*;
-import uz.pdp.cutecutapp.dto.barbershop.BarberShopDto;
 import uz.pdp.cutecutapp.dto.otp.OtpResponse;
 import uz.pdp.cutecutapp.dto.responce.DataDto;
 import uz.pdp.cutecutapp.enums.Role;
@@ -73,7 +71,6 @@ public class AuthController extends AbstractController<AuthUserService> {
         return new ResponseEntity<>(service.getAll(), HttpStatus.OK);
     }
 
-    //    @PreAuthorize("isAuthenticated()")
     @GetMapping(PATH + "/block/{id}")
     public ResponseEntity<DataDto<Boolean>> block(@PathVariable(name = "id") Long id) {
         return new ResponseEntity<>(service.block(id), HttpStatus.OK);

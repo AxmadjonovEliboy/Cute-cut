@@ -16,14 +16,10 @@ import javax.persistence.*;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(indexes = {
-        @Index(name = "phoneRole", columnList = "phoneNumber, role", unique = true)
-})
+@Table(indexes = {@Index(name = "phoneRole", columnList = "phoneNumber, role", unique = true)})
 public class AuthUser extends Auditable {
 
-    private String firstName;
-
-    private String lastName;
+    private String fullName;
 
     @Column(nullable = false, unique = true)
     private String phoneNumber;

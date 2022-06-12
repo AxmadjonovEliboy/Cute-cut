@@ -8,6 +8,8 @@ public class AuthUserCodePhoneDto {
     @Pattern(regexp = "[0-9]{9}]")
     public String phoneNumber;
 
+
+
     public Integer code;
 
     public String deviceId;

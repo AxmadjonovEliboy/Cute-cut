@@ -98,11 +98,7 @@ public class AuthUserService extends AbstractService<AuthUserRepository, AuthUse
         if (optional.isPresent()) {
             AuthUser user = optional.get();
             if (user.getStatus().equals(Status.ACTIVE)) {
-                return User.builder()
-                        .username(user.getPhoneNumber())
-                        .password(user.getPassword())
-                        .authorities(new SimpleGrantedAuthority(user.getRole().name()))
-                        .build();
+                return User.builder().username(user.getPhoneNumber()).password(user.getPassword()).authorities(new SimpleGrantedAuthority(user.getRole().name())).build();
             } else throw new RuntimeException("User Not Active");
         } else {
             throw new UsernameNotFoundException("User not found");
@@ -169,12 +165,11 @@ public class AuthUserService extends AbstractService<AuthUserRepository, AuthUse
 //            if (!sessionUser.getRole().equals(Role.ADMIN)) {
 //                return new DataDto<>(new AppErrorDto(HttpStatus.BAD_REQUEST, "role does not exist", "/auth/create"));
 //            }
-            Role role = Role.ADMIN.checkRole(dto.getRole());
+            String phoneNumber = String.format("+998%s", dto.phoneNumber);
             AuthUser authUser = mapper.fromCreateDto(dto);
-            authUser.setRole(role);
-            if (Objects.nonNull(authUser.getPassword())) {
-                authUser.setPassword(passwordEncoder.encode(dto.getPassword()));
-            }
+            authUser.setPhoneNumber(phoneNumber);
+            authUser.setRole(Role.BARBER);
+            authUser.setPassword(passwordEncoder.encode(phoneNumber));
             return new DataDto<>(repository.save(authUser).getId());
         } catch (Exception e) {
             return new DataDto<>(new AppErrorDto(HttpStatus.IM_USED, "already Taken phone", "auth/user/create"));

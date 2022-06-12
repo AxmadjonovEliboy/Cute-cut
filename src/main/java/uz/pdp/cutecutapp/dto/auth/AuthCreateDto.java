@@ -15,38 +15,27 @@ import javax.validation.constraints.Pattern;
 @NoArgsConstructor
 public class AuthCreateDto implements BaseDto {
 
-    private String firstName;
-
-    private String lastName;
+    @NotBlank
+    public String fullName;
 
     @NotBlank
     @Pattern(regexp = "[0-9]{9}]")
-    private String phoneNumber;
+    public String phoneNumber;
 
     @NotBlank
-    private String password;
+    public Long organizationId;
 
-    private String role;
+    @NotBlank
+    public Long barbershopId;
 
-    private Long organizationId;
-
-    private Long barbershopId;
-
-    public AuthCreateDto(String phoneNumber, String password, String role) {
+    public AuthCreateDto(String phoneNumber) {
         this.phoneNumber = phoneNumber;
-        this.password = password;
-        this.role = role;
+
     }
 
-    public AuthCreateDto(String phoneNumber, String password, String role, Long orgId) {
+    public AuthCreateDto(String phoneNumber, Long orgId) {
         this.phoneNumber = phoneNumber;
-        this.password = password;
-        this.role = role;
         this.organizationId = orgId;
     }
 
-    public AuthCreateDto(String phoneNumber, String role) {
-        this.phoneNumber = phoneNumber;
-        this.role = role;
-    }
 }
