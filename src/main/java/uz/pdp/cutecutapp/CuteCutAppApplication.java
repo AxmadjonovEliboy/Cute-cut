@@ -38,13 +38,16 @@ public class CuteCutAppApplication {
     }
 
 
-//    @Bean
+    @Bean
     public void run() throws Exception {
         CommandLineRunner runner = (a) -> {
-//            DataDto<Long> id = service.create(new AuthCreateDto("+998999999999", "+998999999999", Role.SUPER_ADMIN.name()));
-//            DataDto<Long> superOrg = organizationService.create(new OrganizationCreateDto("SuperOrg", id.getData()));
-//            service.create(new AuthCreateDto("+998888888888", "+998888888888", Role.ADMIN.name(), superOrg.getData()));
-
+            try {
+                DataDto<Long> id = service.create(new AuthCreateDto("+998999999999", "+998999999999", Role.SUPER_ADMIN.name()));
+                DataDto<Long> superOrg = organizationService.create(new OrganizationCreateDto("SuperOrg", id.getData()));
+                service.create(new AuthCreateDto("+998888888888", "+998888888888", Role.ADMIN.name(), superOrg.getData()));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         };
         runner.run("s", "b"
         );
