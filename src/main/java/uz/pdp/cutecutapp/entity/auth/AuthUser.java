@@ -19,7 +19,7 @@ import javax.persistence.*;
 @Table(indexes = {
         @Index(name = "phoneRole", columnList = "phoneNumber, role", unique = true)
 })
-public class AuthUser extends Auditable {
+public class    AuthUser extends Auditable {
 
     private String firstName;
 

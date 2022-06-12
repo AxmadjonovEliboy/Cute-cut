@@ -11,6 +11,7 @@ import uz.pdp.cutecutapp.dto.responce.DataDto;
 import uz.pdp.cutecutapp.entity.auth.AuthUser;
 import uz.pdp.cutecutapp.entity.barbershop.BarberShop;
 import uz.pdp.cutecutapp.mapper.barbershop.BarberShopMapper;
+import uz.pdp.cutecutapp.repository.auth.AuthUserRepository;
 import uz.pdp.cutecutapp.repository.barbershop.BarberShopRepository;
 import uz.pdp.cutecutapp.services.AbstractService;
 import uz.pdp.cutecutapp.services.GenericCrudService;
@@ -22,8 +23,10 @@ import java.util.Optional;
 public class BarberShopService extends AbstractService<BarberShopRepository, BarberShopMapper>
         implements GenericCrudService<BarberShop, BarberShopDto, BarberShopCreateDto, BarberShopUpdateDto, BarberShopCriteria, Long> {
 
-    public BarberShopService(BarberShopRepository repository, BarberShopMapper mapper) {
+    private final AuthUserRepository authUserRepository;
+    public BarberShopService(BarberShopRepository repository, BarberShopMapper mapper, AuthUserRepository authUserRepository) {
         super(repository, mapper);
+        this.authUserRepository = authUserRepository;
     }
 
     @Override
@@ -94,6 +97,7 @@ public class BarberShopService extends AbstractService<BarberShopRepository, Bar
     }
 
     public DataDto<List<AuthUser>> getBarbersByBarbershopId(Long id) {
-        return null;
+        Optional<List<AuthUser>> berberList = authUserRepository.findAllByBarberShopId(id);
+        return new DataDto<>(berberList.get());
     }
 }

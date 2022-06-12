@@ -10,7 +10,10 @@ spring:
     url: jdbc:postgresql://ec2-44-196-174-238.compute-1.amazonaws.com:5432/d5ra9mpj7hag8n
     password: 75bff02421b9f62f0f1a0c5625d9f4e62244861ebc84a9cdbae0585a8863ac84
     username: efyuovdzrdjnuh
-    driver-class-name: org.postgresql.Driver
+#    driver-class-name: org.postgresql.Driver
+#    url: jdbc:postgresql://localhost:5432/cutecut_master
+#    username: postgres
+#    password: 3812
 
   jpa:
     hibernate:
