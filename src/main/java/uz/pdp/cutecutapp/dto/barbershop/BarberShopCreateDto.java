@@ -15,10 +15,10 @@ public class BarberShopCreateDto implements BaseDto {
     public String address;
 
     @NotBlank
-    public String latitude;
+    public Double latitude;
 
     @NotBlank
-    public String longitude;
+    public Double longitude;
 
     @NotBlank
     @HaveOrg
