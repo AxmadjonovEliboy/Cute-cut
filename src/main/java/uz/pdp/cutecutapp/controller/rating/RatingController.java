@@ -23,7 +23,7 @@ public class RatingController extends AbstractController<RatingService> {
     }
 
     @PostMapping(PATH + "/create")
-    public ResponseEntity<DataDto<Long>> create(@Valid @RequestBody RatingCreateDto dto) {
+    public ResponseEntity<DataDto<Long>> create(@RequestBody @Valid RatingCreateDto dto) {
         return new ResponseEntity<>(service.create(dto), HttpStatus.OK);
     }
 
