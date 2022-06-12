@@ -1,5 +1,7 @@
 package uz.pdp.cutecutapp.services.barbershop;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import uz.pdp.cutecutapp.criteria.BarberShopCriteria;
@@ -8,14 +10,15 @@ import uz.pdp.cutecutapp.dto.barbershop.BarberShopDto;
 import uz.pdp.cutecutapp.dto.barbershop.BarberShopUpdateDto;
 import uz.pdp.cutecutapp.dto.responce.AppErrorDto;
 import uz.pdp.cutecutapp.dto.responce.DataDto;
-import uz.pdp.cutecutapp.entity.auth.AuthUser;
 import uz.pdp.cutecutapp.entity.barbershop.BarberShop;
 import uz.pdp.cutecutapp.mapper.barbershop.BarberShopMapper;
-import uz.pdp.cutecutapp.repository.auth.AuthUserRepository;
 import uz.pdp.cutecutapp.repository.barbershop.BarberShopRepository;
 import uz.pdp.cutecutapp.services.AbstractService;
 import uz.pdp.cutecutapp.services.GenericCrudService;
+import uz.pdp.cutecutapp.services.organization.OrganizationService;
+import uz.pdp.cutecutapp.session.SessionUser;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,15 +26,21 @@ import java.util.Optional;
 public class BarberShopService extends AbstractService<BarberShopRepository, BarberShopMapper>
         implements GenericCrudService<BarberShop, BarberShopDto, BarberShopCreateDto, BarberShopUpdateDto, BarberShopCriteria, Long> {
 
-    private final AuthUserRepository authUserRepository;
-    public BarberShopService(BarberShopRepository repository, BarberShopMapper mapper, AuthUserRepository authUserRepository) {
+    private final OrganizationService organizationService;
+    private final SessionUser sessionUser;
+    private final ObjectMapper objectMapper;
+
+    public BarberShopService(BarberShopRepository repository, BarberShopMapper mapper, OrganizationService organizationService, SessionUser sessionUser, ObjectMapper objectMapper) {
         super(repository, mapper);
-        this.authUserRepository = authUserRepository;
+        this.organizationService = organizationService;
+        this.sessionUser = sessionUser;
+        this.objectMapper = objectMapper;
     }
 
     @Override
     public DataDto<Long> create(BarberShopCreateDto createDto) {
         BarberShop barberShop = mapper.fromCreateDto(createDto);
+        barberShop.setName(organizationService.getNameById(sessionUser.getOrgId()));
         BarberShop newBarbershop = repository.save(barberShop);
         return new DataDto<>(newBarbershop.getId(), 200);
     }
@@ -75,14 +84,22 @@ public class BarberShopService extends AbstractService<BarberShopRepository, Bar
             return new DataDto<>(new AppErrorDto("Finding item not found with id : " + id, "/rating/getById",
                     HttpStatus.NOT_FOUND));
         }
-
     }
 
     @Override
     public DataDto<List<BarberShopDto>> getWithCriteria(BarberShopCriteria criteria) {
-        List<BarberShop> barberShops = repository.findByCriteria(criteria.getLongitude(), criteria.getLatitude(), criteria.getDistance()
-               /* , criteria.getSize(), criteria.getPage()*/);
-        return new DataDto<>(mapper.toDto(barberShops));
+        String barberShopsString = repository.findByCriteria(criteria.getLongitude(), criteria.getLatitude(), criteria.getDistance()
+                /* , criteria.getSize(), criteria.getPage()*/);
+
+        List<BarberShopDto> barberShops = new ArrayList<>();
+
+        try {
+            barberShops = objectMapper.readValue(barberShopsString,
+                    objectMapper.getTypeFactory().constructCollectionType(List.class, BarberShopDto.class));
+        } catch (JsonProcessingException e) {
+            System.out.println(e.getMessage());
+        }
+        return new DataDto<>(barberShops);
     }
 
     public DataDto<List<BarberShopDto>> getByOrganizationId(Long id) {
@@ -94,10 +111,5 @@ public class BarberShopService extends AbstractService<BarberShopRepository, Bar
     public DataDto<List<BarberShopDto>> getAllBarbershops() {
         List<BarberShop> all = repository.findAll();
         return new DataDto<>(mapper.toDto(all));
-    }
-
-    public DataDto<List<AuthUser>> getBarbersByBarbershopId(Long id) {
-        Optional<List<AuthUser>> berberList = authUserRepository.findAllByBarberShopId(id);
-        return new DataDto<>(berberList.get());
     }
 }

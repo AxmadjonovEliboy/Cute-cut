@@ -22,10 +22,8 @@ public interface BarberShopRepository extends JpaRepository<BarberShop, Long>, B
 
     List<BarberShop> findByOrgIdAndDeletedFalse(Long id);
 
-    @Query(value = "select * from barber_shop b where (3959 * acos(cos(radians( :latitude)) * cos(radians(b.latitude))" +
-            "             * cos(radians(b.longitude) - radians( :longitude)) + sin(radians( :latitude))" +
-            "                * sin(radians(b.latitude)))) < :distance/* limit :limit offset :offset*/;", nativeQuery = true)
-    List<BarberShop> findByCriteria(@Param("longitude") Double longitude, @Param("latitude") Double latitude,
+    @Query(value = "select public.get_barbershops_by_criteria(:latitude,:longitude,:distance);", nativeQuery = true)
+    String findByCriteria(@Param("longitude") Double longitude, @Param("latitude") Double latitude,
                                     @Param("distance") int distance/*, @Param("limit") Integer limit, @Param("offset") Integer offset*/);
 
 }

@@ -1,6 +1,5 @@
 package uz.pdp.cutecutapp.services.organization;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import uz.pdp.cutecutapp.criteria.BaseCriteria;
@@ -27,16 +26,16 @@ import java.util.Optional;
 public class OrganizationService extends AbstractService<OrganizationRepository, OrganizationMapper>
         implements GenericCrudService<Organization, OrganizationDto, OrganizationCreateDto, OrganizationUpdateDto, BaseCriteria, Long> {
 
-    public OrganizationService(OrganizationRepository repository, OrganizationMapper mapper) {
+    private final AuthUserRepository authUserRepository;
+
+    private final BarberShopRepository barberShopRepository;
+    public OrganizationService(OrganizationRepository repository, OrganizationMapper mapper, AuthUserRepository authUserRepository, BarberShopRepository barberShopRepository) {
         super(repository, mapper);
 
+        this.authUserRepository = authUserRepository;
+        this.barberShopRepository = barberShopRepository;
     }
 
-    @Autowired
-    AuthUserRepository authUserRepository;
-
-    @Autowired
-    BarberShopRepository barberShopRepository;
 
     @Override
     public DataDto<Long> create(OrganizationCreateDto createDto) {
@@ -148,4 +147,7 @@ public class OrganizationService extends AbstractService<OrganizationRepository,
         }
     }
 
+    public String getNameById(Long orgId) {
+        return repository.getNameById(orgId);
+    }
 }

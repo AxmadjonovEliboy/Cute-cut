@@ -53,4 +53,9 @@ public class AppErrorDto implements BaseDto {
         this.code=internalServerError.getReasonPhrase();
 
     }
+
+    public AppErrorDto(Integer status, String message) {
+        this.status = status;
+        this.message = message;
+    }
 }

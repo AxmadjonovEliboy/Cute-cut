@@ -16,14 +16,10 @@ import javax.persistence.*;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(indexes = {
-        @Index(name = "phoneRole", columnList = "phoneNumber, role", unique = true)
-})
-public class    AuthUser extends Auditable {
+@Table(indexes = {@Index(name = "phoneRole", columnList = "phoneNumber, role", unique = true)})
+public class AuthUser extends Auditable {
 
-    private String firstName;
-
-    private String lastName;
+    private String fullName;
 
     @Column(nullable = false, unique = true)
     private String phoneNumber;
@@ -32,7 +28,8 @@ public class    AuthUser extends Auditable {
 
     private boolean isBusy;
 
-    private Language language;
+    @Enumerated(EnumType.STRING)
+    private Language language = Language.UZ;
 
     @Enumerated(EnumType.STRING)
     private Role role;
@@ -47,7 +44,8 @@ public class    AuthUser extends Auditable {
 
     private Long barberShopId;
 
-    public AuthUser(String phoneNumber, String password, Role role, Boolean isBusy) {
+    public AuthUser(String fullName, String phoneNumber, String password, Role role, Boolean isBusy) {
+        this.fullName = fullName;
         this.phoneNumber = phoneNumber;
         this.password = password;
         this.role = role;

@@ -11,9 +11,7 @@ import javax.validation.constraints.NotBlank;
 @Setter
 public class AuthUpdateDto extends GenericDto {
 
-    public String firstName;
-
-    public String lastName;
+    private String fullName;
 
     @NotBlank
     public String phoneNumber;
