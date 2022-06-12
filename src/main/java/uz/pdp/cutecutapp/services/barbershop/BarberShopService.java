@@ -77,7 +77,7 @@ public class BarberShopService extends AbstractService<BarberShopRepository, Bar
     @Override
     public DataDto<List<BarberShopDto>> getWithCriteria(BarberShopCriteria criteria) {
         List<BarberShop> barberShops = repository.findByCriteria(criteria.getLongitude(), criteria.getLatitude(), criteria.getDistance()
-               /* , criteria.getSize(), criteria.getPage()*/);
+                /* , criteria.getSize(), criteria.getPage()*/);
         return new DataDto<>(mapper.toDto(barberShops));
     }
 
