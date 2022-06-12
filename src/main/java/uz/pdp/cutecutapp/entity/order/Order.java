@@ -15,13 +15,11 @@ public class Order extends Auditable {
 
     private String orderTime;
 
-    private Integer reminderTime;
-
     private boolean isAccepted;
 
     private boolean isCancelled;
 
-    private boolean isReminder;
+    private boolean isDone;
 
     private Long barbershopId;
 

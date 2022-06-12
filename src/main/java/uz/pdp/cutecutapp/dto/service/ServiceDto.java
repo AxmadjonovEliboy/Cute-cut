@@ -8,5 +8,7 @@ public class ServiceDto extends GenericDto {
 
     public Double price;
 
+    public Integer time;
+
     public Long barberShopId;
 }

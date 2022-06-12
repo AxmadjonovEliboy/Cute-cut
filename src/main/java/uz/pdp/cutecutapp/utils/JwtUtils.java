@@ -58,7 +58,7 @@ public class JwtUtils {
                 .sign(this.getAlgorithm());
 
         AuthUser authUser = authUserService.loadAuthUserByUsername(user.getUsername());
-        AuthTokenDto authTokenDto = new AuthTokenDto(authUser.getFullName(), authUser.getPhoneNumber(), authUser.getLanguage().getName()
+        AuthTokenDto authTokenDto = new AuthTokenDto(authUser.getId(), authUser.getFullName(), authUser.getPhoneNumber(), authUser.getLanguage().getName()
                 , authUser.getRole().name(), authUser.getStatus().name(), authUser.getOrganizationId(), authUser.getPictureId());
 
         return SessionDto.builder()

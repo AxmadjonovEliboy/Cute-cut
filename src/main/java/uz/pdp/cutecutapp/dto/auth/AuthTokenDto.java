@@ -2,11 +2,11 @@ package uz.pdp.cutecutapp.dto.auth;
 
 
 import lombok.AllArgsConstructor;
-import uz.pdp.cutecutapp.enums.Language;
-import uz.pdp.cutecutapp.enums.Status;
 
 @AllArgsConstructor
 public class AuthTokenDto {
+
+    public Long id;
 
     public String fullName;
 
