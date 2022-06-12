@@ -12,9 +12,9 @@ public class BarberShopDto extends GenericDto {
 
     public String address;
 
-    public String latitude;
+    public Double latitude;
 
-    public String longitude;
+    public Double longitude;
 
     public boolean isClosed;
 }
