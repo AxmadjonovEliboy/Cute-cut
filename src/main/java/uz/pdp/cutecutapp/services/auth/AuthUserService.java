@@ -165,6 +165,10 @@ public class AuthUserService extends AbstractService<AuthUserRepository, AuthUse
 //            if (!sessionUser.getRole().equals(Role.ADMIN)) {
 //                return new DataDto<>(new AppErrorDto(HttpStatus.BAD_REQUEST, "role does not exist", "/auth/create"));
 //            }
+            Optional<AuthUser> user = repository.findByPhoneNumberAndDeletedFalse(dto.phoneNumber);
+            if (user.isPresent())
+                return new DataDto<>(new AppErrorDto(HttpStatus.ALREADY_REPORTED, "phone number available", "/auth/register"));
+
             String phoneNumber = String.format("+998%s", dto.phoneNumber);
             AuthUser authUser = mapper.fromCreateDto(dto);
             authUser.setPhoneNumber(phoneNumber);
@@ -271,7 +275,7 @@ public class AuthUserService extends AbstractService<AuthUserRepository, AuthUse
             user = repository.findByPhoneNumberAndRoleIn(phoneNumber, roles);
         }
         if (!user.isPresent()) {
-            repository.save(new AuthUser(phoneNumber, passwordEncoder.encode(phoneNumber), role, false));
+            repository.save(new AuthUser(dto.fullName,phoneNumber, passwordEncoder.encode(phoneNumber), role, false));
         }
         return this.login(authUserPasswordDto);
     }

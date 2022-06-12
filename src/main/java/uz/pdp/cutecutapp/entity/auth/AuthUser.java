@@ -43,7 +43,8 @@ public class AuthUser extends Auditable {
 
     private Long barberShopId;
 
-    public AuthUser(String phoneNumber, String password, Role role, Boolean isBusy) {
+    public AuthUser(String fullName, String phoneNumber, String password, Role role, Boolean isBusy) {
+        this.fullName = fullName;
         this.phoneNumber = phoneNumber;
         this.password = password;
         this.role = role;
