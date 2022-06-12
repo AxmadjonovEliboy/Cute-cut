@@ -13,6 +13,8 @@ import uz.pdp.cutecutapp.mapper.barbershop.BarberShopMapper;
 import uz.pdp.cutecutapp.repository.barbershop.BarberShopRepository;
 import uz.pdp.cutecutapp.services.AbstractService;
 import uz.pdp.cutecutapp.services.GenericCrudService;
+import uz.pdp.cutecutapp.services.organization.OrganizationService;
+import uz.pdp.cutecutapp.session.SessionUser;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,13 +23,18 @@ import java.util.Optional;
 public class BarberShopService extends AbstractService<BarberShopRepository, BarberShopMapper>
         implements GenericCrudService<BarberShop, BarberShopDto, BarberShopCreateDto, BarberShopUpdateDto, BarberShopCriteria, Long> {
 
-    public BarberShopService(BarberShopRepository repository, BarberShopMapper mapper) {
+    private final OrganizationService organizationService;
+    private final SessionUser sessionUser;
+    public BarberShopService(BarberShopRepository repository, BarberShopMapper mapper, OrganizationService organizationService, SessionUser sessionUser) {
         super(repository, mapper);
+        this.organizationService = organizationService;
+        this.sessionUser = sessionUser;
     }
 
     @Override
     public DataDto<Long> create(BarberShopCreateDto createDto) {
         BarberShop barberShop = mapper.fromCreateDto(createDto);
+        barberShop.setName(organizationService.getNameById(sessionUser.getOrgId()));
         BarberShop newBarbershop = repository.save(barberShop);
         return new DataDto<>(newBarbershop.getId(), 200);
     }
@@ -78,7 +85,9 @@ public class BarberShopService extends AbstractService<BarberShopRepository, Bar
     public DataDto<List<BarberShopDto>> getWithCriteria(BarberShopCriteria criteria) {
         List<BarberShop> barberShops = repository.findByCriteria(criteria.getLongitude(), criteria.getLatitude(), criteria.getDistance()
                 /* , criteria.getSize(), criteria.getPage()*/);
-        return new DataDto<>(mapper.toDto(barberShops));
+        List<BarberShopDto> barberShopDtos = mapper.toDto(barberShops);
+
+        return new DataDto<>(barberShopDtos);
     }
 
     public DataDto<List<BarberShopDto>> getByOrganizationId(Long id) {

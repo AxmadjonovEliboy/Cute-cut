@@ -42,9 +42,8 @@ public class CuteCutAppApplication {
     public void run() throws Exception {
         CommandLineRunner runner = (a) -> {
             DataDto<Long> id = service.create(new AuthCreateDto("+998999999999", "+998999999999", Role.SUPER_ADMIN.name()));
-            service.create(new AuthCreateDto("+998888888888", "+998888888888", Role.ADMIN.name()));
-            service.create(new AuthCreateDto("+998777777777", "+998777777777", Role.BARBER.name()));
-            organizationService.create(new OrganizationCreateDto("SuperOrg", id.getData()));
+            DataDto<Long> superOrg = organizationService.create(new OrganizationCreateDto("SuperOrg", id.getData()));
+            service.create(new AuthCreateDto("+998888888888", "+998888888888", Role.ADMIN.name(), superOrg.getData()));
 
         };
         runner.run("s", "b"

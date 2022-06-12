@@ -13,14 +13,17 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface OrganizationRepository extends JpaRepository<Organization, Long> , BaseRepository {
+public interface OrganizationRepository extends JpaRepository<Organization, Long>, BaseRepository {
     @Transactional
     @Modifying
-    @Query(value = "update organization  set deleted = true where id = :id",nativeQuery = true)
+    @Query(value = "update organization  set deleted = true where id = :id", nativeQuery = true)
     void isDelete(@Param("id") Long id);
 
     List<Organization> findAllByAndDeletedFalse();
 
 
     Optional<Organization> findByIdAndDeletedFalse(Long id);
+
+    @Query(value = "select o.name from organization o where o.id = :id",nativeQuery = true)
+    String getNameById(@Param("id") Long id);
 }
