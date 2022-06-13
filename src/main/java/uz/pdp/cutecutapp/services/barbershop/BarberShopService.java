@@ -10,8 +10,10 @@ import uz.pdp.cutecutapp.dto.barbershop.BarberShopDto;
 import uz.pdp.cutecutapp.dto.barbershop.BarberShopUpdateDto;
 import uz.pdp.cutecutapp.dto.responce.AppErrorDto;
 import uz.pdp.cutecutapp.dto.responce.DataDto;
+import uz.pdp.cutecutapp.entity.auth.AuthUser;
 import uz.pdp.cutecutapp.entity.barbershop.BarberShop;
 import uz.pdp.cutecutapp.mapper.barbershop.BarberShopMapper;
+import uz.pdp.cutecutapp.repository.auth.AuthUserRepository;
 import uz.pdp.cutecutapp.repository.barbershop.BarberShopRepository;
 import uz.pdp.cutecutapp.services.AbstractService;
 import uz.pdp.cutecutapp.services.GenericCrudService;
@@ -30,11 +32,14 @@ public class BarberShopService extends AbstractService<BarberShopRepository, Bar
     private final SessionUser sessionUser;
     private final ObjectMapper objectMapper;
 
-    public BarberShopService(BarberShopRepository repository, BarberShopMapper mapper, OrganizationService organizationService, SessionUser sessionUser, ObjectMapper objectMapper) {
+    private final AuthUserRepository authUserRepository;
+
+    public BarberShopService(BarberShopRepository repository, BarberShopMapper mapper, OrganizationService organizationService, SessionUser sessionUser, ObjectMapper objectMapper, AuthUserRepository authUserRepository) {
         super(repository, mapper);
         this.organizationService = organizationService;
         this.sessionUser = sessionUser;
         this.objectMapper = objectMapper;
+        this.authUserRepository = authUserRepository;
     }
 
     @Override
@@ -111,5 +116,9 @@ public class BarberShopService extends AbstractService<BarberShopRepository, Bar
     public DataDto<List<BarberShopDto>> getAllBarbershops() {
         List<BarberShop> all = repository.findAll();
         return new DataDto<>(mapper.toDto(all));
+    }
+
+    public DataDto<List<AuthUser>> getBarbersByBarbershopId(Long id) {
+        return new DataDto<>(authUserRepository.findAllByBarberShopId(id).get());
     }
 }
