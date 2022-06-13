@@ -58,8 +58,8 @@ public class BarbershopController extends AbstractController<BarberShopService> 
         return new ResponseEntity<>(service.getWithCriteria(criteria), HttpStatus.OK);
     }
 
-//    @GetMapping(PATH + "/barberShopId/{id}")
-//    public ResponseEntity<DataDto<List<AuthUser>>> getBarbersByBarbershopId(@PathVariable Long id){
-//            return new ResponseEntity<>(service.getBarbersByBarbershopId(id), HttpStatus.OK);
-//    }
+    @GetMapping(PATH + "/barberShopId/{id}")
+    public ResponseEntity<DataDto<List<AuthUser>>> getBarbersByBarbershopId(@PathVariable Long id){
+            return new ResponseEntity<>(service.getBarbersByBarbershopId(id), HttpStatus.OK);
+    }
 }
