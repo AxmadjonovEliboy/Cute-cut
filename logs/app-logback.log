@@ -730,3 +730,6 @@ Caused by: java.lang.NoSuchMethodError: 'java.lang.String uz.pdp.cutecutapp.dto.
 2022-06-13 23:19:20,783 INFO             [http-nio-8080-exec-1] org.springframework.web.servlet.FrameworkServlet                             : Initializing Servlet 'dispatcherServlet'
 2022-06-13 23:19:20,784 INFO             [http-nio-8080-exec-1] org.springframework.web.servlet.FrameworkServlet                             : Completed initialization in 1 ms
 2022-06-13 23:20:18,652 INFO             [http-nio-8080-exec-1] org.springdoc.api.AbstractOpenApiResource                                    : Init duration for springdoc-openapi is: 511 ms
+2022-06-13 23:28:05,280 INFO             [SpringApplicationShutdownHook] org.springframework.orm.jpa.AbstractEntityManagerFactoryBean        : Closing JPA EntityManagerFactory for persistence unit 'default'
+2022-06-13 23:28:05,281 INFO             [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource                                  : HikariPool-1 - Shutdown initiated...
+2022-06-13 23:28:05,291 INFO             [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource                                  : HikariPool-1 - Shutdown completed.
