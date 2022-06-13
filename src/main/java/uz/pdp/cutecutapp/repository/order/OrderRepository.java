@@ -21,4 +21,7 @@ public interface OrderRepository extends JpaRepository<Order, Long>, BaseReposit
     Optional<Order> findByIdAndDeletedFalse(Long id);
 
     List<Order> findAllByDeletedFalse();
+
+    @Query(value = "select public.get_orders_by_user_id(:clientId)", nativeQuery = true)
+    String findByClientIdAndDeletedFalse(@Param("clientId") Long clientId);
 }
