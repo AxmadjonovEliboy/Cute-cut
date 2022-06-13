@@ -26,7 +26,7 @@ public class AuthCreateDto implements BaseDto {
     public Long organizationId;
 
     @NotBlank
-    public Long barbershopId;
+    public Long barberShopId;
 
     public AuthCreateDto(String phoneNumber) {
         this.phoneNumber = phoneNumber;

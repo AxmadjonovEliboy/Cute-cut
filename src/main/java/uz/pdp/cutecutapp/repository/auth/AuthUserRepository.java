@@ -26,7 +26,7 @@ public interface AuthUserRepository extends JpaRepository<AuthUser, Long>, BaseR
     @Query(value = "select a from AuthUser a where a.deleted = false  and a.id = :id")
     Optional<AuthUser> getByIdAndNotDeleted(@Param("id") Long id);
 
-    Optional<List<AuthUser>> findAllByBarberShopId(Long barberShopId);
+    List<AuthUser> findAllByBarberShopId(Long barberShopId);
 
     @Transactional
     @Modifying

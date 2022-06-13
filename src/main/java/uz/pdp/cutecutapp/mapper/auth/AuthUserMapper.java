@@ -17,4 +17,6 @@ public interface AuthUserMapper extends BaseMapper<AuthUser, AuthDto, AuthCreate
 
     AuthUser updateFrom(AuthUpdateDto updateDto , @MappingTarget AuthUser authUser);
 
+    @Override
+    AuthUser fromCreateDto(AuthCreateDto authCreateDto);
 }

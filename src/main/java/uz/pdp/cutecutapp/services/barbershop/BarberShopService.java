@@ -119,6 +119,6 @@ public class BarberShopService extends AbstractService<BarberShopRepository, Bar
     }
 
     public DataDto<List<AuthUser>> getBarbersByBarbershopId(Long id) {
-        return new DataDto<>(authUserRepository.findAllByBarberShopId(id).get());
+        return new DataDto<>(authUserRepository.findAllByBarberShopId(id));
     }
 }
