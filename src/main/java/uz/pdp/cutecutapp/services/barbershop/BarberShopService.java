@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import uz.pdp.cutecutapp.criteria.BarberShopCriteria;
+import uz.pdp.cutecutapp.dto.auth.AuthDto;
 import uz.pdp.cutecutapp.dto.barbershop.BarberShopCreateDto;
 import uz.pdp.cutecutapp.dto.barbershop.BarberShopDto;
 import uz.pdp.cutecutapp.dto.barbershop.BarberShopUpdateDto;
@@ -12,6 +13,7 @@ import uz.pdp.cutecutapp.dto.responce.AppErrorDto;
 import uz.pdp.cutecutapp.dto.responce.DataDto;
 import uz.pdp.cutecutapp.entity.auth.AuthUser;
 import uz.pdp.cutecutapp.entity.barbershop.BarberShop;
+import uz.pdp.cutecutapp.mapper.auth.AuthUserMapper;
 import uz.pdp.cutecutapp.mapper.barbershop.BarberShopMapper;
 import uz.pdp.cutecutapp.repository.auth.AuthUserRepository;
 import uz.pdp.cutecutapp.repository.barbershop.BarberShopRepository;
@@ -31,14 +33,16 @@ public class BarberShopService extends AbstractService<BarberShopRepository, Bar
     private final OrganizationService organizationService;
     private final SessionUser sessionUser;
     private final ObjectMapper objectMapper;
+    private final AuthUserMapper authUserMapper;
 
     private final AuthUserRepository authUserRepository;
 
-    public BarberShopService(BarberShopRepository repository, BarberShopMapper mapper, OrganizationService organizationService, SessionUser sessionUser, ObjectMapper objectMapper, AuthUserRepository authUserRepository) {
+    public BarberShopService(BarberShopRepository repository, BarberShopMapper mapper, OrganizationService organizationService, SessionUser sessionUser, ObjectMapper objectMapper, AuthUserMapper authUserMapper, AuthUserRepository authUserRepository) {
         super(repository, mapper);
         this.organizationService = organizationService;
         this.sessionUser = sessionUser;
         this.objectMapper = objectMapper;
+        this.authUserMapper = authUserMapper;
         this.authUserRepository = authUserRepository;
     }
 
@@ -118,7 +122,8 @@ public class BarberShopService extends AbstractService<BarberShopRepository, Bar
         return new DataDto<>(mapper.toDto(all));
     }
 
-    public DataDto<List<AuthUser>> getBarbersByBarbershopId(Long id) {
-        return new DataDto<>(authUserRepository.findAllByBarberShopId(id));
+    public DataDto<List<AuthDto>> getBarbersByBarbershopId(Long id) {
+        List<AuthUser> allByBarberShopId = authUserRepository.findAllByBarberShopId(id);
+        return new DataDto<>(authUserMapper.toDto(allByBarberShopId));
     }
 }

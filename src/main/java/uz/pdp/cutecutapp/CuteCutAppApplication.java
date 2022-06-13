@@ -40,7 +40,7 @@ public class CuteCutAppApplication {
     }
 
 
-    @Bean
+//    @Bean
     public void run() throws Exception {
         CommandLineRunner runner = (a) -> {
             try {
