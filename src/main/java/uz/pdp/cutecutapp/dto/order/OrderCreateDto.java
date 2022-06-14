@@ -9,7 +9,7 @@ public class OrderCreateDto implements BaseDto {
 
     public String orderTime;
 
-    public Long barberShopId;
+    public Long clientId;
 
     public List<ServiceDto> services;
 }
