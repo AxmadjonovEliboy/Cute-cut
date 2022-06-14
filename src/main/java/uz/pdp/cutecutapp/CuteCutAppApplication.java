@@ -39,8 +39,8 @@ public class CuteCutAppApplication {
         SpringApplication.run(CuteCutAppApplication.class, args);
     }
 
-//
-//    @Bean
+
+    @Bean
     public void run() throws Exception {
         CommandLineRunner runner = (a) -> {
             try {
