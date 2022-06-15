@@ -125,7 +125,7 @@ public class RatingService extends AbstractService<RatingRepository, RatingMappe
 
 
     @Override
-    public DataDto<List<RatingDto>> getWithCriteria(BaseCriteria criteria){
+    public DataDto<List<RatingDto>> getWithCriteria(BaseCriteria criteria) {
         return null;
     }
 

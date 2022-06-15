@@ -22,6 +22,7 @@ import uz.pdp.cutecutapp.dto.otp.OtpResponse;
 import uz.pdp.cutecutapp.dto.responce.AppErrorDto;
 import uz.pdp.cutecutapp.dto.responce.DataDto;
 import uz.pdp.cutecutapp.entity.auth.AuthUser;
+import uz.pdp.cutecutapp.entity.auth.BusyTime;
 import uz.pdp.cutecutapp.entity.auth.Device;
 import uz.pdp.cutecutapp.entity.auth.PhoneCode;
 import uz.pdp.cutecutapp.entity.file.Uploads;
@@ -31,13 +32,13 @@ import uz.pdp.cutecutapp.mapper.auth.AuthUserMapper;
 import uz.pdp.cutecutapp.properties.OtpProperties;
 import uz.pdp.cutecutapp.properties.ServerProperties;
 import uz.pdp.cutecutapp.repository.auth.AuthUserRepository;
+import uz.pdp.cutecutapp.repository.auth.BusyTimeRepository;
 import uz.pdp.cutecutapp.repository.auth.DeviceRepository;
 import uz.pdp.cutecutapp.repository.auth.PhoneCodeRepository;
 import uz.pdp.cutecutapp.repository.file.UploadsRepository;
 import uz.pdp.cutecutapp.services.AbstractService;
 import uz.pdp.cutecutapp.services.GenericCrudService;
 import uz.pdp.cutecutapp.session.SessionUser;
-import uz.pdp.cutecutapp.utils.JwtUtils;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -59,7 +60,7 @@ public class AuthUserService extends AbstractService<AuthUserRepository, AuthUse
     private final ObjectMapper objectMapper;
     private final ServerProperties serverProperties;
     private final PasswordEncoder passwordEncoder;
-    private final JwtUtils jwtUtils;
+    private final BusyTimeRepository busyTimeRepository;
     private final OtpService otpService;
 
     private final SessionUser sessionUser;
@@ -68,7 +69,10 @@ public class AuthUserService extends AbstractService<AuthUserRepository, AuthUse
 
     private Path root = Paths.get("C:\\uploads");
 
-    public AuthUserService(AuthUserRepository repository, AuthUserMapper mapper, UploadsRepository uploadsRepository, PhoneCodeRepository phoneCodeRepository, OtpProperties otpProperties, ObjectMapper objectMapper, ServerProperties serverProperties, PasswordEncoder passwordEncoder, JwtUtils jwtUtils, OtpService otpService, SessionUser sessionUser, DeviceRepository deviceRepository) {
+    public AuthUserService(AuthUserRepository repository, AuthUserMapper mapper,
+                           UploadsRepository uploadsRepository, PhoneCodeRepository phoneCodeRepository,
+                           OtpProperties otpProperties, ObjectMapper objectMapper,
+                           ServerProperties serverProperties, PasswordEncoder passwordEncoder, BusyTimeRepository busyTimeRepository, OtpService otpService, SessionUser sessionUser, DeviceRepository deviceRepository) {
         super(repository, mapper);
         this.uploadsRepository = uploadsRepository;
         this.phoneCodeRepository = phoneCodeRepository;
@@ -76,7 +80,7 @@ public class AuthUserService extends AbstractService<AuthUserRepository, AuthUse
         this.objectMapper = objectMapper;
         this.serverProperties = serverProperties;
         this.passwordEncoder = passwordEncoder;
-        this.jwtUtils = jwtUtils;
+        this.busyTimeRepository = busyTimeRepository;
         this.otpService = otpService;
         this.sessionUser = sessionUser;
         this.deviceRepository = deviceRepository;
@@ -275,7 +279,7 @@ public class AuthUserService extends AbstractService<AuthUserRepository, AuthUse
             user = repository.findByPhoneNumberAndRoleIn(phoneNumber, roles);
         }
         if (!user.isPresent()) {
-            repository.save(new AuthUser(dto.fullName,phoneNumber, passwordEncoder.encode(phoneNumber), role, false));
+            repository.save(new AuthUser(dto.fullName, phoneNumber, passwordEncoder.encode(phoneNumber), role, false));
         }
         return this.login(authUserPasswordDto);
     }
@@ -330,5 +334,16 @@ public class AuthUserService extends AbstractService<AuthUserRepository, AuthUse
                 return new DataDto<>(new AppErrorDto("Bad Request", "/auth/unblock", HttpStatus.BAD_REQUEST));
         }
         return new DataDto<>(Boolean.FALSE);
+    }
+
+    public DataDto<List<BusyTime>> getBusyTimesOfBarber(Long id) {
+        List<BusyTime> allByBarberId = busyTimeRepository.findAllByBarberId(id);
+        return new DataDto<>(allByBarberId);
+    }
+
+
+    public DataDto<BusyTime> changeBusyTime(BusyTime busyTime) {
+        BusyTime save = busyTimeRepository.save(busyTime);
+        return new DataDto<>(save);
     }
 }

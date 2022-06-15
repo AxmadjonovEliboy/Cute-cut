@@ -10,15 +10,19 @@ import uz.pdp.cutecutapp.dto.order.OrderDto;
 import uz.pdp.cutecutapp.dto.order.OrderUpdateDto;
 import uz.pdp.cutecutapp.dto.responce.AppErrorDto;
 import uz.pdp.cutecutapp.dto.responce.DataDto;
+import uz.pdp.cutecutapp.dto.service.ServiceDto;
+import uz.pdp.cutecutapp.entity.auth.BusyTime;
 import uz.pdp.cutecutapp.entity.order.Order;
 import uz.pdp.cutecutapp.mapper.order.OrderMapper;
+import uz.pdp.cutecutapp.repository.auth.BusyTimeRepository;
 import uz.pdp.cutecutapp.repository.order.OrderRepository;
 import uz.pdp.cutecutapp.repository.order.OrderServiceRepository;
 import uz.pdp.cutecutapp.services.AbstractService;
 import uz.pdp.cutecutapp.services.GenericCrudService;
 import uz.pdp.cutecutapp.services.barbershop.BarberShopService;
-import uz.pdp.cutecutapp.services.barbershop.ServicesService;
 
+import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -28,24 +32,42 @@ public class OrderService extends AbstractService<OrderRepository, OrderMapper>
         implements GenericCrudService<Order, OrderDto, OrderCreateDto, OrderUpdateDto, BaseCriteria, Long> {
 
     private final OrderServiceRepository orderServiceRepository;
+    private final BusyTimeRepository busyTimeRepository;
     private final BarberShopService barberShopService;
     private final ObjectMapper objectMapper;
 
 
-    public OrderService(OrderRepository repository, OrderMapper orderMapper, OrderServiceRepository orderServiceRepository, BarberShopService barberShopService, ObjectMapper objectMapper) {
+    public OrderService(OrderRepository repository, OrderMapper orderMapper, OrderServiceRepository orderServiceRepository, BusyTimeRepository busyTimeRepository, BarberShopService barberShopService, ObjectMapper objectMapper) {
         super(repository, orderMapper);
         this.orderServiceRepository = orderServiceRepository;
+        this.busyTimeRepository = busyTimeRepository;
         this.barberShopService = barberShopService;
         this.objectMapper = objectMapper;
-
     }
 
     @Override
     public DataDto<Long> create(OrderCreateDto createDto) {
         List<uz.pdp.cutecutapp.entity.order.OrderService> orderServices = new ArrayList<>();
         Order order = mapper.fromCreateDto(createDto);
+        order.setBarberId(createDto.barberId);
+        order.setBarberShopId(createDto.services.get(0).barberShopId);
         Order save = repository.save(order);
         createDto.services.forEach(m -> orderServices.add(new uz.pdp.cutecutapp.entity.order.OrderService(save.getId(), m.getId())));
+
+        int allTime = 0;
+        for (ServiceDto service : createDto.services) {
+            allTime += service.time;
+        }
+        int hours = allTime / 60;
+        int minutes = allTime % 60;
+
+        int year = LocalDateTime.now().getYear();
+        Month month = LocalDateTime.now().getMonth();
+        int dayOfMonth = LocalDateTime.now().getDayOfMonth();
+        LocalDateTime starts = LocalDateTime.of(year, month, dayOfMonth, order.getOrderTime().getHour(), order.getOrderTime().getMinute());
+        LocalDateTime ends = LocalDateTime.of(year, month, dayOfMonth, order.getOrderTime().getHour() + hours, order.getOrderTime().getMinute() + minutes);
+        BusyTime busyTime = new BusyTime(starts, ends, order.getBarberId());
+        busyTimeRepository.save(busyTime);
         orderServiceRepository.saveAll(orderServices);
         return new DataDto<>(save.getId(), HttpStatus.CREATED.value());
     }
@@ -72,7 +94,6 @@ public class OrderService extends AbstractService<OrderRepository, OrderMapper>
         }
     }
 
-
     @Override
     public DataDto<List<OrderDto>> getAll() {
         return null;
@@ -96,7 +117,7 @@ public class OrderService extends AbstractService<OrderRepository, OrderMapper>
         if (optionalOrder.isPresent()) {
             Order order = optionalOrder.get();
             OrderDto orderDto = mapper.toDto(order);
-            orderDto.barbershop = barberShopService.get(order.getBarbershopId()).getData();
+            orderDto.barbershop = barberShopService.get(order.getBarberShopId()).getData();
             return new DataDto<>(orderDto, HttpStatus.OK.value());
         } else {
             return new DataDto<>(new AppErrorDto("Finding item not found with id : " + id, HttpStatus.NOT_FOUND));
