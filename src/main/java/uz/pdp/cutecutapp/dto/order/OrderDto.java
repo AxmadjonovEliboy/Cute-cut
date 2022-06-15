@@ -21,7 +21,7 @@ public class OrderDto extends GenericDto {
 
     @JsonProperty("created_at")
     public LocalDateTime createdAt;
-
+    
     public BarberShopDto barbershop;
 
     public List<ServiceDto> services;
