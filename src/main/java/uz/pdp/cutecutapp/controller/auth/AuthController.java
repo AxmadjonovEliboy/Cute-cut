@@ -67,7 +67,7 @@ public class AuthController extends AbstractController<AuthUserService> {
         return new ResponseEntity<>(service.get(id), HttpStatus.OK);
     }
 
-    @GetMapping(PATH + "/auth")
+    @GetMapping(PATH + "/getAll")
     public ResponseEntity<DataDto<List<AuthDto>>> getAll() {
         return new ResponseEntity<>(service.getAll(), HttpStatus.OK);
     }
