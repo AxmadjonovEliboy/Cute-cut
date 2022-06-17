@@ -6,7 +6,7 @@ import uz.pdp.cutecutapp.entity.Auditable;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -14,7 +14,7 @@ import java.time.LocalTime;
 @Table(name = "orders")
 public class Order extends Auditable {
 
-    private LocalTime orderTime;
+    private LocalDateTime orderTime;
 
     private boolean isAccepted;
 

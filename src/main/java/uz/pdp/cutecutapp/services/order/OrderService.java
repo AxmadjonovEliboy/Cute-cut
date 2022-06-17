@@ -22,7 +22,6 @@ import uz.pdp.cutecutapp.services.GenericCrudService;
 import uz.pdp.cutecutapp.services.barbershop.BarberShopService;
 
 import java.time.LocalDateTime;
-import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -49,7 +48,6 @@ public class OrderService extends AbstractService<OrderRepository, OrderMapper>
     public DataDto<Long> create(OrderCreateDto createDto) {
         List<uz.pdp.cutecutapp.entity.order.OrderService> orderServices = new ArrayList<>();
         Order order = mapper.fromCreateDto(createDto);
-        order.setBarberId(createDto.barberId);
         order.setBarberShopId(createDto.services.get(0).barberShopId);
         Order save = repository.save(order);
         createDto.services.forEach(m -> orderServices.add(new uz.pdp.cutecutapp.entity.order.OrderService(save.getId(), m.getId())));
@@ -58,14 +56,8 @@ public class OrderService extends AbstractService<OrderRepository, OrderMapper>
         for (ServiceDto service : createDto.services) {
             allTime += service.time;
         }
-        int hours = allTime / 60;
-        int minutes = allTime % 60;
-
-        int year = LocalDateTime.now().getYear();
-        Month month = LocalDateTime.now().getMonth();
-        int dayOfMonth = LocalDateTime.now().getDayOfMonth();
-        LocalDateTime starts = LocalDateTime.of(year, month, dayOfMonth, order.getOrderTime().getHour(), order.getOrderTime().getMinute());
-        LocalDateTime ends = LocalDateTime.of(year, month, dayOfMonth, order.getOrderTime().getHour() + hours, order.getOrderTime().getMinute() + minutes);
+        LocalDateTime starts = order.getOrderTime();
+        LocalDateTime ends = starts.plusMinutes(allTime);
         BusyTime busyTime = new BusyTime(starts, ends, order.getBarberId());
         busyTimeRepository.save(busyTime);
         orderServiceRepository.saveAll(orderServices);
@@ -99,18 +91,6 @@ public class OrderService extends AbstractService<OrderRepository, OrderMapper>
         return null;
     }
 
-    public DataDto<List<OrderDto>> getAllByUserId(Long id) {
-        String ordersString = repository.findByClientIdAndDeletedFalse(id);
-        List<OrderDto> orders = new ArrayList<>();
-        try {
-            orders = objectMapper.readValue(ordersString,
-                    objectMapper.getTypeFactory().constructCollectionType(List.class, OrderDto.class));
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
-        return new DataDto<>(orders);
-    }
-
     @Override
     public DataDto<OrderDto> get(Long id) {
         Optional<Order> optionalOrder = repository.findByIdAndDeletedFalse(id);
@@ -128,4 +108,29 @@ public class OrderService extends AbstractService<OrderRepository, OrderMapper>
     public DataDto<List<OrderDto>> getWithCriteria(BaseCriteria criteria) {
         return null;
     }
+
+    public DataDto<List<OrderDto>> getAllPassedByUserId(Long id) {
+        String ordersString = repository.findPassedByClientIdAndDeletedFalse(id);
+        List<OrderDto> orders = getOrderDtos(ordersString);
+        return new DataDto<>(orders);
+    }
+
+    public DataDto<List<OrderDto>> getAllUpcomingByUserId(Long id) {
+        String ordersString = repository.findUpcomingByClientId(id);
+        List<OrderDto> orders = getOrderDtos(ordersString);
+        return new DataDto<>(orders);
+    }
+
+    private List<OrderDto> getOrderDtos(String ordersString) {
+        List<OrderDto> orders = new ArrayList<>();
+        try {
+            orders = objectMapper.readValue(ordersString,
+                    objectMapper.getTypeFactory().constructCollectionType(List.class, OrderDto.class));
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return orders;
+    }
+
+
 }

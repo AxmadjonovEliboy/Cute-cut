@@ -3,12 +3,12 @@ package uz.pdp.cutecutapp.dto.order;
 import uz.pdp.cutecutapp.dto.BaseDto;
 import uz.pdp.cutecutapp.dto.service.ServiceDto;
 
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class OrderCreateDto implements BaseDto {
 
-    public LocalTime orderTime;
+    public LocalDateTime orderTime;
 
     public Long clientId;
 
