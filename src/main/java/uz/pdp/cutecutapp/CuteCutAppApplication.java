@@ -6,6 +6,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import uz.pdp.cutecutapp.dto.organization.OrganizationCreateDto;
 import uz.pdp.cutecutapp.dto.responce.DataDto;
 import uz.pdp.cutecutapp.entity.auth.AuthUser;
@@ -30,6 +32,7 @@ public class CuteCutAppApplication {
 
     private final AuthUserRepository repository;
     private final OrganizationService organizationService;
+    private final PasswordEncoder encoder;
 
 
     public static void main(String[] args) {
@@ -37,13 +40,22 @@ public class CuteCutAppApplication {
     }
 
 
-    //    @Bean
+//    @Bean
     public void run() throws Exception {
         CommandLineRunner runner = (a) -> {
-            AuthUser savedUser = repository.save(new AuthUser("+998999999999", "+998999999999", Role.SUPER_ADMIN));
-            DataDto<Long> superOrg = organizationService.create(new OrganizationCreateDto("SuperOrg", savedUser.getId()));
-            repository.save(new AuthUser("+998888888888", "+998888888888", Role.ADMIN, superOrg.getData()));
+            try {
+                AuthUser user = repository.save(new AuthUser("Sayfullo", "+998999999999",
+                        encoder.encode("+998999999999"), Role.SUPER_ADMIN, Boolean.TRUE));
+
+                DataDto<Long> superOrg = organizationService.create(new OrganizationCreateDto("SuperOrg", user.getId()));
+
+                repository.save(new AuthUser("QambarAli", "+998888888888",
+                        encoder.encode("+998888888888"), Boolean.TRUE, Role.ADMIN, superOrg.getData()));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         };
-        runner.run("s", "b");
+        runner.run("s", "b"
+        );
     }
 }

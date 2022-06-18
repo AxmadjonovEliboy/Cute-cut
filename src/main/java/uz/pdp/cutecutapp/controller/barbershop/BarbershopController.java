@@ -5,10 +5,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import uz.pdp.cutecutapp.controller.AbstractController;
 import uz.pdp.cutecutapp.criteria.BarberShopCriteria;
+import uz.pdp.cutecutapp.dto.auth.AuthDto;
 import uz.pdp.cutecutapp.dto.barbershop.BarberShopCreateDto;
 import uz.pdp.cutecutapp.dto.barbershop.BarberShopDto;
 import uz.pdp.cutecutapp.dto.barbershop.BarberShopUpdateDto;
 import uz.pdp.cutecutapp.dto.responce.DataDto;
+import uz.pdp.cutecutapp.entity.auth.AuthUser;
 import uz.pdp.cutecutapp.services.barbershop.BarberShopService;
 
 import javax.validation.Valid;
@@ -55,5 +57,10 @@ public class BarbershopController extends AbstractController<BarberShopService> 
     @PostMapping(PATH + "/getByCriteria")
     public ResponseEntity<DataDto<List<BarberShopDto>>> getByCriteria(@RequestBody BarberShopCriteria criteria) {
         return new ResponseEntity<>(service.getWithCriteria(criteria), HttpStatus.OK);
+    }
+
+    @GetMapping(PATH + "/barbers/{id}")
+    public ResponseEntity<DataDto<List<AuthDto>>> getBarbersByBarbershopId(@PathVariable Long id){
+            return new ResponseEntity<>(service.getBarbersByBarbershopId(id), HttpStatus.OK);
     }
 }

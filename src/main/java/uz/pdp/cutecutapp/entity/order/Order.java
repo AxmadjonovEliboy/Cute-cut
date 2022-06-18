@@ -6,6 +6,7 @@ import uz.pdp.cutecutapp.entity.Auditable;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -13,17 +14,17 @@ import javax.persistence.Table;
 @Table(name = "orders")
 public class Order extends Auditable {
 
-    private String orderTime;
-
-    private Integer reminderTime;
+    private LocalDateTime orderTime;
 
     private boolean isAccepted;
 
     private boolean isCancelled;
 
-    private boolean isReminder;
+    private boolean isDone;
 
-    private Long barbershopId;
+    private Long barberId;
+
+    private Long barberShopId;
 
     private Long clientId;
 }

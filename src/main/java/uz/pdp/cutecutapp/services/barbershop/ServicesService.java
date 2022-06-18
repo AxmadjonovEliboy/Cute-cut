@@ -29,14 +29,7 @@ public class ServicesService extends AbstractService<ServiceRepository, ServiceM
 
     @Override
     public DataDto<Long> create(ServiceCreateDto createDto) {
-        uz.pdp.cutecutapp.entity.barbershop.Service service1 = mapper.fromCreateDto(createDto);
-        if (serviceRepository.existsByType(service1.getType())) {
-            return new DataDto<>();
-        }
-        uz.pdp.cutecutapp.entity.barbershop.Service service = new uz.pdp.cutecutapp.entity.barbershop.Service();
-        service.setType(service1.getType());
-        service.setPrice(service1.getPrice());
-        service.setBarberShopId(service1.getBarberShopId());
+        uz.pdp.cutecutapp.entity.barbershop.Service service = mapper.fromCreateDto(createDto);
         serviceRepository.save(service);
         return new DataDto<>(service.getId());
     }

@@ -8,6 +8,7 @@ import uz.pdp.cutecutapp.controller.AbstractController;
 import uz.pdp.cutecutapp.dto.auth.*;
 import uz.pdp.cutecutapp.dto.otp.OtpResponse;
 import uz.pdp.cutecutapp.dto.responce.DataDto;
+import uz.pdp.cutecutapp.entity.auth.BusyTime;
 import uz.pdp.cutecutapp.enums.Role;
 import uz.pdp.cutecutapp.services.auth.AuthUserService;
 
@@ -66,7 +67,7 @@ public class AuthController extends AbstractController<AuthUserService> {
         return new ResponseEntity<>(service.get(id), HttpStatus.OK);
     }
 
-    @GetMapping(PATH + "/auth")
+    @GetMapping(PATH + "/getAll")
     public ResponseEntity<DataDto<List<AuthDto>>> getAll() {
         return new ResponseEntity<>(service.getAll(), HttpStatus.OK);
     }
@@ -82,7 +83,14 @@ public class AuthController extends AbstractController<AuthUserService> {
         return new ResponseEntity<>(service.unblock(id), HttpStatus.OK);
     }
 
+    @GetMapping(PATH + "/getBusyTimesByBarberId/{id}")
+    public ResponseEntity<DataDto<List<BusyTime>>> getBusyTimes(@PathVariable("id") Long id) {
+        return new ResponseEntity<>(service.getBusyTimesOfBarber(id), HttpStatus.OK);
+    }
 
-
+    @PostMapping(PATH + "/changeBusyTime")
+    public ResponseEntity<DataDto<BusyTime>> changeBusyTime(@RequestBody BusyTime busyTime) {
+        return new ResponseEntity<>(service.changeBusyTime(busyTime), HttpStatus.OK);
+    }
 
 }

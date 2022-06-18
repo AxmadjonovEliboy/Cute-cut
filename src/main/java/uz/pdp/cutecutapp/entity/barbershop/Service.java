@@ -15,5 +15,7 @@ public class Service extends Auditable {
 
     private Double price;
 
+    private Integer time;
+
     private Long barberShopId;
 }

@@ -41,8 +41,14 @@ public class OrderController extends AbstractController<OrderService> {
         return new ResponseEntity<>(service.get(id), HttpStatus.OK);
     }
 
-    @GetMapping(PATH + "/list")
-    public ResponseEntity<DataDto<List<OrderDto>>> getList() {
-        return new ResponseEntity<>(service.getAll(),HttpStatus.OK);
+    @GetMapping(PATH + "/listByUserId/passed/{id}")
+    public ResponseEntity<DataDto<List<OrderDto>>> getPassedListByUserId(@PathVariable("id") Long id) {
+        return new ResponseEntity<>(service.getAllPassedByUserId(id), HttpStatus.OK);
     }
- }
+
+    @GetMapping(PATH + "/listByUserId/upcoming/{id}")
+    public ResponseEntity<DataDto<List<OrderDto>>> getUpcomingListByUserId(@PathVariable("id") Long id) {
+        return new ResponseEntity<>(service.getAllUpcomingByUserId(id), HttpStatus.OK);
+    }
+
+}

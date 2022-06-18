@@ -16,6 +16,8 @@ public class AuthDto extends GenericDto {
 
     public Long organizationId;
 
+    public Long barberShopId;
+
     public String picturePath;
 
     public Role role;
