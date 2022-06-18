@@ -13,6 +13,8 @@ public class BarberShop extends Auditable {
 
     private String name;
 
+    private String phoneNumber;
+
     private String description;
 
     private String workingTime;

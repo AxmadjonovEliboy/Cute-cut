@@ -12,6 +12,7 @@ public class BarberShopCreateDto implements BaseDto {
 
     public String workingTime;
 
+    public String phoneNumber;
     public String address;
 
     @NotBlank
