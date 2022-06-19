@@ -72,3 +72,20 @@ otp:
   bound: 9000
   expiration: 10 #min
 
+
+info:
+  contact:
+    phone: +998990473164
+    email: bekpulatovshoxruh9@gmail.com
+    team: CodeX team
+
+management:
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      base-path: /actuator
+      exposure:
+        include: '*'
+
