@@ -66,13 +66,18 @@ public class OrganizationController extends AbstractController<OrganizationServi
     }
 
     @GetMapping(PATH + "/all")
-    public ResponseEntity<DataDto<List<OrganizationDto>>> faqAll(){
+    public ResponseEntity<DataDto<List<OrganizationDto>>> organizationAll(){
         return new ResponseEntity<>(service.getAll(),HttpStatus.OK);
     }
 
     @GetMapping(PATH+"/{id}")
     public ResponseEntity<DataDto<OrganizationDto>> getOne(@PathVariable(name = "id") Long id){
         return new ResponseEntity<>(service.get(id),HttpStatus.OK);
+    }
+
+    @GetMapping(PATH+"/allByAdminId/{id}")
+    public ResponseEntity<DataDto<List<OrganizationDto>>> adminIdOrganizationAll(@PathVariable(name = "id")Long id){
+        return new ResponseEntity<>(service.getAdminIdOrganizationAll(id),HttpStatus.OK);
     }
 
 }

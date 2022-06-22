@@ -24,6 +24,13 @@ public interface OrganizationRepository extends JpaRepository<Organization, Long
 
     Optional<Organization> findByIdAndDeletedFalse(Long id);
 
-    @Query(value = "select o.name from organization o where o.id = :id",nativeQuery = true)
+    @Query(value = "select o.name from organization o where o.id = :id", nativeQuery = true)
     String getNameById(@Param("id") Long id);
+
+    //    @Transactional
+//    @Modifying
+//    @Query(value = "select o from auth_user a join organization o on o.id = a.organization_id\n" +
+//            "         where a.id=:id and a.role='ADMIN'",nativeQuery = true)
+//    List<Organization> adminIdOrganizationAll(@Param("id") Long id);
+    List<Organization> findByOwnerId(Long ownerId);
 }

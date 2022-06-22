@@ -10,6 +10,7 @@ import uz.pdp.cutecutapp.dto.responce.AppErrorDto;
 import uz.pdp.cutecutapp.dto.responce.DataDto;
 import uz.pdp.cutecutapp.entity.auth.AuthUser;
 import uz.pdp.cutecutapp.entity.organization.Organization;
+import uz.pdp.cutecutapp.enums.Role;
 import uz.pdp.cutecutapp.enums.Status;
 import uz.pdp.cutecutapp.mapper.organization.OrganizationMapper;
 import uz.pdp.cutecutapp.repository.auth.AuthUserRepository;
@@ -149,5 +150,19 @@ public class OrganizationService extends AbstractService<OrganizationRepository,
 
     public String getNameById(Long orgId) {
         return repository.getNameById(orgId);
+    }
+
+    public DataDto<List<OrganizationDto>> getAdminIdOrganizationAll(Long id) {
+        Optional<AuthUser> optionalAuthUser = authUserRepository.getByIdAndNotDeleted(id);
+        if (optionalAuthUser.isPresent()){
+            AuthUser user = optionalAuthUser.get();
+            if (user.getRole().equals(Role.ADMIN)){
+                List<Organization> adminIdOrganizationAll = repository.findByOwnerId(id);
+                List<OrganizationDto> organizationDtoList = mapper.toDto(adminIdOrganizationAll);
+                return new DataDto<>(organizationDtoList, HttpStatus.OK.value());
+            }
+            return new DataDto<>(new AppErrorDto("The person in the admin role could not be found", HttpStatus.NOT_FOUND));
+        }
+        return new DataDto<>(new AppErrorDto("Finding item not found  ", HttpStatus.NOT_FOUND));
     }
 }

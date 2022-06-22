@@ -51,4 +51,6 @@ public interface AuthUserRepository extends JpaRepository<AuthUser, Long>, BaseR
     Optional<AuthUser> findByPhoneNumberAndRole(String phoneNumber, Role role);
 
     Optional<AuthUser> findByPhoneNumberAndRoleIn(String phoneNumber, Collection<Role> role);
+
+
 }
