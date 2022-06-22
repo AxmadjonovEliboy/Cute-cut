@@ -18,22 +18,13 @@ import java.util.Date;
 import java.util.List;
 
 @RestController
-//@RequestMapping("/organization/*")
+@RequestMapping("/organization/*")
 public class OrganizationController extends AbstractController<OrganizationService> {
 
 
     protected OrganizationController(OrganizationService service) {
         super(service);
     }
-
-    //TODO
-    //CRUD LAR
-    //ACTIVE API , SUPER ADMIN QILAOLSIN
-    //BLOCK API , SUPER ADMIN QILAOLSIN
-    //DEADLINE VAQTINI UZAYTIRAOLADIGAN API , SUPER ADMIN QILAOLSIN
-
-
-
 
     @PostMapping(PATH+"/create")
     public ResponseEntity<DataDto<Long>> add(@Valid @RequestBody OrganizationCreateDto dto){

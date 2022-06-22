@@ -12,9 +12,9 @@ server:
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    password: 3812
+    password: Shoxruh0912
     username: postgres
-    url: jdbc:postgresql://localhost:5432/cutecut_master
+    url: jdbc:postgresql://localhost:5432/cute-cut-app
 
   jpa:
     hibernate:
@@ -71,4 +71,21 @@ otp:
   from: 1000
   bound: 9000
   expiration: 10 #min
+
+
+info:
+  contact:
+    phone: +998990473164
+    email: bekpulatovshoxruh9@gmail.com
+    team: CodeX team
+
+management:
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      base-path: /actuator
+      exposure:
+        include: '*'
 
