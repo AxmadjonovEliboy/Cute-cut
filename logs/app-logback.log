@@ -1287,3 +1287,6 @@ Caused by: com.fasterxml.jackson.databind.exc.InvalidDefinitionException: No ser
 2022-06-26 02:57:24,186 INFO             [RMI TCP Connection(8)-127.0.0.1] org.springframework.web.servlet.FrameworkServlet                  : Initializing Servlet 'dispatcherServlet'
 2022-06-26 02:57:24,189 INFO             [RMI TCP Connection(8)-127.0.0.1] org.springframework.web.servlet.FrameworkServlet                  : Completed initialization in 2 ms
 2022-06-26 03:02:14,416 WARN             [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool$HouseKeeper                            : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=3m54s755ms912µs401ns).
+2022-06-26 03:14:49,053 INFO             [SpringApplicationShutdownHook] org.springframework.orm.jpa.AbstractEntityManagerFactoryBean        : Closing JPA EntityManagerFactory for persistence unit 'default'
+2022-06-26 03:14:49,054 INFO             [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource                                  : HikariPool-1 - Shutdown initiated...
+2022-06-26 03:14:49,067 INFO             [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource                                  : HikariPool-1 - Shutdown completed.
