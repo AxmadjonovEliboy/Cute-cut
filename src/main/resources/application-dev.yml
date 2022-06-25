@@ -10,6 +10,12 @@ server:
     include-binding-errors: always
     include-exception: true
 spring:
+  servlet:
+    multipart:
+      enabled: true
+      file-size-threshold: 2KB
+      max-file-size: 100MB
+      max-request-size: 110MB
   datasource:
     driver-class-name: org.postgresql.Driver
     password: Shoxruh0912
@@ -73,11 +79,14 @@ otp:
   expiration: 10 #min
 
 
+file:
+  upload-dir: ../uploads
+
 info:
   contact:
-    phone: +998990473164
-    email: bekpulatovshoxruh9@gmail.com
-    team: CodeX team
+    phone: '+998990473164'
+    email: 'bekpulatovshoxruh9@gmail.com'
+    team: 'CodeX team'
 
 management:
   endpoint:
