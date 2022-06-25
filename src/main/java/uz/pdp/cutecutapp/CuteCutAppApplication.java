@@ -6,16 +6,12 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import uz.pdp.cutecutapp.dto.organization.OrganizationCreateDto;
 import uz.pdp.cutecutapp.dto.responce.DataDto;
 import uz.pdp.cutecutapp.entity.auth.AuthUser;
 import uz.pdp.cutecutapp.enums.Role;
-import uz.pdp.cutecutapp.properties.JwtProperties;
-import uz.pdp.cutecutapp.properties.OpenApiProperties;
-import uz.pdp.cutecutapp.properties.OtpProperties;
-import uz.pdp.cutecutapp.properties.ServerProperties;
+import uz.pdp.cutecutapp.properties.*;
 import uz.pdp.cutecutapp.repository.auth.AuthUserRepository;
 import uz.pdp.cutecutapp.services.organization.OrganizationService;
 
@@ -23,7 +19,8 @@ import uz.pdp.cutecutapp.services.organization.OrganizationService;
         OpenApiProperties.class,
         ServerProperties.class,
         JwtProperties.class,
-        OtpProperties.class
+        OtpProperties.class,
+        FileStorageProperties.class
 })
 @OpenAPIDefinition
 @SpringBootApplication
@@ -40,7 +37,7 @@ public class CuteCutAppApplication {
     }
 
 
-//    @Bean
+    //    @Bean
     public void run() throws Exception {
         CommandLineRunner runner = (a) -> {
             try {
