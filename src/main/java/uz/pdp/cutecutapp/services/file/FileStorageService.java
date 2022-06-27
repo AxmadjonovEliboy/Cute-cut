@@ -34,11 +34,11 @@ public class FileStorageService implements BaseService {
         this.fileStorageLocation = Paths.get(fileStorageProperties.getUploadDir())
                 .toAbsolutePath().normalize();
         this.uploadsRepository = uploadsRepository;
-        try {
-            Files.createDirectories(this.fileStorageLocation);
-        } catch (Exception ex) {
-            throw new RuntimeException("Could not create the directory where the uploaded files will be stored.", ex);
-        }
+//        try {
+//            Files.createDirectories(this.fileStorageLocation);
+//        } catch (Exception ex) {
+//            throw new RuntimeException("Could not create the directory where the uploaded files will be stored.", ex);
+//        }
     }
 
     public DataDto<Uploads> storeFile(MultipartFile file) {
