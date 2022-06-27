@@ -6,6 +6,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import uz.pdp.cutecutapp.dto.organization.OrganizationCreateDto;
 import uz.pdp.cutecutapp.dto.responce.DataDto;
@@ -37,7 +38,7 @@ public class CuteCutAppApplication {
     }
 
 
-    //    @Bean
+        @Bean
     public void run() throws Exception {
         CommandLineRunner runner = (a) -> {
             try {
