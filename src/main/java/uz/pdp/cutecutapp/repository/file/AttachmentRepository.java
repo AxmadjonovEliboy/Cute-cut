@@ -1,4 +1,8 @@
 package uz.pdp.cutecutapp.repository.file;
 
-public class AttachmentRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+import uz.pdp.cutecutapp.entity.file.Attachment;
+
+public interface AttachmentRepository extends JpaRepository<Attachment, Long> {
+
 }

@@ -6,9 +6,8 @@ import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
-import uz.pdp.class_manager.entity.Attachment;
-import uz.pdp.class_manager.repository.AttachmentContentRepository;
-import uz.pdp.class_manager.repository.AttachmentRepository;
+import uz.pdp.cutecutapp.entity.file.Attachment;
+import uz.pdp.cutecutapp.repository.file.AttachmentRepository;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.FileInputStream;
@@ -22,7 +21,7 @@ import java.util.UUID;
 
 
 @RestController
-@RequestMapping("/api/attachment")
+@RequestMapping()
 public class AttachmentController {
 
     private static final String uploadingDirectoryProfile = "src/main/resources/profile";
@@ -32,8 +31,8 @@ public class AttachmentController {
     @Autowired
     AttachmentRepository attachmentRepository;
 
-    @Autowired
-    AttachmentContentRepository attachmentContentRepository;
+//    @Autowired
+//    AttachmentContentRepository attachmentContentRepository;
 
     @PostMapping("/uploadSystem")
     public String system_upload(MultipartHttpServletRequest request) throws IOException {
@@ -74,7 +73,7 @@ public class AttachmentController {
     }
 
     @GetMapping("/getFileFromSystem/{id}")
-    public void getFilesFromSystem(@PathVariable Integer id, HttpServletResponse response) throws IOException {
+    public void getFilesFromSystem(@PathVariable Long id, HttpServletResponse response) throws IOException {
         Optional<Attachment> byId = attachmentRepository.findById(id);
         if (byId.isPresent()) {
             Attachment attachment = byId.get();
