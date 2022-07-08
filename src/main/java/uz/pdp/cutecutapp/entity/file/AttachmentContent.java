@@ -13,11 +13,10 @@ import javax.persistence.*;
 public class AttachmentContent {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     private byte[] bytes; //asosiy content
 
     @OneToOne // foreign key bo'ladi unga bosganda uni contentini ham op  keladi
     private Attachment attachment;
-
 }
