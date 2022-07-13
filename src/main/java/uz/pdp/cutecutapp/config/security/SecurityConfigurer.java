@@ -33,6 +33,7 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
             "/auth/api/v1/confirmAdminCode",
             "/swagger-ui/**",
             "/api/docs/**",
+            "/file/getFileFromSystem/**"
 
     };
 

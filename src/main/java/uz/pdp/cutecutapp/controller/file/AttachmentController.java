@@ -35,9 +35,6 @@ public class AttachmentController {
         }
     }
 
-//    @Autowired
-//    AttachmentContentRepository attachmentContentRepository;
-
     @PostMapping(value = "/uploadSystem", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public String system_upload(@RequestParam("file") MultipartFile file) throws IOException {
 
