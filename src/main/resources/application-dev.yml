@@ -80,7 +80,8 @@ otp:
 
 
 file:
-  upload-dir: ../uploads
+  upload-dir: uploads
+  delimiter: \
 
 info:
   contact:

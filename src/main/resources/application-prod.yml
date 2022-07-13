@@ -75,7 +75,8 @@ otp:
   expiration: 3
 
 file:
-  upload-dir: ../uploads
+  upload-dir: uploads
+  delimiter: /
 
 management:
   endpoints:
