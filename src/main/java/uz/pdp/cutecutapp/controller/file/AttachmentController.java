@@ -1,12 +1,10 @@
 package uz.pdp.cutecutapp.controller.file;
 
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 import uz.pdp.cutecutapp.entity.file.Attachment;
 import uz.pdp.cutecutapp.repository.file.AttachmentRepository;
 
@@ -16,7 +14,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Iterator;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -25,12 +22,18 @@ import java.util.UUID;
 @RequestMapping("/file")
 public class AttachmentController {
 
-    private static final String uploadingDirectoryProfile = "src/main/resources/profile";
-    private static final String uploadingDirectoryAssignment = "src/main/resources/assignments";
-    private static final String uploadingDirectorySubmission = "src/main/resources/submissions";
+    private static final String uploadingDirectoryProfile = "uploads";
 
-    @Autowired
-    AttachmentRepository attachmentRepository;
+    private final AttachmentRepository attachmentRepository;
+
+    public AttachmentController(AttachmentRepository attachmentRepository) {
+        this.attachmentRepository = attachmentRepository;
+        try {
+            Files.createDirectories(Paths.get(uploadingDirectoryProfile));
+        } catch (Exception ex) {
+            throw new RuntimeException("Could not create the directory where the uploaded files will be stored.", ex);
+        }
+    }
 
 //    @Autowired
 //    AttachmentContentRepository attachmentContentRepository;
@@ -53,16 +56,7 @@ public class AttachmentController {
         Attachment save = attachmentRepository.save(attachment);
 
         // serverga yuklash
-
-        if (attachment.isAssignment()) {
-            Path path = Paths.get(uploadingDirectoryAssignment + "/" + name);
-            Files.copy(file.getInputStream(), path);
-        }
-        if (attachment.isSubmission()) {
-            Path path = Paths.get(uploadingDirectorySubmission + "/" + name);
-            Files.copy(file.getInputStream(), path);
-        }
-        Path path = Paths.get(uploadingDirectoryProfile + "/" + name);
+        Path path = Paths.get(uploadingDirectoryProfile + "\\" + name);
         Files.copy(file.getInputStream(), path);
 
         return "saqlandi id : " + save.getId();
@@ -86,15 +80,7 @@ public class AttachmentController {
             response.setContentType(attachment.getContentType());// nima bo'lasa shuni ayatadi
             // content :
 
-            if (attachment.isSubmission()) {
-                FileInputStream fileInputStream = new FileInputStream(uploadingDirectoryAssignment + "/" + attachment.getName());
-                FileCopyUtils.copy(fileInputStream, response.getOutputStream());
-            }
-            if (attachment.isAssignment()) {
-                FileInputStream fileInputStream = new FileInputStream(uploadingDirectoryAssignment + "/" + attachment.getName());
-                FileCopyUtils.copy(fileInputStream, response.getOutputStream());
-            }
-            FileInputStream fileInputStream = new FileInputStream(uploadingDirectoryProfile + "/" + attachment.getName());
+            FileInputStream fileInputStream = new FileInputStream(uploadingDirectoryProfile + "\\" + attachment.getName());
             FileCopyUtils.copy(fileInputStream, response.getOutputStream());
 
         } else
