@@ -2,10 +2,10 @@ package uz.pdp.cutecutapp.controller.file;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 import uz.pdp.cutecutapp.entity.file.Attachment;
 import uz.pdp.cutecutapp.repository.file.AttachmentRepository;
 
@@ -21,7 +21,7 @@ import java.util.UUID;
 
 
 @RestController
-@RequestMapping()
+@RequestMapping("/file")
 public class AttachmentController {
 
     private static final String uploadingDirectoryProfile = "src/main/resources/profile";
@@ -34,13 +34,9 @@ public class AttachmentController {
 //    @Autowired
 //    AttachmentContentRepository attachmentContentRepository;
 
-    @PostMapping("/uploadSystem")
-    public String system_upload(MultipartHttpServletRequest request) throws IOException {
-        Iterator<String> fileNames = request.getFileNames();
-        String fileName = fileNames.next();
+    @PostMapping(value = "/uploadSystem", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public String system_upload(@RequestParam("file") MultipartFile file) throws IOException {
 
-        MultipartFile file = request.getFile(fileName);
-        assert file != null;
         long size = file.getSize();
         String originalFilename = file.getOriginalFilename();
         String contentType = file.getContentType();
