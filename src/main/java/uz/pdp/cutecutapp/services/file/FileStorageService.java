@@ -13,6 +13,7 @@ import uz.pdp.cutecutapp.repository.file.AttachmentRepository;
 import uz.pdp.cutecutapp.services.BaseService;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -56,7 +57,7 @@ public class FileStorageService implements BaseService {
             Attachment save = attachmentRepository.save(attachment);
 
             Path path = Paths.get(fileStorageProperties.getUploadDir()
-                    + fileStorageProperties.getDelimiter() + name);
+                    + File.separator + name);
             Files.copy(file.getInputStream(), path);
             return new DataDto<>(save.getId(), HttpStatus.CREATED.value());
         } catch (IOException e) {
@@ -76,7 +77,7 @@ public class FileStorageService implements BaseService {
             response.setContentType(attachment.getContentType());
             try {
                 FileInputStream fileInputStream = new FileInputStream(fileStorageProperties.getUploadDir()
-                        + fileStorageProperties.getDelimiter() + attachment.getName());
+                        + File.separator + attachment.getName());
                 FileCopyUtils.copy(fileInputStream, response.getOutputStream());
             } catch (IOException e) {
                 e.printStackTrace();

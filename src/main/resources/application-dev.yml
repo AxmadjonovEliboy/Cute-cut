@@ -81,7 +81,6 @@ otp:
 
 file:
   upload-dir: uploads
-  delimiter: \
 
 info:
   contact:

@@ -76,8 +76,6 @@ otp:
 
 file:
   upload-dir: uploads
-  delimiter: /
-
 management:
   endpoints:
     web:
