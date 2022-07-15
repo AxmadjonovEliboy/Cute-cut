@@ -28,10 +28,12 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
             "/auth/api/v1/token",
             "/auth/api/v1/loginByPhone",
             "/auth/api/v1/register",
+            "/actuator/**",
             "/auth/api/v1/confirmUserCode",
             "/auth/api/v1/confirmAdminCode",
             "/swagger-ui/**",
             "/api/docs/**",
+            "/file/getFileFromSystem/**"
 
     };
 
@@ -49,7 +51,6 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
 //    protected void configure(HttpSecurity http) throws Exception {
 //        http.authorizeRequests().antMatchers("/").permitAll();
 //    }
-
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {

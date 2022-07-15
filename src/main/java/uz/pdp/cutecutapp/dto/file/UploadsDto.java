@@ -1,13 +1,14 @@
 package uz.pdp.cutecutapp.dto.file;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.core.io.Resource;
+import org.springframework.jmx.export.annotation.ManagedNotifications;
 
 @Getter
 @Setter
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class UploadsDto {
     private String originalName;
     private String newName;

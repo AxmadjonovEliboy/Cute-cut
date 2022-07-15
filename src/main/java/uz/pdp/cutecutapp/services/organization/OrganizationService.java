@@ -18,7 +18,6 @@ import uz.pdp.cutecutapp.repository.barbershop.BarberShopRepository;
 import uz.pdp.cutecutapp.repository.organization.OrganizationRepository;
 import uz.pdp.cutecutapp.services.AbstractService;
 import uz.pdp.cutecutapp.services.GenericCrudService;
-import uz.pdp.cutecutapp.session.SessionUser;
 
 import java.util.Date;
 import java.util.List;
@@ -29,15 +28,12 @@ public class OrganizationService extends AbstractService<OrganizationRepository,
         implements GenericCrudService<Organization, OrganizationDto, OrganizationCreateDto, OrganizationUpdateDto, BaseCriteria, Long> {
 
     private final AuthUserRepository authUserRepository;
-    private final SessionUser sessionUser;
 
     private final BarberShopRepository barberShopRepository;
-
-    public OrganizationService(OrganizationRepository repository, OrganizationMapper mapper, AuthUserRepository authUserRepository, SessionUser sessionUser, BarberShopRepository barberShopRepository) {
+    public OrganizationService(OrganizationRepository repository, OrganizationMapper mapper, AuthUserRepository authUserRepository, BarberShopRepository barberShopRepository) {
         super(repository, mapper);
 
         this.authUserRepository = authUserRepository;
-        this.sessionUser = sessionUser;
         this.barberShopRepository = barberShopRepository;
     }
 
@@ -156,11 +152,17 @@ public class OrganizationService extends AbstractService<OrganizationRepository,
         return repository.getNameById(orgId);
     }
 
-    public DataDto<List<OrganizationDto>> getAllWithCriteria() {
-        if (!sessionUser.getRole().equals(Role.SUPER_ADMIN))
-            return new DataDto<>(new AppErrorDto("Permisson denited", HttpStatus.BAD_REQUEST));
-        List<Organization> organization = repository.findAllBYCriteria();
-        List<OrganizationDto> organizationDtos = mapper.toDto(organization);
-        return new DataDto<>(organizationDtos);
+    public DataDto<List<OrganizationDto>> getAdminIdOrganizationAll(Long id) {
+        Optional<AuthUser> optionalAuthUser = authUserRepository.getByIdAndNotDeleted(id);
+        if (optionalAuthUser.isPresent()){
+            AuthUser user = optionalAuthUser.get();
+            if (user.getRole().equals(Role.ADMIN)){
+                List<Organization> adminIdOrganizationAll = repository.findByOwnerId(id);
+                List<OrganizationDto> organizationDtoList = mapper.toDto(adminIdOrganizationAll);
+                return new DataDto<>(organizationDtoList, HttpStatus.OK.value());
+            }
+            return new DataDto<>(new AppErrorDto("The person in the admin role could not be found", HttpStatus.NOT_FOUND));
+        }
+        return new DataDto<>(new AppErrorDto("Finding item not found  ", HttpStatus.NOT_FOUND));
     }
 }

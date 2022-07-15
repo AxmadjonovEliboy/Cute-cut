@@ -1,88 +1,88 @@
 package uz.pdp.cutecutapp.services.file;
 
-
-import lombok.NonNull;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.core.io.FileSystemResource;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
-import uz.pdp.cutecutapp.dto.file.UploadsDto;
-import uz.pdp.cutecutapp.entity.file.Uploads;
-import uz.pdp.cutecutapp.repository.file.UploadsRepository;
+import uz.pdp.cutecutapp.dto.responce.AppErrorDto;
+import uz.pdp.cutecutapp.dto.responce.DataDto;
+import uz.pdp.cutecutapp.entity.file.Attachment;
+import uz.pdp.cutecutapp.properties.FileStorageProperties;
+import uz.pdp.cutecutapp.repository.file.AttachmentRepository;
 import uz.pdp.cutecutapp.services.BaseService;
-import uz.pdp.cutecutapp.session.SessionUser;
 
-import javax.annotation.PostConstruct;
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
-import java.nio.file.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Optional;
+import java.util.UUID;
 
-
-@Slf4j
-@Service("fileService")
+@Service
 public class FileStorageService implements BaseService {
-    public static final String UNICORN_UPLOADS_B_4_LIB = "\\home\\jarvis\\uploads\\";
-    public static final Path PATH = Paths.get(UNICORN_UPLOADS_B_4_LIB);
 
-    private final SessionUser sessionUser;
-    private final UploadsRepository repository;
+    private final AttachmentRepository attachmentRepository;
+    private final FileStorageProperties fileStorageProperties;
 
-    public FileStorageService(SessionUser sessionUser, UploadsRepository repository) {
-        this.sessionUser = sessionUser;
-        this.repository = repository;
+    @Autowired
+    public FileStorageService(AttachmentRepository attachmentRepository, FileStorageProperties fileStorageProperties) {
+        this.attachmentRepository = attachmentRepository;
+        this.fileStorageProperties = fileStorageProperties;
+        try {
+            Files.createDirectories(Paths.get(fileStorageProperties.getUploadDir()));
+        } catch (Exception ex) {
+            throw new RuntimeException("Could not create the directory where the uploaded files will be stored.", ex);
+        }
+
     }
 
-    @PostConstruct
-    public void init() {
-        if (!Files.exists(PATH)) {
+    public DataDto<Long> storeFile(MultipartFile file) {
+        try {
+            long size = file.getSize();
+            String originalFilename = file.getOriginalFilename();
+            String contentType = file.getContentType();
+
+            Attachment attachment = new Attachment();
+            attachment.setSize(size);
+            attachment.setFileOriginalName(originalFilename);
+            attachment.setContentType(contentType);
+            String[] split = originalFilename.split("\\.");
+            String name = UUID.randomUUID() + "." + split[split.length - 1];
+            attachment.setName(name);
+
+            Attachment save = attachmentRepository.save(attachment);
+
+            Path path = Paths.get(fileStorageProperties.getUploadDir()
+                    + File.separator + name);
+            Files.copy(file.getInputStream(), path);
+            return new DataDto<>(save.getId(), HttpStatus.CREATED.value());
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new DataDto<>(new AppErrorDto(HttpStatus.INTERNAL_SERVER_ERROR.value(), e.getMessage()));
+        }
+    }
+
+    public void loadFileAsResource(Long id, HttpServletResponse response) {
+
+        Optional<Attachment> byId = attachmentRepository.findById(id);
+        if (byId.isPresent()) {
+            Attachment attachment = byId.get();
+            response.setHeader("Content-Disposition",
+                    "attachment; filename = \""
+                            + attachment.getFileOriginalName() + "\"");
+            response.setContentType(attachment.getContentType());
             try {
-                Files.createDirectories(PATH);
+                FileInputStream fileInputStream = new FileInputStream(fileStorageProperties.getUploadDir()
+                        + File.separator + attachment.getName());
+                FileCopyUtils.copy(fileInputStream, response.getOutputStream());
             } catch (IOException e) {
                 e.printStackTrace();
-                log.error(e.getMessage(), e);
             }
-        }
+        } else
+            System.out.println("Content Not found with id : " + id);
     }
-
-
-    public String store(@NonNull MultipartFile file) {
-
-        try {
-            String originalFilename = file.getOriginalFilename();
-            String extension = StringUtils.getFilenameExtension(file.getOriginalFilename());
-            String generatedName = String.format("%s.%s", System.currentTimeMillis(), extension);
-            Path rootPath = Paths.get(UNICORN_UPLOADS_B_4_LIB, generatedName);
-            Files.copy(file.getInputStream(), rootPath, StandardCopyOption.REPLACE_EXISTING);
-            Uploads uploadedFile = new Uploads(originalFilename, generatedName, file.getContentType(), (UNICORN_UPLOADS_B_4_LIB + generatedName), file.getSize());
-            Uploads saveFile = repository.save(uploadedFile);
-
-            return generatedName;
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-
-    public UploadsDto loadResource(@NonNull String fileName) {
-        Optional<Uploads> uploads = repository.findByGeneratedName(fileName);
-
-        if (!uploads.isPresent()) {
-            try {
-                throw new NoSuchFileException("not found");
-            } catch (NoSuchFileException e) {
-                throw new RuntimeException(e);
-            }
-        }
-
-        FileSystemResource resource = new FileSystemResource(UNICORN_UPLOADS_B_4_LIB + fileName);
-        return UploadsDto.builder()
-                .resource(resource)
-                .originalName(uploads.get().getOriginalName())
-                .newName(uploads.get().getGeneratedName())
-                .contentType(uploads.get().getContentType())
-                .size(uploads.get().getSize())
-                .build();
-    }
-
 }
