@@ -10,6 +10,7 @@ import uz.pdp.cutecutapp.dto.responce.AppErrorDto;
 import uz.pdp.cutecutapp.dto.responce.DataDto;
 import uz.pdp.cutecutapp.entity.auth.AuthUser;
 import uz.pdp.cutecutapp.entity.organization.Organization;
+import uz.pdp.cutecutapp.enums.Role;
 import uz.pdp.cutecutapp.enums.Status;
 import uz.pdp.cutecutapp.mapper.organization.OrganizationMapper;
 import uz.pdp.cutecutapp.repository.auth.AuthUserRepository;
@@ -17,6 +18,7 @@ import uz.pdp.cutecutapp.repository.barbershop.BarberShopRepository;
 import uz.pdp.cutecutapp.repository.organization.OrganizationRepository;
 import uz.pdp.cutecutapp.services.AbstractService;
 import uz.pdp.cutecutapp.services.GenericCrudService;
+import uz.pdp.cutecutapp.session.SessionUser;
 
 import java.util.Date;
 import java.util.List;
@@ -27,12 +29,15 @@ public class OrganizationService extends AbstractService<OrganizationRepository,
         implements GenericCrudService<Organization, OrganizationDto, OrganizationCreateDto, OrganizationUpdateDto, BaseCriteria, Long> {
 
     private final AuthUserRepository authUserRepository;
+    private final SessionUser sessionUser;
 
     private final BarberShopRepository barberShopRepository;
-    public OrganizationService(OrganizationRepository repository, OrganizationMapper mapper, AuthUserRepository authUserRepository, BarberShopRepository barberShopRepository) {
+
+    public OrganizationService(OrganizationRepository repository, OrganizationMapper mapper, AuthUserRepository authUserRepository, SessionUser sessionUser, BarberShopRepository barberShopRepository) {
         super(repository, mapper);
 
         this.authUserRepository = authUserRepository;
+        this.sessionUser = sessionUser;
         this.barberShopRepository = barberShopRepository;
     }
 
@@ -149,5 +154,13 @@ public class OrganizationService extends AbstractService<OrganizationRepository,
 
     public String getNameById(Long orgId) {
         return repository.getNameById(orgId);
+    }
+
+    public DataDto<List<OrganizationDto>> getAllWithCriteria() {
+        if (!sessionUser.getRole().equals(Role.SUPER_ADMIN))
+            return new DataDto<>(new AppErrorDto("Permisson denited", HttpStatus.BAD_REQUEST));
+        List<Organization> organization = repository.findAllBYCriteria();
+        List<OrganizationDto> organizationDtos = mapper.toDto(organization);
+        return new DataDto<>(organizationDtos);
     }
 }

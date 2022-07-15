@@ -12,7 +12,7 @@ server:
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    password: Shoxruh0912
+    password: 777
     username: postgres
     url: jdbc:postgresql://localhost:5432/cute-cut-app
 

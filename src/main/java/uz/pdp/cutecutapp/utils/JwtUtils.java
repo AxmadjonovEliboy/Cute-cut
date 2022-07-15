@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import uz.pdp.cutecutapp.dto.auth.AuthTokenDto;
 import uz.pdp.cutecutapp.dto.auth.SessionDto;
 import uz.pdp.cutecutapp.entity.auth.AuthUser;
+import uz.pdp.cutecutapp.enums.Language;
 import uz.pdp.cutecutapp.properties.JwtProperties;
 import uz.pdp.cutecutapp.services.auth.AuthUserService;
 
@@ -58,8 +59,15 @@ public class JwtUtils {
                 .sign(this.getAlgorithm());
 
         AuthUser authUser = authUserService.loadAuthUserByUsername(user.getUsername());
-        AuthTokenDto authTokenDto = new AuthTokenDto(authUser.getId(), authUser.getFullName(), authUser.getPhoneNumber(), authUser.getLanguage().getName()
-                , authUser.getRole().name(), authUser.getStatus().name(), authUser.getOrganizationId(), authUser.getPictureId());
+        AuthTokenDto authTokenDto = new AuthTokenDto(
+                authUser.getId(),
+                authUser.getFullName(),
+                authUser.getPhoneNumber(),
+                Language.UZ.getName(),
+                authUser.getRole().name(),
+                authUser.getStatus().name(),
+                authUser.getOrganizationId(),
+                authUser.getPictureId());
 
         return SessionDto.builder()
                 .accessToken(accessToken)

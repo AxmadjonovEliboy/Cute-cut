@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import uz.pdp.cutecutapp.entity.organization.Organization;
 import uz.pdp.cutecutapp.repository.BaseRepository;
 
+import javax.swing.text.html.Option;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
@@ -26,4 +27,7 @@ public interface OrganizationRepository extends JpaRepository<Organization, Long
 
     @Query(value = "select o.name from organization o where o.id = :id",nativeQuery = true)
     String getNameById(@Param("id") Long id);
+
+    @Query(value = "select * from organization o where o.deleted = false and o.status like 'DEFAULT'",nativeQuery = true)
+    List<Organization> findAllBYCriteria();
 }

@@ -7,7 +7,6 @@ import uz.pdp.cutecutapp.entity.Auditable;
 import uz.pdp.cutecutapp.enums.Status;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
 import java.util.Date;
 
 @Getter
@@ -22,7 +21,7 @@ public class Organization extends Auditable {
     private Long logoId;//attachmentId
 
     @Enumerated(EnumType.STRING)
-    private Status status=Status.ACTIVE;
+    private Status status=Status.DEFAULT;
 
     @CreationTimestamp
     @Temporal(TemporalType.DATE)
